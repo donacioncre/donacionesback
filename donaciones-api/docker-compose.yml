@@ -1,0 +1,32 @@
+version: "3.7"
+services:
+  donacion:
+    image: donacion/api
+    container_name: donacion
+    restart: unless-stopped
+    working_dir: /var/www
+    expose:
+        - "80"
+    volumes:
+      - ./:/var/www
+      - ./nginx/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - donacion
+  donacion-nginx:
+    image: nginx:alpine
+    container_name: donacion-nginx
+    restart: unless-stopped
+    volumes:
+      - ./:/var/www
+      - ./nginx:/etc/nginx/conf.d/
+    ports:
+        - 8282:80
+    depends_on:
+      - donacion
+    networks:
+      - donacion
+volumes:
+  html:
+  vhostd:
+networks:
+  donacion:
