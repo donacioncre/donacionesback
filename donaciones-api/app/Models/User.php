@@ -22,20 +22,16 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        "languague",
-        "spoken",
-        "spoken_language",
-        "public_profile",
         "firstname",
         "lastname",
         "profile_picture",
+        "identification",
+        "blood_type",
+        "phone_number",
+        "conventional_number",
         "date_birth",
-        "address",
-        "country",
-        "city",
-        "phone",
-        "overview",
-        "app_language"
+
+
     ];
 
     /**
