@@ -27,7 +27,6 @@ class UpdateUserTable extends Migration
             $table->string('phone')->nullable();
             $table->string('overview')->nullable();
             //$table->string('languague')->nullable();
-            $table->string('app_language')->nullable();
             //$table->string('spoken_language')->nullable();
             //$table->boolean('public_profile')->nullable();
             //$table->bigInteger('languague_id')->nullable();
