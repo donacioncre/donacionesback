@@ -20,18 +20,13 @@ class UpdateUserTable extends Migration
             $table->string('firstname')->nullable();
             $table->string('lastname')->nullable();
             $table->string('profile_picture')->nullable();
-            $table->date('date_birth')->nullable();
-            $table->string('address')->nullable();
-            $table->string('country')->nullable();
-            $table->string('city')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('overview')->nullable();
-            //$table->string('languague')->nullable();
-            //$table->string('spoken_language')->nullable();
-            //$table->boolean('public_profile')->nullable();
-            //$table->bigInteger('languague_id')->nullable();
-            //$table->foreign('languague_id')->references('id')->on('spoken_languages')->onDelete('cascade');
+            $table->string('identification')->nullable();
+            $table->string('blood_type')->nullable();
 
+            $table->string('phone_number')->nullable();
+            $table->string('conventional_number')->nullable();
+
+            $table->date('date_birth')->nullable();
 
         });
 
@@ -71,7 +66,7 @@ class UpdateUserTable extends Migration
             $table->dropColumn('city');
             $table->dropColumn('phone');
             $table->dropColumn('profile_picture');
-            $table->dropColumn('app_language');
+
             $table->dropColumn('overview');
         });
 
