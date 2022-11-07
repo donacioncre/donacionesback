@@ -32,27 +32,37 @@ class AuthController extends Controller
                return response()->json(['status' => false, 'error' => $validator->errors()], 500);
             }
 
-            $user = new User([
-                'name' => $request->identification,
-                'email' => $request->email,
-                'password' => bcrypt($request->password),
-                'firstname' => $request->firstname == null ? 'N/A': $request->firstname,
-                'lastname' => $request->lastname,
-                'identification' => $request->identification,
-                'phone_number' =>$request->phone_number,
-                'conventional_number' => $request->conventional_number == null ? 'N/A': $request->conventional_number,
-                'date_birth' => $request->date_birth,
-                'blood_type' => $request->blood_type,
-                'profile_picture' =>'N/A'
-            ]);
+            $validation_user= User::where('name',$request->identification)->first();
 
-            $user->save();
+            if (!is_object($validation_user)) {
+               
+                $user = new User([
+                    'name' => $request->identification,
+                    'email' => $request->email,
+                    'password' => bcrypt($request->password),
+                    'firstname' => $request->firstname == null ? 'N/A': $request->firstname,
+                    'lastname' => $request->lastname,
+                    'identification' => $request->identification,
+                    'phone_number' =>$request->phone_number,
+                    'conventional_number' => $request->conventional_number == null ? 'N/A': $request->conventional_number,
+                    'date_birth' => $request->date_birth,
+                    'blood_type' => $request->blood_type,
+                    'profile_picture' =>'N/A'
+                ]);
 
+                $user->save();
 
-            return response()->json([
-                'status' => true,
-                'message' => 'Successfully created user!'
-            ], 200);
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Successfully created user!'
+                ], 200);
+            }else{
+                return response()->json([
+                    'status' => true,
+                    'message' => 'User already exists'
+                ], 500);
+            }
+
         } catch (Exception $ex) {
             return 'Register Failed ' .$ex->getMessage();
         }
