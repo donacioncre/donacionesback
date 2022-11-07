@@ -36,7 +36,7 @@ class AuthController extends Controller
                 'name' => $request->identification,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
-                'firstname' => $request->name == null ? 'N/A': $request->name,
+                'firstname' => $request->firstname == null ? 'N/A': $request->firstname,
                 'lastname' => $request->lastname,
                 'identification' => $request->identification,
                 'phone_number' =>$request->phone_number,
@@ -130,7 +130,7 @@ class AuthController extends Controller
         DB::beginTransaction();
         $user=User::find($request->user()->id);
 
-        $file = null;
+        $file = 'N/A';
         if ($request->hasFile('profile_picture')) {
             $img = $request->file('profile_picture');
             $destinationPath = 'image/user/';
@@ -140,13 +140,39 @@ class AuthController extends Controller
             $file = $destinationPath . $filename;
         }
 
-        $requestData=$request->all();
-        $requestData['profile_picture'] = $file;
-        $requestData['name'] = $request->identification;
+        if(empty($request->password)){
+            $user_data=[
+                'name' => $request->identification,
+                'email' => $request->email,
+                'firstname' => $request->firstname == null ? 'N/A': $request->firstname,
+                'lastname' => $request->lastname,
+                'identification' => $request->identification,
+                'phone_number' =>$request->phone_number,
+                'conventional_number' => $request->conventional_number == null ? 'N/A': $request->conventional_number,
+                'date_birth' => $request->date_birth,
+                'blood_type' => $request->blood_type,
+                'profile_picture' =>$file,
+            ];
+        }else{
+            $user_data=[
+                'name' => $request->identification,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+                'firstname' => $request->firstname == null ? 'N/A': $request->firstname,
+                'lastname' => $request->lastname,
+                'identification' => $request->identification,
+                'phone_number' =>$request->phone_number,
+                'conventional_number' => $request->conventional_number == null ? 'N/A': $request->conventional_number,
+                'date_birth' => $request->date_birth,
+                'blood_type' => $request->blood_type,
+                'profile_picture' =>$file,
+            ];
+        }
 
         $user->update(
-            $requestData
+            $user_data
         );
+
         DB::commit();
 
         return response()->json([
