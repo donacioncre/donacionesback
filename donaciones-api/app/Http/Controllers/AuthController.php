@@ -36,10 +36,11 @@ class AuthController extends Controller
                 'name' => $request->identification,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
-                'firstname' => $request->name,
+                'firstname' => $request->name == null ? 'N/A': $request->name,
                 'lastname' => $request->lastname,
                 'identification' => $request->identification,
                 'phone_number' =>$request->phone_number,
+                'conventional_number' => $request->conventional_number == null ? 'N/A': $request->conventional_number,
                 'date_birth' => $request->date_birth,
                 'blood_type' => $request->blood_type,
                 'profile_picture' =>'N/A'
@@ -51,7 +52,7 @@ class AuthController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Successfully created user!'
-            ], 201);
+            ], 200);
         } catch (Exception $ex) {
             return 'Register Failed ' .$ex->getMessage();
         }
@@ -141,6 +142,7 @@ class AuthController extends Controller
 
         $requestData=$request->all();
         $requestData['profile_picture'] = $file;
+        $requestData['name'] = $request->identification;
 
         $user->update(
             $requestData
