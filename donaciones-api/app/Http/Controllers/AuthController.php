@@ -21,7 +21,7 @@ class AuthController extends Controller
             $validator = Validator::make(
                 $request->all(),
                 [
-                    'name' => 'required',
+                    'identification' => 'required',
                     'email' => 'required|string|unique:users',
                     'password' => 'required|string|confirmed'
 
@@ -33,9 +33,16 @@ class AuthController extends Controller
             }
 
             $user = new User([
-                'name' => $request->name,
+                'name' => $request->identification,
                 'email' => $request->email,
-                'password' => bcrypt($request->password)
+                'password' => bcrypt($request->password),
+                'firstname' => $request->name,
+                'lastname' => $request->lastname,
+                'identification' => $request->identification,
+                'phone_number' =>$request->phone_number,
+                'date_birth' => $request->date_birth,
+                'blood_type' => $request->blood_type,
+                'profile_picture' =>'N/A'
             ]);
 
             $user->save();
@@ -51,7 +58,7 @@ class AuthController extends Controller
 
 
     }
-
+ 
     public function login(Request $request)
     {
 
