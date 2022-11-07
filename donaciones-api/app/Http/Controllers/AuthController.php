@@ -58,7 +58,7 @@ class AuthController extends Controller
                 ], 200);
             }else{
                 return response()->json([
-                    'status' => true,
+                    'status' => false,
                     'message' => 'User already exists'
                 ], 500);
             }

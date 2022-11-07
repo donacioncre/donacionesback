@@ -25,7 +25,7 @@ Route::group([ 'prefix' => 'auth'], function () {
    // Route::get('/home', 'HomeController@index')->name('home');
 
     Route::group(['middleware' => 'auth:api'], function() {
-        Route::get('logout', 'AuthController@logout');
+        Route::post('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
         Route::get('userList', 'AuthController@userList');
         Route::post('userUpdate', 'AuthController@userUpdate');
