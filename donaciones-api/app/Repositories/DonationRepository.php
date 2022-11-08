@@ -21,7 +21,7 @@ class DonationRepository
 
     public function list()
     {
-        return $this->donation::with('city')->get();
+        return $this->donation->with('city')->get();
     }
 
     public function create()
