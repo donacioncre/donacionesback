@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\DonationController;
 use App\Http\Controllers\OrganizationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -44,8 +45,8 @@ Route::group([ 'prefix' => 'auth'], function () {
 
 Route::group(['middleware' => 'auth:api'], function() {
 
-    Route::get('donations', 'DonationController@index');
-    //Route::resource('donations', 'DonationController');
+    //Route::get('donations', 'DonationController@index');
+    Route::resource('donations', DonationController::class);
     //Route::post('storeMemberDepartement', 'OrganizationController@storeMemberDepartement');
     //Route::get('organizations/listDepartment/{id}', 'OrganizationController@listDepartment');
 
