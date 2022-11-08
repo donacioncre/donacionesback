@@ -44,9 +44,9 @@ Route::group([ 'prefix' => 'auth'], function () {
 
 Route::group(['middleware' => 'auth:api'], function() {
 
-    Route::resource('organizations', 'OrganizationController');
-    Route::post('storeMemberDepartement', 'OrganizationController@storeMemberDepartement');
-    Route::get('organizations/listDepartment/{id}', 'OrganizationController@listDepartment');
+    Route::resource('donations', 'DonationController');
+    //Route::post('storeMemberDepartement', 'OrganizationController@storeMemberDepartement');
+    //Route::get('organizations/listDepartment/{id}', 'OrganizationController@listDepartment');
 
 
 
