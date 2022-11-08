@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ConvocationController;
 use App\Http\Controllers\Api\DonationController;
 use App\Http\Controllers\OrganizationController;
 use Illuminate\Http\Request;
@@ -47,6 +48,7 @@ Route::group(['middleware' => 'auth:api'], function() {
 
     //Route::get('donations', 'DonationController@index');
     Route::resource('/donations', DonationController::class);
+    Route::resource('/convocations', ConvocationController::class);
     //Route::post('storeMemberDepartement', 'OrganizationController@storeMemberDepartement');
     //Route::get('organizations/listDepartment/{id}', 'OrganizationController@listDepartment');
 

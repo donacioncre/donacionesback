@@ -22,7 +22,18 @@ class ConvocationRepository
 
     public function list()
     {
-        return $this->convocation::with('city')->get();
+        $data=[];
+        $convocation = $this->convocation::with('donation')->get();
+        foreach($convocation as $key=> $value){
+            $data[]=[
+                'title' => $value->title,
+                'blood_type' => $value->blood_type,
+                'place' => $value->donation->name,
+                'country_city' => $value->donation->city->country->name .', ' .$value->donation->city->name,
+                'start_date' => $value->start_date
+            ];
+        }
+        return  $data;
     }
 
     public function create()

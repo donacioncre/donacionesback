@@ -23,6 +23,8 @@ class Convocation extends Model
         'title',
         'blood_type',
         'donation_id',
+        'start_date',
+        'end_date'
     ];
 
     /**

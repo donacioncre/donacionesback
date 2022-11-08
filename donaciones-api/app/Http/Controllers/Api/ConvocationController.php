@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\ConvocationRepository;
+use Exception;
 use Illuminate\Http\Request;
 
 class ConvocationController extends Controller
@@ -20,7 +21,13 @@ class ConvocationController extends Controller
 
     public function index()
     {
-        //
+        try {
+            $data = $this->convocation->list();
+            return response()->json(['status' => true, 'data' => $data]);
+        } catch (Exception $ex) {
+            dd($ex);
+            return response()->json(['status' => false, 'error' => 'Algo a sucedido por favor intente después de unos minutos', 'message' => $ex->getMessage()], $this->errorStatus);
+        }
     }
 
     /**
