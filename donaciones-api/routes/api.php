@@ -24,14 +24,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group([ 'prefix' => 'auth'], function () {
     Route::post('login', [AuthController::class,'login']);
-    Route::post('signup', 'AuthController@signup');
+    Route::post('signup',  [AuthController::class,'signup']);
    // Route::get('/home', 'HomeController@index')->name('home');
 
     Route::group(['middleware' => 'auth:api'], function() {
-        Route::post('logout', 'AuthController@logout');
-        Route::get('user', 'AuthController@user');
-        Route::get('userList', 'AuthController@userList');
-        Route::post('userUpdate', 'AuthController@userUpdate');
+        Route::post('logout', [AuthController::class,'logout']);
+        Route::get('user', [AuthController::class,'user'] );
+        Route::get('userList', [AuthController::class,'userList'] );
+        Route::post('userUpdate', [AuthController::class,'userUpdate'] );
 
     /* Route::prefix('organization')->group(function () {
             //Route::get('/', 'App\Http\Controllers\Api\IngresoVisitaController@index');
