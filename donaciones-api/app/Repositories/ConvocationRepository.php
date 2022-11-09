@@ -26,6 +26,7 @@ class ConvocationRepository
         $convocation = $this->convocation::with('donation')->get();
         foreach($convocation as $key=> $value){
             $data[]=[
+                'id' => $value->id,
                 'title' => $value->title,
                 'blood_type' => $value->blood_type,
                 'place' => $value->donation->name,
