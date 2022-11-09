@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ConvocationController;
 use App\Http\Controllers\Api\DonationController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrganizationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,7 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group([ 'prefix' => 'auth'], function () {
-    Route::post('login', 'AuthController@login');
+    Route::post('login', AuthController::class,'login');
     Route::post('signup', 'AuthController@signup');
    // Route::get('/home', 'HomeController@index')->name('home');
 
