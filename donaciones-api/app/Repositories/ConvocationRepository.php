@@ -78,6 +78,7 @@ class ConvocationRepository
         $data=[];
         $convocation = $this->convocation->with('donation')->find($id);
         
+        if (is_object($convocation)) {
             $data=[
                 'title' => $convocation->title,
                 'blood_type' => $convocation->blood_type,
@@ -92,6 +93,8 @@ class ConvocationRepository
                 'email' => $convocation->donation->email,
 
             ];
+        }
+            
         
         return  $data;
     }
