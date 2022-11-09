@@ -74,7 +74,25 @@ class ConvocationRepository
 
     public function show($id)
     {
-        return $this->convocation->with('donation')->find($id);
+        $data=[];
+        $convocation = $this->convocation->with('donation')->find($id);
+        
+            $data=[
+                'title' => $convocation->title,
+                'blood_type' => $convocation->blood_type,
+                'place' => $convocation->donation->name,
+                'country_city' => $convocation->donation->city->country->name .', ' .$convocation->donation->city->name,
+                'start_date' => $convocation->start_date,
+                'end_date' => $convocation->end_date,
+                'longitude' => $convocation->longitude,
+                'latitude' => $convocation->latitude,
+                'address' => $convocation->address,
+                'phone' => $convocation->phone,
+                'email' => $convocation->email,
+
+            ];
+        
+        return  $data;
     }
 
 }
