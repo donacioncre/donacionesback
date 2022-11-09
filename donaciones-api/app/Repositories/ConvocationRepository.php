@@ -84,11 +84,11 @@ class ConvocationRepository
                 'country_city' => $convocation->donation->city->country->name .', ' .$convocation->donation->city->name,
                 'start_date' => $convocation->start_date,
                 'end_date' => $convocation->end_date,
-                'longitude' => $convocation->longitude,
-                'latitude' => $convocation->latitude,
-                'address' => $convocation->address,
-                'phone' => $convocation->phone,
-                'email' => $convocation->email,
+                'longitude' => $convocation->donation->longitude,
+                'latitude' => $convocation->donation->latitude,
+                'address' => $convocation->donation->address,
+                'phone' => $convocation->donation->phone,
+                'email' => $convocation->donation->email,
 
             ];
         
