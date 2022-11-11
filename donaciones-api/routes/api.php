@@ -39,21 +39,15 @@ Route::group([ 'prefix' => 'auth'], function () {
             //Route::get('/getListMiembro/{id}', 'App\Http\Controllers\Api\IngresoVisitaController@getListMiembro');
 
         });*/
-
-
-
     });
 });
 
 Route::group(['middleware' => 'auth:api'], function() {
-
     //Route::get('donations', 'DonationController@index');
-    Route::resource('/donations', DonationController::class);
     Route::resource('/convocations', ConvocationController::class);
     //Route::post('storeMemberDepartement', 'OrganizationController@storeMemberDepartement');
     //Route::get('organizations/listDepartment/{id}', 'OrganizationController@listDepartment');
-
-
-
 });
+
+Route::resource('/donations', DonationController::class);
 
