@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\Api\BenefitDonatingController;
 use App\Http\Controllers\Api\ConvocationController;
 use App\Http\Controllers\Api\DonationController;
+use App\Http\Controllers\Api\DonationRequirementsController;
+use App\Http\Controllers\Api\MythController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrganizationController;
 use Illuminate\Http\Request;
@@ -49,5 +52,12 @@ Route::group(['middleware' => 'auth:api'], function() {
     //Route::get('organizations/listDepartment/{id}', 'OrganizationController@listDepartment');
 });
 
+
 Route::resource('/donations', DonationController::class);
 
+
+Route::resource('/benefitDonating', BenefitDonatingController::class);
+
+Route::resource('/donationRequirements', DonationRequirementsController::class);
+
+Route::resource('/myth', MythController::class);

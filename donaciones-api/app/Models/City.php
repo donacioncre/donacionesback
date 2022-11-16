@@ -23,8 +23,6 @@ class City extends Model
         'name',
         'country_id',
         
-
-
     ];
 
     /**
