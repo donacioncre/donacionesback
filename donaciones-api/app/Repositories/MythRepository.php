@@ -44,7 +44,7 @@ class MythRepository
             DB::beginTransaction();
             $myth = $this->myth->create($data);
 
-            foreach($data['details'] as $key=> $value){
+            foreach($data['details_myth'] as $key=> $value){
 
                 $this->detailsMyth->create([
                     'myths_id' => $myth->id,

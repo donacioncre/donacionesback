@@ -70,7 +70,7 @@ class BenefitDonatingController extends Controller
 
         if ($data=='ok') {
              return response()->json([
-                 'status' =>  $this->statusSuccessful,
+                 'status' =>  $this->successStatus,
                  'message' => 'Successfully'
              ], 200);
         } else {

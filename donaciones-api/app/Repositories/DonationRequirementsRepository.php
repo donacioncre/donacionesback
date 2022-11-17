@@ -44,7 +44,7 @@ class DonationRequirementsRepository
             DB::beginTransaction();
             $requirement = $this->requirement->create($data);
 
-            foreach($data['details'] as $key=> $value){
+            foreach($data['details_requirem'] as $key=> $value){
 
                 $this->detailsRequirement->create([
                     'requirement_id' => $requirement->id,

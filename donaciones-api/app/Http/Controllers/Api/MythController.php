@@ -68,19 +68,20 @@ class MythController extends Controller
 
         $file = null;
         $details_request=[];
-        foreach($request->details as $key => $value){
-            if ($value->hasFile('image')) {
-                $img = $value->file('image');
+        //dd($request);
+        foreach($request->details_myth as $key => $value){
+            if ($value['image']) {
+                $img = $value['image'];
                 $destinationPath = 'image/donation/';
                 $filename = time() . '-' . $img->getClientOriginalName();
-                $value->file('image')->move($destinationPath, $filename);
+                $value['image']->move($destinationPath, $filename);
                 $file = $destinationPath . $filename;
 
             }
 
             $details_request[]=[
-                'ask' => $value->ask,
-                'answer' => $value->answer,
+                'ask' => $value['ask'],
+                'answer' => $value['answer'],
                 'image' => $file,
             ];
 
@@ -89,12 +90,12 @@ class MythController extends Controller
 
         $requestData=$request->all();
 
-        $requestData['details'] = $details_request;
+        $requestData['details_myth'] = $details_request;
         $data= $this->donation->store($requestData);
 
         if ($data=='ok') {
              return response()->json([
-                 'status' =>  $this->statusSuccessful,
+                 'status' =>  $this->successStatus,
                  'message' => 'Successfully'
              ], 200);
         } else {

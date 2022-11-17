@@ -41,7 +41,7 @@ class BenefitDonatingRepository
             DB::beginTransaction();
             $benefit = $this->benefit->create($data);
 
-            foreach($data['details'] as $key=> $value){
+            foreach($data['details_benefit'] as $key=> $value){
 
                 $this->detailsBenefit->create([
                     'benefit_id' => $benefit->id,
