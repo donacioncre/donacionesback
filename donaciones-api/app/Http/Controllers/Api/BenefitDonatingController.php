@@ -7,6 +7,7 @@ use App\Repositories\BenefitDonatingRepository;
 use App\Repositories\DonationRepository;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class BenefitDonatingController extends Controller
 {
@@ -50,8 +51,36 @@ class BenefitDonatingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $validator = Validator::make(
+            $request->all(),
+            [
+                //'entity_1' => 'required',
+                //'entity_2' => 'required',
+            ]
+        );
+
+
+        if ($validator->fails()) {
+           return response()->json(['status' => false, 'error' => $validator->errors()], 500);
+        }
+
+       
+        $data= $this->donation->store($request->all());
+
+        if ($data=='ok') {
+             return response()->json([
+                 'status' =>  $this->statusSuccessful,
+                 'message' => 'Successfully'
+             ], 200);
+        } else {
+             return response()->json([
+                 'status' =>  $this->errorStatus,
+                 'message' => $data
+             ], 500);
+        }
     }
+
 
     /**
      * Display the specified resource.

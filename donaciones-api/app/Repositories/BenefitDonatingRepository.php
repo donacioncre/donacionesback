@@ -39,7 +39,16 @@ class BenefitDonatingRepository
     {
         try {
             DB::beginTransaction();
-            $this->benefit->create($data);
+            $benefit = $this->benefit->create($data);
+
+            foreach($data['details'] as $key=> $value){
+
+                $this->detailsBenefit->create([
+                    'benefit_id' => $benefit->id,
+                    'points' => $value['points']
+                ]);
+            }
+
             DB::commit();
             
             return 'ok';

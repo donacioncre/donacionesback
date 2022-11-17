@@ -39,9 +39,21 @@ class MythRepository
 
     public function store($data)
     {
+        
         try {
             DB::beginTransaction();
-            $this->myth->create($data);
+            $myth = $this->myth->create($data);
+
+            foreach($data['details'] as $key=> $value){
+
+                $this->detailsMyth->create([
+                    'myths_id' => $myth->id,
+                    'ask' => $value['ask'],
+                    'answer' => $value['answer'],
+                    'image' => $value['image'],
+                ]);
+            }
+
             DB::commit();
             
             return 'ok';
@@ -49,6 +61,7 @@ class MythRepository
             DB::rollBack();
             return 'Register Failed ' .$ex->getMessage();
         }
+ 
 
        
     }

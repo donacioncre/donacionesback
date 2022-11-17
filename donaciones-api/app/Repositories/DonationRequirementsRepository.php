@@ -42,7 +42,18 @@ class DonationRequirementsRepository
     {
         try {
             DB::beginTransaction();
-            $this->requirement->create($data);
+            $requirement = $this->requirement->create($data);
+
+            foreach($data['details'] as $key=> $value){
+
+                $this->detailsRequirement->create([
+                    'requirement_id' => $requirement->id,
+                    'points' => $value['points'],
+                    'points_details' => $value['points_details'],
+                    'image' => $value['image'],
+                ]);
+            }
+
             DB::commit();
             
             return 'ok';

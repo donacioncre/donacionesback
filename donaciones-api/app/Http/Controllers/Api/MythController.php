@@ -7,6 +7,7 @@ use App\Repositories\DonationRepository;
 use App\Repositories\MythRepository;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class MythController extends Controller
 {
@@ -48,9 +49,60 @@ class MythController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+   
     public function store(Request $request)
     {
-        //
+
+        $validator = Validator::make(
+            $request->all(),
+            [
+                //'entity_1' => 'required',
+                //'entity_2' => 'required',
+            ]
+        );
+
+
+        if ($validator->fails()) {
+           return response()->json(['status' => false, 'error' => $validator->errors()], 500);
+        }
+
+        $file = null;
+        $details_request=[];
+        foreach($request->details as $key => $value){
+            if ($value->hasFile('image')) {
+                $img = $value->file('image');
+                $destinationPath = 'image/donation/';
+                $filename = time() . '-' . $img->getClientOriginalName();
+                $value->file('image')->move($destinationPath, $filename);
+                $file = $destinationPath . $filename;
+
+            }
+
+            $details_request[]=[
+                'ask' => $value->ask,
+                'answer' => $value->answer,
+                'image' => $file,
+            ];
+
+            $file = null;
+        }
+
+        $requestData=$request->all();
+
+        $requestData['details'] = $details_request;
+        $data= $this->donation->store($requestData);
+
+        if ($data=='ok') {
+             return response()->json([
+                 'status' =>  $this->statusSuccessful,
+                 'message' => 'Successfully'
+             ], 200);
+        } else {
+             return response()->json([
+                 'status' =>  $this->errorStatus,
+                 'message' => $data
+             ], 500);
+        }
     }
 
     /**
