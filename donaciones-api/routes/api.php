@@ -61,3 +61,5 @@ Route::resource('/benefitDonating', BenefitDonatingController::class);
 Route::resource('/donationRequirements', DonationRequirementsController::class);
 
 Route::resource('/myth', MythController::class);
+
+Route::resource('questions', App\Http\Controllers\API\QuestionsAPIController::class);

@@ -2,24 +2,25 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * Class DonationDetails
+ * Class Questions
  * @package App\Models
- * @version November 16, 2022, 9:55 pm UTC
+ * @version November 23, 2022, 1:05 am UTC
  *
- * @property string $points
+ * @property string $ask
+ * @property string $answer
  */
-class DonationDetails extends Model
+class Questions extends Model
 {
-    //use SoftDeletes;
+    use SoftDeletes;
 
     use HasFactory;
 
-    public $table = 'donation_details';
+    public $table = 'questions';
     
 
     protected $dates = ['deleted_at'];
@@ -27,8 +28,8 @@ class DonationDetails extends Model
 
 
     public $fillable = [
-        'points',
-        'benefit_id'
+        'ask',
+        'answer'
     ];
 
     /**
@@ -37,22 +38,24 @@ class DonationDetails extends Model
      * @var array
      */
     protected $casts = [
-        'points' => 'string'
+        'ask' => 'string',
+        'answer' => 'string'
     ];
 
     /**
      * Validation rules
-     * 
+     *
      * @var array
      */
     public static $rules = [
-        'points' => 'required'
+        'ask' => 'required',
+        'answer' => 'required'
     ];
 
     protected $hidden = [
      
         "created_at",
-        "updated_at"
+        "updated_at",
+        "deleted_at"
     ];
-    
 }
