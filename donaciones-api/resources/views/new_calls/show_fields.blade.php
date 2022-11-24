@@ -20,7 +20,7 @@
 <!-- Author Field -->
 <div class="col-sm-12">
     {!! Form::label('author', 'Author:') !!}
-    <p>{{ $newCall->author }}</p>
+    <p>{{  $newCall->user->firstname  .' '. $newCall->user->lastname }}</p>
 </div>
 
 <!-- Created At Field -->
@@ -29,9 +29,5 @@
     <p>{{ $newCall->created_at }}</p>
 </div>
 
-<!-- Updated At Field -->
-<div class="col-sm-12">
-    {!! Form::label('updated_at', 'Updated At:') !!}
-    <p>{{ $newCall->updated_at }}</p>
-</div>
+
 
