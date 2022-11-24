@@ -26,3 +26,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 Route::resource('questions', App\Http\Controllers\QuestionsController::class);
+
+
+Route::resource('newCalls', App\Http\Controllers\NewCallController::class);
