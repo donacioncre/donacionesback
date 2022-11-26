@@ -108,7 +108,7 @@ class QuestionsAPIController extends AppBaseController
     /**
      * Remove the specified Questions from storage.
      * DELETE /questions/{id}
-     *
+     * 
      * @param int $id
      *
      * @throws \Exception

@@ -60,7 +60,7 @@ class NewCallAPIController extends AppBaseController
     /**
      * Store a newly created NewCall in storage.
      * POST /newCalls
-     *
+     * 
      * @param CreateNewCallAPIRequest $request
      *
      * @return Response
