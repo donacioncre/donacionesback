@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * Class DonationDetails
+ * Class BenefitDetails
  * @package App\Models
  * @version November 16, 2022, 9:55 pm UTC
  *
  * @property string $points
  */
-class DonationDetails extends Model
+class BenefitDetails extends Model
 {
     //use SoftDeletes;
 

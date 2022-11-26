@@ -4,8 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\DonationRepository;
+//use Barryvdh\DomPDF\PDF;
+//use Barryvdh\DomPDF\PDF as PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
 use Illuminate\Http\Request;
+
+
 
 class DonationController extends Controller
 {
@@ -95,5 +100,19 @@ class DonationController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function digitalDonationCard()
+    {
+        $data = $this->donation->digitalDonationCard();
+
+        $pdf = PDF::loadView('pdf.digital_donation_card',['data'=> $data]);
+        $pdf->setPaper('A4', 'landscape');
+        return response()->json([
+            'status'=>true,
+            'pdf' => base64_encode($pdf->output()),
+            'filename' => 'DonationCard'
+        ],200);
+
     }
 }

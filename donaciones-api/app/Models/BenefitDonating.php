@@ -59,6 +59,6 @@ class BenefitDonating extends Model
     ];
     public function donation_details()
     {
-        return $this->hasMany(DonationDetails::class,'benefit_id','id');
+        return $this->hasMany(BenefitDetails::class,'benefit_id','id');
     }
 }

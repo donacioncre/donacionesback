@@ -3,8 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\BenefitDonating;
-use App\Models\benefitDetails;
-use App\Models\DonationDetails;
+use App\Models\BenefitDetails;
 use App\Repositories\BaseRepository;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +18,7 @@ class BenefitDonatingRepository
 {
     protected $benefit,$detailsBenefit;
 
-    public function __construct(BenefitDonating $benefit, DonationDetails $detailsBenefit)
+    public function __construct(BenefitDonating $benefit, BenefitDetails $detailsBenefit)
     {
         $this->benefit=$benefit;
         $this->detailsBenefit=$detailsBenefit;

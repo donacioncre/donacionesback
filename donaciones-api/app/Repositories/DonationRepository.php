@@ -5,23 +5,26 @@ namespace App\Repositories;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\DonationPoint;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class DonationRepository
 {
-    protected $country,$donation,$city;
+    protected $country,$donation_point,$city,$user;
 
-    public function __construct(City $city, Country $country, DonationPoint $donation)
+    public function __construct(City $city, Country $country, DonationPoint $donation_point,User $user)
     {
         $this->country=$country;
-        $this->donation=$donation;
+        $this->donation_point=$donation_point;
         $this->city=$city;
+        $this->user = $user;
     }
 
     public function list()
     {
-        return $this->donation::with('city')->get();
+        return $this->donation_point::with('city')->get();
     }
 
     public function create()
@@ -33,7 +36,7 @@ class DonationRepository
     {
         try {
             DB::beginTransaction();
-            $this->donation->create($data);
+            $this->donation_point->create($data);
             DB::commit();
             
             return 'ok';
@@ -49,7 +52,7 @@ class DonationRepository
     {
         try {
             DB::beginTransaction();
-            $data=$this->donation->find($id);
+            $data=$this->donation_point->find($id);
             $data->update($data);
             DB::commit();
             return 'ok';
@@ -62,7 +65,14 @@ class DonationRepository
 
     public function show($id)
     {
-        return $this->donation->find($id);
+        return $this->donation_point->find($id);
+    }
+
+    public function digitalDonationCard()
+    {
+        $user = Auth::user();
+
+        return $user;
     }
 
 }
