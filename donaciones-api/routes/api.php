@@ -64,5 +64,4 @@ Route::resource('/myth', MythController::class);
 
 Route::resource('questions', App\Http\Controllers\API\QuestionsAPIController::class);
 
-
 Route::resource('new_calls', App\Http\Controllers\API\NewCallAPIController::class);
