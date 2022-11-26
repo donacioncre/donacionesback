@@ -5,6 +5,8 @@ use App\Http\Controllers\Api\ConvocationController;
 use App\Http\Controllers\Api\DonationController;
 use App\Http\Controllers\Api\DonationRequirementsController;
 use App\Http\Controllers\Api\MythController;
+use App\Http\Controllers\API\NewCallAPIController;
+use App\Http\Controllers\API\QuestionsAPIController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrganizationController;
 use Illuminate\Http\Request;
@@ -62,6 +64,6 @@ Route::resource('/donationRequirements', DonationRequirementsController::class);
 
 Route::resource('/myth', MythController::class);
 
-Route::resource('questions', App\Http\Controllers\API\QuestionsAPIController::class);
+Route::resource('questions', QuestionsAPIController::class);
 
-Route::resource('new_calls', App\Http\Controllers\API\NewCallAPIController::class);
+Route::resource('new_calls', NewCallAPIController::class);
