@@ -6,159 +6,199 @@
         td{
             padding-left: 4px;
             padding-right: 4px;
-            border: 1px solid #66B2AC;
+            /*border: 1px solid #66B2AC;*/
             text-align: center;
-            font-size: 11px
+            font-size: 16px
         }
         th{
-            text-align: left;
-            background-color:#DDA466;
+            text-align: right;
+            /* background-color:#DDA466; */
             padding-left: 4px;
             padding-right: 4px;
-            border: 1px solid #66B2AC;
-            text-align: center;
-            font-size: 12px
+            /* border: 1px solid #66B2AC; */
+           
+            
         }
         .first{
           border: 1px solid #66B2AC;
           border-radius: 0px 0px 0px 0px;
         }
 
-        .logo{
-          position: absolute;
-          left: 28px;
-          width: 160px;
-          height: 60px;
-          top: 20px;
+        .logoCruz{
+          
+          width: 550px;
+          height: 100px;
+         
         }
 
-        @mixin media() {
-            @media (min-width: 768px) {
-                @content;
-            }
+        html {
+        font-family: 'Vollkorn', serif;
+        font-weight: 400;
+        line-height: 1.3;
+        font-size: 16px;
         }
 
-body, html {
-  font-family: 'Vollkorn', serif;
-  font-weight: 400;
-  line-height: 1.3;
-  font-size: 16px;
-}
+        body {
+        margin=0;
+        padding=0;
+        }
 
-.siteTitle {
-  display: block;
-  font-weight: 900;
-  font-size: 30px;
-  margin: 20px 0;
-  
- 
-}
+        .siteTitle {
+        display: block;
+        font-weight: 900;
+        font-size: 30px;
+        margin: 20px 0;
+        
+        
+        }
 
-header,
-main,
+        header,
+        main,
 
 
-.card {
-  height: 400px;
-  position: relative;
-  padding: 20px;
-  box-sizing: border-box;
-  display: flex;
-  align-items: flex-end;
-  text-decoration: none;
-  /*border: 4px solid #b0215e;*/
-  margin-bottom: 20px;
-  
-  background-size: cover;
-  
- 
-}
+        .card {
+        height: 400px;
+        position: relative;
+        padding: 20px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: flex-end;
+        text-decoration: none;
+        /*border: 4px solid #b0215e;*/
+        margin-bottom: 20px;
+        
+        background-size: cover;
+        
+        
+        }
 
-.inner {
-  height: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; 
-  background: white;
-  box-sizing: border-box;
-  padding: 40px;
-  
-  
-}
+        .inner {
+        height: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center; 
+        background: white;
+        box-sizing: border-box;
+        padding: 40px;
+        
+        
+        }
 
-.title {
-  font-size: 24px;
-  color: black;  
-  text-align: center;
-  font-weight: 700;
-  color: #181818;
-  text-shadow: 0px 2px 2px #a6f8d5;
-  position: relative;
-  margin: 0 0 20px 0;
-  
+        .title {
+        font-size: 24px;
+        color: black;  
+        text-align: center;
+        font-weight: 700;
+        color: #181818;
+        text-shadow: 0px 2px 2px #a6f8d5;
+        position: relative;
+        margin: 0 0 20px 0;
+        
 
-}
+        }
 
-.subtitle {
-  color: #b0215e;
-  text-align: center;
-}
+        .subtitle {
+        color: #b0215e;
+        text-align: center;
+        }
 
+        td .labels{
+            font-weight: 800;
+            font-size: 34px
+        }
 
+        td .text-card{
+            font-size: 34px
+        }
 
+        .img-triangle{
+            position:relative;
+           
+        }
 
+        .content {
+            position: absolute;
+           
+            top: 0;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+           
+        }
+
+        .imgRedonda {
+            width:300px;
+            height:300px;
+            border-radius:150px;
+        }
 
 
     </style>
 </head>
-<body>
+<body >
 
-    {{-- <?php $admin_logo_img = Voyager::setting('admin.icon_image', ''); ?> --}}
-
-        <main>
-            <a href="https://google.com" class="card">
-                <div class="inner">
-                <h2 class="title">Mit 117 Sachen durch Klugheimschen Basaltgebirge</h2>
-                <time class="subtitle">03. März 2021<time>
-                </div>
-            </a>
-        </main>
-        
-   
-    
+    <div class="img-triangle" style="margin-bottom: -50px">
+        <img style="width: 500px;height: 900px; margin-top: -200px; margin-left: 655px" class="" src="{{public_path('/icon/triangle-PhotoRoom.png')}}"  alt="">
+    </div>
     <div class="content">
-        <div class="row" style="width: 100%">
-            <div class="container" style="text-align: left; background-color:white; padding: 8px 8px; border: 1px solid #66B2AC; margin-left: 2px; margin-right: 2px; text-align: center; font-size: 20px">
-                               Cruz Roja Ecuatoriana Carné digital de donación
-                    
-                
-            </div>
-
-        </div>
-        <div class="row" style="width: 100%">
-            <div class="container" style="text-align: left; background-color:white; padding: 8px 8px; border: 1px solid #66B2AC; margin-left: 2px; margin-right: 2px; font-size: 20px">
-                <span>Nombres {{$data->firstname .' '. $data->lastname}}</span> 
      
-                {{-- <img class="logo" src="{{ Voyager::image($admin_logo_img) }}" alt=""> --}}
+        <div class="row" style="width: 100%" >
+            <div class="container">
+                   <div class="table-responsive col-md-12 col-sm-12">
+                    <table id="dataTable"  class="table table-hover" >
+                        <thead>
+                            <tr>
+                                <th> <img class="logoCruz" src="{{public_path('/icon/logotipo_cre.png')}}"  alt=""> </th>
+                                <th >   <span  style="margin-left:80px; font-size: 30px" > Carné digital de donación</span>  </th>
+                            </tr>
+                        </thead>
+                        <tbody >
+                            <tr >
+                                <td style="text-align: left;">  
+                                    <br> <br> <br> <br> 
+                                    <span class="labels" >Nombres: </span> <span class="text-card"> {{$data->firstname }}</span> <br> <br> <br>
+                                    <span class="labels">Apellidos: </span>   <span class="text-card">{{$data->lastname}}</span> <br> <br> <br>
+                                    <span class="labels">No. Cédula: </span>   <span class="text-card">{{$data->identification}}</span> <br> <br> <br>
+                                    <span class="labels">Fecha de emisión: </span>   <span class="text-card">{{$data->created_at->format('Y-m-d')}}</span> <br> <br> <br>
+                                    <span class="labels"> Tipo de sangre: </span>   <span class="text-card">{{$data->blood_type}}</span> <br> <br> <br>
+                                </td>
+                                <td>  
+                                    <img class="imgRedonda" src="{{public_path($data->profile_picture)}}"  alt="">
+                                </td>
+                               
+                            </tr>
+                        </tbody>
+                    </table>
+                  
+                </div>
             </div>
         </div>
-        <br>
-        <div class="table-responsive col-md-12 col-sm-12">
-            <table id="dataTable" style="page-break-before:auto;" class="table table-hover" >
-                <thead>
-                    <tr>
-                        <th>Código de Donación</th>
-                        <th>Fecha de Donación</th>
-                        <th>Hemoglobina</th>
-                        <th>Peso</th>
-                        <th>Presión arterial</th>
-                    </tr>
-                </thead>
-                <tbody>
+    </div>
+    <br><br>
+    <br>
+    <div class="contentt" style="margin-top: 50%">
+        <div class="row" style="width: 100%">
+            <div class="container">
+                <div class="table-responsive col-md-12 col-sm-12">
+                    <table id="dataTable"  class="table table-hover" >
+                        <thead>
+                            <tr>
+                                <th>Código de Donación</th>
+                                <th>Fecha de Donación</th>
+                                <th>Hemoglobina</th>
+                                <th>Peso</th>
+                                <th>Presión arterial</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+        
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-                </tbody>
-            </table>
         </div>
+      
     </div>
 </body>
