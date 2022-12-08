@@ -19,6 +19,26 @@
            
             
         }
+
+        .table-donation th{
+            text-align: right;
+            /* background-color:#DDA466; */
+            /*padding-left: 4px;
+            padding-right: 4px;*/
+            border: 1px solid black;
+            color: white; 
+            text-align: center;  
+            font-size: 30px
+        }
+
+       .table-donation td{
+           /* padding-left: 4px;
+            padding-right: 4px;*/
+            border: 1px solid black;
+            text-align: center;
+            font-size: 28px
+        }
+       
         .first{
           border: 1px solid #66B2AC;
           border-radius: 0px 0px 0px 0px;
@@ -32,22 +52,22 @@
         }
 
         html {
-        font-family: 'Vollkorn', serif;
-        font-weight: 400;
-        line-height: 1.3;
-        font-size: 16px;
+            font-family: 'Vollkorn', serif;
+            font-weight: 400;
+            line-height: 1.3;
+            font-size: 16px;
         }
 
         body {
-        margin=0;
-        padding=0;
+            margin=0;
+            padding=0;
         }
 
         .siteTitle {
-        display: block;
-        font-weight: 900;
-        font-size: 30px;
-        margin: 20px 0;
+            display: block;
+            font-weight: 900;
+            font-size: 30px;
+            margin: 20px 0;
         
         
         }
@@ -55,52 +75,9 @@
         header,
         main,
 
-
-        .card {
-        height: 400px;
-        position: relative;
-        padding: 20px;
-        box-sizing: border-box;
-        display: flex;
-        align-items: flex-end;
-        text-decoration: none;
-        /*border: 4px solid #b0215e;*/
-        margin-bottom: 20px;
-        
-        background-size: cover;
-        
-        
-        }
-
-        .inner {
-        height: 50%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center; 
-        background: white;
-        box-sizing: border-box;
-        padding: 40px;
-        
-        
-        }
-
-        .title {
-        font-size: 24px;
-        color: black;  
-        text-align: center;
-        font-weight: 700;
-        color: #181818;
-        text-shadow: 0px 2px 2px #a6f8d5;
-        position: relative;
-        margin: 0 0 20px 0;
-        
-
-        }
-
         .subtitle {
-        color: #b0215e;
-        text-align: center;
+            color: #b0215e;
+            text-align: center;
         }
 
         td .labels{
@@ -112,10 +89,7 @@
             font-size: 34px
         }
 
-        .img-triangle{
-            position:relative;
-           
-        }
+        
 
         .content {
             position: absolute;
@@ -149,13 +123,13 @@
                     <table id="dataTable"  class="table table-hover" >
                         <thead>
                             <tr>
-                                <th> <img class="logoCruz" src="{{public_path('/icon/logotipo_cre.png')}}"  alt=""> </th>
+                                <th style="margin-left: -20px"> <img class="logoCruz" src="{{public_path('/icon/logotipo_cre.png')}}"  alt=""> </th>
                                 <th >   <span  style="margin-left:80px; font-size: 30px" > Carné digital de donación</span>  </th>
                             </tr>
                         </thead>
                         <tbody >
                             <tr >
-                                <td style="text-align: left;">  
+                                <td style="text-align: left; padding-left: 20px">  
                                     <br> <br> <br> <br> 
                                     <span class="labels" >Nombres: </span> <span class="text-card"> {{$data->firstname }}</span> <br> <br> <br>
                                     <span class="labels">Apellidos: </span>   <span class="text-card">{{$data->lastname}}</span> <br> <br> <br>
@@ -180,19 +154,62 @@
     <div class="contentt" style="margin-top: 50%">
         <div class="row" style="width: 100%">
             <div class="container">
+                <img class="logoCruz" src="{{public_path('/icon/logotipo_cre.png')}}"  alt="">
+                <br> <br>
                 <div class="table-responsive col-md-12 col-sm-12">
-                    <table id="dataTable"  class="table table-hover" >
-                        <thead>
+                    <table id="dataTable"  class="table-donation table-hover" >
+                        <thead style="background-color: red">
                             <tr>
                                 <th>Código de Donación</th>
                                 <th>Fecha de Donación</th>
                                 <th>Hemoglobina</th>
-                                <th>Peso</th>
+                                <th style="padding: 10px 0px 10px 0">Peso</th>
                                 <th>Presión arterial</th>
                             </tr>
                         </thead>
                         <tbody>
-        
+                            <tr>
+                                <td>123456789</td>
+                                <td>13/08/2022</td>
+                                <td>6.1%</td>
+                                <td>72 libras</td>
+                                <td>190/80</td>
+                            </tr>
+                            <tr>
+                                <td>123456789</td>
+                                <td>13/08/2022</td>
+                                <td>6.1%</td>
+                                <td>72 libras</td>
+                                <td>190/80</td>
+                            </tr>
+                            <tr>
+                                <td>123456789</td>
+                                <td>13/08/2022</td>
+                                <td>6.1%</td>
+                                <td>72 libras</td>
+                                <td>190/80</td>
+                            </tr>
+                            <tr>
+                                <td>123456789</td>
+                                <td>13/08/2022</td>
+                                <td>6.1%</td>
+                                <td>72 libras</td>
+                                <td>190/80</td>
+                            </tr>
+                            <tr>
+                                <td>123456789</td>
+                                <td>13/08/2022</td>
+                                <td>6.1%</td>
+                                <td>72 libras</td>
+                                <td>190/80</td>
+                            </tr>
+                            <tr>
+                                <td>123456789</td>
+                                <td>13/08/2022</td>
+                                <td>6.1%</td>
+                                <td>72 libras</td>
+                                <td>190/80</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
