@@ -8,7 +8,7 @@ use App\Models\DonationPoint;
 use Illuminate\Support\Facades\DB;
 use Exception;
 
-class CityRepository
+class CountryRepository
 {
     protected $country,$donation,$city;
 
@@ -21,7 +21,7 @@ class CityRepository
 
     public function list()
     {
-        return $this->city->get();
+        return $this->country->get();
     }
 
     public function create()
@@ -33,7 +33,7 @@ class CityRepository
     {
         try {
             DB::beginTransaction();
-            $this->city->create($data);
+            $this->country->create($data);
             DB::commit();
             
             return 'ok';
@@ -49,8 +49,8 @@ class CityRepository
     {
         try {
             DB::beginTransaction();
-            $data=$this->city->find($id);
-            $data->update($data);
+            $country=$this->country->find($id);
+            $country->update($data);
             DB::commit();
             return 'ok';
            
@@ -62,7 +62,7 @@ class CityRepository
 
     public function show($id)
     {
-        return $this->city->find($id);
+        return $this->country->find($id);
     }
 
 }

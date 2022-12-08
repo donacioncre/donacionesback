@@ -29,3 +29,12 @@ Route::resource('questions', App\Http\Controllers\QuestionsController::class);
 
 
 Route::resource('newCalls', App\Http\Controllers\NewCallController::class);
+
+Route::resource('schedule', App\Http\Controllers\ScheduleController::class);
+
+Route::resource('donation', App\Http\Controllers\DonationController::class);
+
+
+Route::resource('countries', App\Http\Controllers\CountryController::class);
+
+Route::resource('cities', App\Http\Controllers\CityController::class);
