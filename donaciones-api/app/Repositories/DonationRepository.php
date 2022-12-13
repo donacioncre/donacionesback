@@ -8,6 +8,7 @@ use App\Models\DonationPoint;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Exception;
+
 use Illuminate\Support\Facades\Auth;
 
 class DonationRepository
@@ -29,7 +30,7 @@ class DonationRepository
 
     public function create()
     {
-        return $this->city->get();
+        return $this->city->get()->pluck('name', 'id');
     }
 
     public function store($data)

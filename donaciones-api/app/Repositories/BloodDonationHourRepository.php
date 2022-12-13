@@ -6,12 +6,12 @@ use App\Models\BloodDonationHour;
 use App\Repositories\BaseRepository;
 
 /**
- * Class QuestionsRepository
+ * Class BloodDonationHourRepository
  * @package App\Repositories
- * @version November 23, 2022, 1:05 am UTC
+ * @version December 12, 2022, 9:08 pm UTC
 */
 
-class QuestionsRepository extends BaseRepository
+class BloodDonationHourRepository extends BaseRepository
 {
     /**
      * @var array
@@ -19,7 +19,7 @@ class QuestionsRepository extends BaseRepository
     protected $fieldSearchable = [
         'days',
         'start_time',
-        'end_time',
+        'end_time'
     ];
 
     /**

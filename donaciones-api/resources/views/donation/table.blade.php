@@ -24,13 +24,13 @@
                 <td>{{$donation->email}}</td>
 
                 <td width="120">
-                    {!! Form::open(['route' => ['questions.destroy', $questions->id], 'method' => 'delete']) !!}
+                    {!! Form::open(['route' => ['donation.destroy', $donation->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>
-                        <a href="{{ route('questions.show', [$questions->id]) }}"
+                        <a href="{{ route('donation.show', [$donation->id]) }}"
                            class='btn btn-default btn-xs'>
                             <i class="far fa-eye"></i>
                         </a>
-                        <a href="{{ route('questions.edit', [$questions->id]) }}"
+                        <a href="{{ route('donation.edit', [$donation->id]) }}"
                            class='btn btn-default btn-xs'>
                             <i class="far fa-edit"></i>
                         </a>

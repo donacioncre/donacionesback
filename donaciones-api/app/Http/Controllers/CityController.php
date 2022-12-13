@@ -95,13 +95,16 @@ class CityController extends AppBaseController
     {
         $city = $this->cityRepository->show($id);
 
+        $countries=$this->cityRepository->create();
         if (empty($city)) {
             Flash::error('City not found');
 
             return redirect(route('cities.index'));
         }
 
-        return view('cities.edit')->with('city', $city);
+       
+
+        return view('cities.edit')->with('city', $city)->with('countries',$countries);
     }
 
     /**

@@ -19,7 +19,7 @@ class ScheduleController extends AppBaseController
     {
         $this->questionsRepository = $questionsRepo;
     }
-
+ 
     /**
      * Display a listing of the Questions.
      *

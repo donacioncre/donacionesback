@@ -9,14 +9,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class BloodDonationHour extends Model
 {
-    use SoftDeletes;
+    //use SoftDeletes;
 
     use HasFactory;
 
     public $table = 'blood_donation_hours';
     
 
-    protected $dates = ['deleted_at'];
+   // protected $dates = ['deleted_at'];
 
 
 
@@ -49,6 +49,6 @@ class BloodDonationHour extends Model
      
         "created_at",
         "updated_at",
-        "deleted_at"
+        
     ];
 }

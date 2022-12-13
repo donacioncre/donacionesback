@@ -38,3 +38,5 @@ Route::resource('donation', App\Http\Controllers\DonationController::class);
 Route::resource('countries', App\Http\Controllers\CountryController::class);
 
 Route::resource('cities', App\Http\Controllers\CityController::class);
+
+Route::resource('bloodDonationHours',\App\Http\Controllers\BloodDonationHourController::class);

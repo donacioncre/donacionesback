@@ -7,7 +7,7 @@ use App\Repositories\DonationRepository;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
 use Illuminate\Http\Request;
-
+use Flash;
 
 
 class DonationController extends Controller
@@ -53,7 +53,7 @@ class DonationController extends Controller
     {
         $input = $request->all();
 
-        $donation = $this->donation->create($input);
+        $donation = $this->donation->store($input);
 
         Flash::success('Donation saved successfully.');
 

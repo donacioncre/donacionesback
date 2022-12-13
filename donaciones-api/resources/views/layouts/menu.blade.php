@@ -27,6 +27,13 @@
 </li>
 
 <li class="nav-item">
+    <a href="{{ route('bloodDonationHours.index') }}"
+       class="nav-link {{ Request::is('bloodDonationHours*') ? 'active' : '' }}">
+        <p>Horarios Donación</p>
+    </a>
+</li>
+
+<li class="nav-item">
     <a href="{{ route('countries.index') }}"
        class="nav-link {{ Request::is('countries*') ? 'active' : '' }}">
         <p>Provincias</p>
