@@ -19,7 +19,7 @@ class ScheduleRepository extends BaseRepository
      * @var array
      */
     protected $fieldSearchable = [
-       
+
     ];
 
     protected $schedule,$donation,$user;
@@ -46,5 +46,9 @@ class ScheduleRepository extends BaseRepository
         return Schedule::class;
     }
 
-    
+    public function listDonationPoint()
+    {
+        return $this->donation->get();
+    }
+
 }

@@ -29,10 +29,10 @@ class ScheduleController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $schedules = $this->scheduleRepository->all();
+        $donations = $this->scheduleRepository->listDonationPoint();
 
         return view('schedule.index')
-            ->with('schedules', $schedules);
+            ->with('donations', $donations);
     }
 
     /**
