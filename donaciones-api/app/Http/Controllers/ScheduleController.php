@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateQuestionsRequest;
-use App\Http\Requests\UpdateQuestionsRequest;
-use App\Repositories\QuestionsRepository;
+use App\Http\Requests\CreateScheduleRequest;
+use App\Http\Requests\UpdateScheduleRequest;
+use App\Repositories\ScheduleRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
@@ -12,16 +12,16 @@ use Response;
 
 class ScheduleController extends AppBaseController
 {
-    /** @var QuestionsRepository $questionsRepository*/
-    private $questionsRepository;
+    /** @var ScheduleRepository $ScheduleRepository*/
+    private $scheduleRepository;
 
-    public function __construct(QuestionsRepository $questionsRepo)
+    public function __construct(ScheduleRepository $scheduleRepo)
     {
-        $this->questionsRepository = $questionsRepo;
+        $this->scheduleRepository = $scheduleRepo;
     }
  
     /**
-     * Display a listing of the Questions.
+     * Display a listing of the Schedule.
      *
      * @param Request $request
      *
@@ -29,42 +29,42 @@ class ScheduleController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $questions = $this->questionsRepository->all();
+        $Schedule = $this->scheduleRepository->all();
 
-        return view('questions.index')
-            ->with('questions', $questions);
+        return view('schedule.index')
+            ->with('schedule', $Schedule);
     }
 
     /**
-     * Show the form for creating a new Questions.
+     * Show the form for creating a new Schedule.
      *
      * @return Response
      */
     public function create()
     {
-        return view('questions.create');
+        return view('schedule.create');
     }
 
     /**
-     * Store a newly created Questions in storage.
+     * Store a newly created Schedule in storage.
      *
-     * @param CreateQuestionsRequest $request
+     * @param CreateScheduleRequest $request
      *
      * @return Response
      */
-    public function store(CreateQuestionsRequest $request)
+    public function store(Request $request)
     {
         $input = $request->all();
 
-        $questions = $this->questionsRepository->create($input);
+        $Schedule = $this->scheduleRepository->create($input);
 
-        Flash::success('Questions saved successfully.');
+        Flash::success('Schedule saved successfully.');
 
-        return redirect(route('questions.index'));
+        return redirect(route('schedule.index'));
     }
 
     /**
-     * Display the specified Questions.
+     * Display the specified Schedule.
      *
      * @param int $id
      *
@@ -72,19 +72,19 @@ class ScheduleController extends AppBaseController
      */
     public function show($id)
     {
-        $questions = $this->questionsRepository->find($id);
+        $schedule = $this->scheduleRepository->find($id);
 
-        if (empty($questions)) {
-            Flash::error('Questions not found');
+        if (empty($Schedule)) {
+            Flash::error('Schedule not found');
 
-            return redirect(route('questions.index'));
+            return redirect(route('schedule.index'));
         }
 
-        return view('questions.show')->with('questions', $questions);
+        return view('schedule.show')->with('schedule', $schedule);
     }
 
     /**
-     * Show the form for editing the specified Questions.
+     * Show the form for editing the specified Schedule.
      *
      * @param int $id
      *
@@ -92,44 +92,44 @@ class ScheduleController extends AppBaseController
      */
     public function edit($id)
     {
-        $questions = $this->questionsRepository->find($id);
+        $schedule = $this->scheduleRepository->find($id);
 
-        if (empty($questions)) {
-            Flash::error('Questions not found');
+        if (empty($Schedule)) {
+            Flash::error('Schedule not found');
 
-            return redirect(route('questions.index'));
+            return redirect(route('schedule.index'));
         }
 
-        return view('questions.edit')->with('questions', $questions);
+        return view('schedule.edit')->with('schedule', $schedule);
     }
 
     /**
-     * Update the specified Questions in storage.
+     * Update the specified Schedule in storage.
      *
      * @param int $id
-     * @param UpdateQuestionsRequest $request
+     * @param UpdateScheduleRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdateQuestionsRequest $request)
+    public function update($id, Request $request)
     {
-        $questions = $this->questionsRepository->find($id);
+        $schedule = $this->scheduleRepository->find($id);
 
-        if (empty($questions)) {
-            Flash::error('Questions not found');
+        if (empty($Schedule)) {
+            Flash::error('Schedule not found');
 
-            return redirect(route('questions.index'));
+            return redirect(route('Schedule.index'));
         }
 
-        $questions = $this->questionsRepository->update($request->all(), $id);
+        $schedule = $this->scheduleRepository->update($request->all(), $id);
 
-        Flash::success('Questions updated successfully.');
+        Flash::success('Schedule updated successfully.');
 
-        return redirect(route('questions.index'));
+        return redirect(route('schedule.index'));
     }
 
     /**
-     * Remove the specified Questions from storage.
+     * Remove the specified Schedule from storage.
      *
      * @param int $id
      *
@@ -139,18 +139,18 @@ class ScheduleController extends AppBaseController
      */
     public function destroy($id)
     {
-        $questions = $this->questionsRepository->find($id);
+        $schedule = $this->scheduleRepository->find($id);
 
-        if (empty($questions)) {
-            Flash::error('Questions not found');
+        if (empty($schedule)) {
+            Flash::error('Schedule not found');
 
-            return redirect(route('questions.index'));
+            return redirect(route('schedule.index'));
         }
 
-        $this->questionsRepository->delete($id);
+        $this->scheduleRepository->delete($id);
 
-        Flash::success('Questions deleted successfully.');
+        Flash::success('Schedule deleted successfully.');
 
-        return redirect(route('questions.index'));
+        return redirect(route('schedule.index'));
     }
 }

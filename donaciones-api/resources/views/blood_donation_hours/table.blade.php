@@ -12,10 +12,10 @@
         <tbody>
         @foreach($bloodDonationHours as $bloodDonationHour)
             <tr>
-                <td>{{ $bloodDonationHour->days }}</td>
+                <td>{{  nameDay($bloodDonationHour->days) }}</td>
             <td>{{ $bloodDonationHour->start_time }}</td>
             <td>{{ $bloodDonationHour->end_time }}</td>
-            <td>{{ $bloodDonationHour->donation_id }}</td>
+            <td>{{ $bloodDonationHour->donation->name }}</td>
                 <td width="120">
                     {!! Form::open(['route' => ['bloodDonationHours.destroy', $bloodDonationHour->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>
@@ -36,3 +36,21 @@
         </tbody>
     </table>
 </div>
+
+@php
+
+ function nameDay($nameDay)
+    {
+        $data=[
+            'Lunes' =>'1',
+            'Martes' =>'2',
+            'Miercoles' =>'3',
+            'Jueves'=>'4',
+            'Viernes'=>'5',
+            'Sabado'=>'6',
+            'Domingo'=>'7'
+        ];
+
+        return array_search($nameDay,$data);
+    }
+@endphp
