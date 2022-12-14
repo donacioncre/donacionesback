@@ -1,5 +1,5 @@
 <li class="nav-item">
-    
+
 </li>
 
 
@@ -29,6 +29,13 @@
 <li class="nav-item">
     <a href="{{ route('bloodDonationHours.index') }}"
        class="nav-link {{ Request::is('bloodDonationHours*') ? 'active' : '' }}">
+        <p>Horarios Donación</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('schedules.index') }}"
+       class="nav-link {{ Request::is('schedules*') ? 'active' : '' }}">
         <p>Horarios Donación</p>
     </a>
 </li>

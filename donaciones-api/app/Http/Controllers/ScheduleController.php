@@ -19,7 +19,7 @@ class ScheduleController extends AppBaseController
     {
         $this->scheduleRepository = $scheduleRepo;
     }
- 
+
     /**
      * Display a listing of the Schedule.
      *
@@ -29,10 +29,10 @@ class ScheduleController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $Schedule = $this->scheduleRepository->all();
+        $schedules = $this->scheduleRepository->all();
 
         return view('schedule.index')
-            ->with('schedule', $Schedule);
+            ->with('schedules', $schedules);
     }
 
     /**

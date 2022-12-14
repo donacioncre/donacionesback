@@ -8,18 +8,18 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($questions as $questions)
+        @foreach($schedules as $schedule)
             <tr>
-                <td>{{ $questions->ask }}</td>
-            <td>{{ $questions->answer }}</td>
+                <td>{{ $schedule->ask }}</td>
+            <td>{{ $schedule->answer }}</td>
                 <td width="120">
-                    {!! Form::open(['route' => ['questions.destroy', $questions->id], 'method' => 'delete']) !!}
+                    {!! Form::open(['route' => ['schedule.destroy', $schedule->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>
-                        <a href="{{ route('questions.show', [$questions->id]) }}"
+                        <a href="{{ route('schedule.show', [$schedule->id]) }}"
                            class='btn btn-default btn-xs'>
                             <i class="far fa-eye"></i>
                         </a>
-                        <a href="{{ route('questions.edit', [$questions->id]) }}"
+                        <a href="{{ route('schedule.edit', [$schedule->id]) }}"
                            class='btn btn-default btn-xs'>
                             <i class="far fa-edit"></i>
                         </a>

@@ -5,11 +5,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Questions Details</h1>
+                    <h1>Schedule Details</h1>
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-default float-right"
-                       href="{{ route('questions.index') }}">
+                       href="{{ route('schedule.index') }}">
                         Back
                     </a>
                 </div>
@@ -21,7 +21,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    @include('questions.show_fields')
+                    @include('schedule.show_fields')
                 </div>
             </div>
         </div>

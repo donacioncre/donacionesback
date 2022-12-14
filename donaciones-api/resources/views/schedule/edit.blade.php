@@ -17,17 +17,17 @@
 
         <div class="card">
 
-            {!! Form::model($questions, ['route' => ['questions.update', $questions->id], 'method' => 'patch']) !!}
+            {!! Form::model($schedule, ['route' => ['schedule.update', $schedule->id], 'method' => 'patch']) !!}
 
             <div class="card-body">
                 <div class="row">
-                    @include('questions.fields')
+                    @include('schedule.fields')
                 </div>
             </div>
 
             <div class="card-footer">
                 {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('questions.index') }}" class="btn btn-default">Cancel</a>
+                <a href="{{ route('schedule.index') }}" class="btn btn-default">Cancel</a>
             </div>
 
             {!! Form::close() !!}
