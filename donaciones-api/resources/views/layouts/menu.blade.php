@@ -34,8 +34,8 @@
 </li>
 
 <li class="nav-item">
-    <a href="{{ route('schedules.index') }}"
-       class="nav-link {{ Request::is('schedules*') ? 'active' : '' }}">
+    <a href="{{ route('schedule.index') }}"
+       class="nav-link {{ Request::is('schedule*') ? 'active' : '' }}">
         <p>Horarios Donación</p>
     </a>
 </li>
