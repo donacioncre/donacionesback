@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\DonationRequirementsController;
 use App\Http\Controllers\Api\MythController;
 use App\Http\Controllers\Api\NewCallAPIController;
 use App\Http\Controllers\Api\QuestionsAPIController;
+use App\Http\Controllers\Api\ScheduleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrganizationController;
 use Illuminate\Http\Request;
@@ -50,6 +51,23 @@ Route::group([ 'prefix' => 'auth'], function () {
 Route::group(['middleware' => 'auth:api'], function() {
     Route::get('/digitalDonationCard',  [DonationController::class,'digitalDonationCard']);
     Route::resource('/convocations', ConvocationController::class);
+
+   
+
+    Route::prefix('schedule')->group(function () {
+        Route::get('listCountry', [ScheduleController::class,'listCountry']);
+        Route::get('/listCity/{id}', [ScheduleController::class,'listCity']);
+        Route::get('/listDonationCenter/{id}', [ScheduleController::class,'listDonationCenter']);
+
+        Route::get('/listTimeDonation/{id}', [ScheduleController::class,'listTimeDonation']);
+
+        Route::post('store',[ScheduleController::class,'store']);
+        Route::get('show/{id}',[ScheduleController::class,'show']);
+        //Route::post('/updateDate/{id}', 'App\Http\Controllers\Api\IngresoVisitaController@updateDate');
+        //Route::get('/getListMiembro/{id}', 'App\Http\Controllers\Api\IngresoVisitaController@getListMiembro');
+
+    });
+
     //Route::post('storeMemberDepartement', 'OrganizationController@storeMemberDepartement');
     //Route::get('organizations/listDepartment/{id}', 'OrganizationController@listDepartment');
 });

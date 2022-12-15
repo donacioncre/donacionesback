@@ -65,7 +65,7 @@ class BloodDonationHour extends Model
             '4'=>'Jueves',
             '5'=>'Viernes',
             '6'=>'Sabado',
-            '7'=>'Domingo'
+            '0'=>'Domingo'
         ];
 
         return array_search($nameDay,$data);
@@ -80,7 +80,7 @@ class BloodDonationHour extends Model
             'Jueves'=>'4',
             'Viernes'=>'5',
             'Sabado'=>'6',
-            'Domingo'=>'7'
+            'Domingo'=>'0'
         ];
 
         return array_search($nameDay,$data);
