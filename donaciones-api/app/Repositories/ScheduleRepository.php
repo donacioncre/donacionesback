@@ -64,10 +64,10 @@ class ScheduleRepository extends BaseRepository
 
         return $data;
     }
-    
+
     public function listDonationCenter($id)
     {
-       
+
 
         $data= $this->donation::where('city_id',$id)->get();
 
@@ -80,7 +80,7 @@ class ScheduleRepository extends BaseRepository
         $dataTimeSchedule=[];
         $date = Carbon::parse($data['date']);
         $dataSchedule=$this->schedule->where('donation_date',$date)->get();
-       
+
 
         $numDay= date('w',strtotime($data['date']));
         $donationHour = $this->bloodDonationHour->where('donation_id',$id)->where('days',$numDay)->first();
@@ -94,27 +94,27 @@ class ScheduleRepository extends BaseRepository
                 foreach($dataSchedule as   $schedule){
                     //dd($schedule['donation_time']);
                     $key=array_search(strtotime($schedule['donation_time']),$times,true);
-                   
+
                     if ($key !== false) {
                         unset($times[$key]);
                     }
                 }
 
-              
+
 
              $dataTime =$this->formatTime($times);
-                
+
             }else{
-                $dataTime =$this->formatTime($times); 
+                $dataTime =$this->formatTime($times);
             }
-           
-    
+
+
             return $dataTime;
         }else{
             return "Sin Horario";
         }
 
-     
+
     }
 
 
@@ -124,14 +124,14 @@ class ScheduleRepository extends BaseRepository
             DB::beginTransaction();
             $schedule=$this->schedule->create($data);
             DB::commit();
-            
+
             return ['ok',$schedule->id];
         } catch (Exception $ex) {
             DB::rollBack();
             return 'Register Failed ' .$ex->getMessage();
         }
 
-       
+
     }
 
     public function show($id)
@@ -157,31 +157,49 @@ class ScheduleRepository extends BaseRepository
         ];
     }
 
+
+    public function update($data,$id)
+    {
+        try {
+            DB::beginTransaction();
+            $schedule=$this->schedule->find($id);
+            $schedule->update($data);
+            DB::commit();
+
+            return ['ok',$schedule->id];
+        } catch (Exception $ex) {
+            DB::rollBack();
+            return 'Register Failed ' .$ex->getMessage();
+        }
+
+
+    }
+
     public function create_time_range($start, $end, $interval = '30 mins', $format = '24') {
-        $startTime = strtotime($start); 
+        $startTime = strtotime($start);
         $endTime   = strtotime($end);
         $returnTimeFormat = ($format == '12')?'g:i:s A':'G:i:s';
 
-        $current   = time(); 
-        $addTime   = strtotime('+'.$interval, $current); 
+        $current   = time();
+        $addTime   = strtotime('+'.$interval, $current);
         $diff      = $addTime - $current;
-    
-        $times = array(); 
-        while ($startTime < $endTime) { 
-            $times[] = $startTime; //date($returnTimeFormat, $startTime); 
-            $startTime += $diff; 
-        } 
-       
-        $times[] = $startTime; //date($returnTimeFormat, $startTime); 
 
-        return $times; 
+        $times = array();
+        while ($startTime < $endTime) {
+            $times[] = $startTime; //date($returnTimeFormat, $startTime);
+            $startTime += $diff;
+        }
+
+        $times[] = $startTime; //date($returnTimeFormat, $startTime);
+
+        return $times;
     }
 
     public function formatTime($data)
     {
         $returnTimeFormat='G:i:s';
         foreach($data as $value){
-            $dataFormat []=date($returnTimeFormat, $value); 
+            $dataFormat []=date($returnTimeFormat, $value);
         }
 
         return $dataFormat;
