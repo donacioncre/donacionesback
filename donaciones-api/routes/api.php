@@ -59,7 +59,7 @@ Route::group(['middleware' => 'auth:api'], function() {
         Route::get('/listCity/{id}', [ScheduleController::class,'listCity']);
         Route::get('/listDonationCenter/{id}', [ScheduleController::class,'listDonationCenter']);
 
-        Route::get('/listTimeDonation/{id}', [ScheduleController::class,'listTimeDonation']);
+        Route::post('/listTimeDonation/{id}', [ScheduleController::class,'listTimeDonation']);
 
         Route::post('store',[ScheduleController::class,'store']);
         Route::get('show/{id}',[ScheduleController::class,'show']);
