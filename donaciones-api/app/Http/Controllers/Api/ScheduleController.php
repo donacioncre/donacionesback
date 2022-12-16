@@ -14,8 +14,8 @@ use Illuminate\Support\Facades\Validator;
 
 class ScheduleController extends Controller
 {
-    
-    
+
+
     private $successStatus = 200;
     private $errorStatus = 500;
     protected $schedule, $country;
@@ -46,8 +46,8 @@ class ScheduleController extends Controller
         } catch (Exception $ex) {
             dd($ex);
             return response()->json([
-                'status' => false, 
-                'error' => 'Algo a sucedido por favor intente después de unos minutos', 
+                'status' => false,
+                'error' => 'Algo a sucedido por favor intente después de unos minutos',
                 'message' => $ex->getMessage()
             ], $this->errorStatus);
         }
@@ -56,14 +56,14 @@ class ScheduleController extends Controller
     public function listCity($id)
     {
         try {
-          
+
             $data = $this->schedule->listCities($id);
             return response()->json(['status' => true, 'data' => $data]);
         } catch (Exception $ex) {
             dd($ex);
             return response()->json([
-                'status' => false, 
-                'error' => 'Algo a sucedido por favor intente después de unos minutos', 
+                'status' => false,
+                'error' => 'Algo a sucedido por favor intente después de unos minutos',
                 'message' => $ex->getMessage()
             ], $this->errorStatus);
         }
@@ -72,14 +72,14 @@ class ScheduleController extends Controller
     public function listDonationCenter($id)
     {
         try {
-          
+
             $data = $this->schedule->listDonationCenter($id);
             return response()->json(['status' => true, 'data' => $data]);
         } catch (Exception $ex) {
             dd($ex);
             return response()->json([
-                'status' => false, 
-                'error' => 'Algo a sucedido por favor intente después de unos minutos', 
+                'status' => false,
+                'error' => 'Algo a sucedido por favor intente después de unos minutos',
                 'message' => $ex->getMessage()
             ], $this->errorStatus);
         }
@@ -88,14 +88,14 @@ class ScheduleController extends Controller
     public function listTimeDonation(Request $request,$id)
     {
         try {
-          
+
             $data = $this->schedule->dateDonation($request->all(), $id);
             return response()->json(['status' => true, 'data' => $data]);
         } catch (Exception $ex) {
             dd($ex);
             return response()->json([
-                'status' => false, 
-                'error' => 'Algo a sucedido por favor intente después de unos minutos', 
+                'status' => false,
+                'error' => 'Algo a sucedido por favor intente después de unos minutos',
                 'message' => $ex->getMessage()
             ], $this->errorStatus);
         }
@@ -137,7 +137,7 @@ class ScheduleController extends Controller
         $input=$request->all();
 
         $input['user_id']= Auth::user()->id;
-       
+
         $data= $this->schedule->store($input);
 
         if ($data[0]=='ok') {
@@ -169,8 +169,8 @@ class ScheduleController extends Controller
         } catch (Exception $ex) {
             dd($ex);
             return response()->json([
-                'status' => false, 
-                'error' => 'Algo a sucedido por favor intente después de unos minutos', 
+                'status' => false,
+                'error' => 'Algo a sucedido por favor intente después de unos minutos',
                 'message' => $ex->getMessage()
             ], $this->errorStatus);
         }
@@ -196,7 +196,39 @@ class ScheduleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $validator = Validator::make(
+            $request->all(),
+            [
+                //'entity_1' => 'required',
+                //'entity_2' => 'required',
+            ]
+        );
+
+
+        if ($validator->fails()) {
+           return response()->json(['status' => false, 'error' => $validator->errors()], 500);
+        }
+
+
+        $input=$request->all();
+
+        $input['user_id']= Auth::user()->id;
+
+        $data= $this->schedule->update($input,$id);
+
+        if ($data[0]=='ok') {
+             return response()->json([
+                 'status' =>  $this->successStatus,
+                 'message' => 'Successfully',
+                 'schedule_id' => $data[1],
+             ], 200);
+        } else {
+             return response()->json([
+                 'status' =>  $this->errorStatus,
+                 'message' => $data
+             ], 500);
+        }
     }
 
     /**
