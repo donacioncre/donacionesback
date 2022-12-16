@@ -30,7 +30,7 @@ class ScheduleController extends AppBaseController
     public function index(Request $request)
     {
         $donations = $this->scheduleRepository->listDonationPoint();
-
+       
         return view('schedule.index')
             ->with('donations', $donations);
     }
@@ -72,13 +72,15 @@ class ScheduleController extends AppBaseController
      */
     public function show($id)
     {
-        $schedule = $this->scheduleRepository->find($id);
+        $schedule = $this->scheduleRepository->showScheduleDonation($id);
 
-        if (empty($Schedule)) {
+      
+
+       /* if (empty($schedule)) {
             Flash::error('Schedule not found');
 
             return redirect(route('schedule.index'));
-        }
+        }*/
 
         return view('schedule.show')->with('schedule', $schedule);
     }

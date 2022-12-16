@@ -77,7 +77,7 @@ class ScheduleRepository extends BaseRepository
     public function dateDonation($data,$id)
     {
         $dataTime=[];
-        $dataTimeSchedule=[];
+      
         $date = Carbon::parse($data['date']);
         $dataSchedule=$this->schedule->where('donation_date',$date)->get();
        
@@ -88,20 +88,15 @@ class ScheduleRepository extends BaseRepository
         if (is_object($donationHour )) {
             $times= $this->create_time_range($donationHour['start_time'],$donationHour['end_time'],'30 mins');
 
-            //$dataTime= array_diff($times ,$dataSchedule)
-            //dd($dataSchedule);
             if(count($dataSchedule)){
                 foreach($dataSchedule as   $schedule){
-                    //dd($schedule['donation_time']);
+                    
                     $key=array_search(strtotime($schedule['donation_time']),$times,true);
                    
                     if ($key !== false) {
                         unset($times[$key]);
                     }
                 }
-
-              
-
              $dataTime =$this->formatTime($times);
                 
             }else{
@@ -185,5 +180,12 @@ class ScheduleRepository extends BaseRepository
         }
 
         return $dataFormat;
+    }
+
+    public function showScheduleDonation($id)
+    {
+        $schedule=$this->schedule->with('donation')->where('donation_id',$id)->get();
+
+        return $schedule;
     }
 }
