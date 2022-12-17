@@ -202,7 +202,7 @@ class ScheduleRepository extends BaseRepository
 
     public function showScheduleDonation($id)
     {
-        $schedule=$this->schedule->with('donation')->where('donation_id',$id)->get();
+        $schedule=$this->schedule->with('donation')->with('user')->where('donation_id',$id)->get();
 
         return $schedule;
     }

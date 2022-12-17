@@ -76,13 +76,23 @@ class ScheduleController extends AppBaseController
 
       
 
+        foreach($schedule as $value){
+            $data[]=[
+                'title'=>$value->user->firstname .' '. $value->user->lastname,
+                'start'=>$value->donation_date .' '.$value->donation_time,
+                'end' => $value->donation_date .' '.date('H:i:s', strtotime($value->donation_time. ' +30 minutes')  )
+            ];
+        }
+
+        
+
        /* if (empty($schedule)) {
             Flash::error('Schedule not found');
 
             return redirect(route('schedule.index'));
         }*/
 
-        return view('schedule.show')->with('schedule', $schedule);
+        return view('schedule.show')->with('schedule', $schedule)->with('dataschedule',$data);
     }
 
     /**

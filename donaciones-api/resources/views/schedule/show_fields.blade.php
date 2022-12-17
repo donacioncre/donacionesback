@@ -9,6 +9,7 @@
 
     $(document).ready(function () {
     
+       console.log(@json($dataschedule));
         $.ajaxSetup({
             headers:{
                 'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
@@ -25,7 +26,15 @@
                  right:'agendaWeek'
             },
             defaultView: 'agendaWeek',
-            events:'/full-calender',
+           /* events:[
+                {
+                    title:"pruebas",
+                    start:"2022-12-16 12:30:00",
+                    end:"2022-12-16 13:00:00"
+                }
+            ],*/
+            
+            events: @json($dataschedule),
             selectable:true,
             selectHelper: true,
             slotLabelFormat:"HH:mm",
@@ -34,7 +43,7 @@
            
             select:function(start, end, allDay)
             {
-                var title = prompt('Event Title:');
+                var title = prompt('Event Title1:');
     
                 if(title)
                 {
