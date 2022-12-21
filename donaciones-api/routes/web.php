@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ScheduleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,3 +41,5 @@ Route::resource('countries', App\Http\Controllers\CountryController::class);
 Route::resource('cities', App\Http\Controllers\CityController::class);
 
 Route::resource('bloodDonationHours',\App\Http\Controllers\BloodDonationHourController::class);
+
+Route::get('getUser/{id}',[ScheduleController::class,'getUser']);

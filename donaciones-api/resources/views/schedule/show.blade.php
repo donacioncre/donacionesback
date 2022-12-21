@@ -9,7 +9,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-8">
-                    <h1>{{$schedule[0]->donation->name}}</h1>
+                    <h1>{{$donation->name}}</h1>
                 </div>
                 <div class="col-sm-4">
                     <a class="btn btn-default float-right"

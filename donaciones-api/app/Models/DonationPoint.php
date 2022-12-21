@@ -58,4 +58,15 @@ class DonationPoint extends Model
     {
         return $this->hasMany(Convocation::class,'donation_id','id');
     }
+    public function schedule()
+    {
+        return $this->hasMany(Schedule::class,'donation_id','id');
+    }
+
+    public function donationHour()
+    {
+        return $this->hasMany(BloodDonationHour::class,'donation_id','id');
+    }
+
+
 }

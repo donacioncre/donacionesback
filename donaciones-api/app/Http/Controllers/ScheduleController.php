@@ -6,6 +6,7 @@ use App\Http\Requests\CreateScheduleRequest;
 use App\Http\Requests\UpdateScheduleRequest;
 use App\Repositories\ScheduleRepository;
 use App\Http\Controllers\AppBaseController;
+use Exception;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
@@ -14,6 +15,7 @@ class ScheduleController extends AppBaseController
 {
     /** @var ScheduleRepository $ScheduleRepository*/
     private $scheduleRepository;
+    private $errorStatus = 500;
 
     public function __construct(ScheduleRepository $scheduleRepo)
     {
@@ -72,29 +74,74 @@ class ScheduleController extends AppBaseController
      */
     public function show($id)
     {
-        $schedule = $this->scheduleRepository->showScheduleDonation($id);
-
+        $days=[0,1,2,3,4,5,6];
+       
       
+       
 
-        foreach($schedule as $value){
+        $donation = $this->scheduleRepository->showScheduleDonation($id);
+
+    
+
+        foreach($donation->schedule as $value){
             $data[]=[
+                'schedule_id'=>$value->id,
                 'title'=>$value->user->firstname .' '. $value->user->lastname,
                 'start'=>$value->donation_date .' '.$value->donation_time,
-                'end' => $value->donation_date .' '.date('H:i:s', strtotime($value->donation_time. ' +30 minutes')  )
+                'end' => $value->donation_date .' '.date('H:i:s', strtotime($value->donation_time. ' +30 minutes')  ),
+                'name' => $value->user->firstname,
+                'lastname' => $value->user->lastname,
+                'blood_type' => $value->user->blood_type,
+                'phone_number'=>$value->user->phone_number,
+                'email' => $value->user->email,
+                'date_birth' => $value->user->date_birth,
+                'country' => $donation->city->country->name,
+                'city' => $donation->city->name,
+                'donation_center' => $donation->name,
+                'address' => $donation->address,
+                'phone_center' => $donation-> phone,
+                'email_center' => $donation->email,
+                'donation_date'=>$value->donation_date,
+                'donation_time' => $value->donation_time,
             ];
         }
+        foreach($donation->donationHour as $value){
 
+            $key=array_search($value->days,$days,true);
+
+            if ($key !== false) {
+                unset($days[$key]);
+            }
+
+            $donationHour[]=[
+                'day' => $value->days,
+                'start_time'=>$value->start_time,
+                'end_time'=>$value->end_time,
+            ];
+        } 
         
-
+        $data['daysWithoutSchedules']=$days;
+        $user= $this->scheduleRepository->getNameUser();
+        
        /* if (empty($schedule)) {
             Flash::error('Schedule not found');
 
             return redirect(route('schedule.index'));
         }*/
 
-        return view('schedule.show')->with('schedule', $schedule)->with('dataschedule',$data);
+        return view('schedule.show')->with('donation', $donation)->with('dataschedule',$data);
     }
 
+    public function getUser($id)
+    {
+        try {
+            $data = $this->scheduleRepository->getInfoUser($id);
+            return response()->json(['status' => true, 'data' => $data]);
+        } catch (Exception $ex) {
+            dd($ex);
+            return response()->json(['status' => false, 'error' => 'Algo a sucedido ', 'message' => $ex->getMessage()], $this->errorStatus);
+        }
+    }
     /**
      * Show the form for editing the specified Schedule.
      *

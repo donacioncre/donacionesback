@@ -7,6 +7,7 @@ use App\Models\City;
 use App\Models\DonationPoint;
 use App\Models\Questions;
 use App\Models\Schedule;
+use App\Models\User;
 use App\Repositories\BaseRepository;
 use Carbon\Carbon;
 use Exception;
@@ -29,11 +30,13 @@ class ScheduleRepository extends BaseRepository
 
     protected $schedule,$donation,$user,$city,$bloodDonationHour;
 
-    public function __construct(Schedule $schedule, DonationPoint $donation, City $city, BloodDonationHour $bloodDonationHour) {
+    public function __construct(Schedule $schedule, DonationPoint $donation, City $city, 
+                                    BloodDonationHour $bloodDonationHour, User $user) {
         $this->schedule = $schedule;
         $this->donation = $donation;
         $this->city = $city;
         $this->bloodDonationHour=$bloodDonationHour;
+        $this->user=$user;
     }
     /**
      * Return searchable fields
@@ -202,8 +205,20 @@ class ScheduleRepository extends BaseRepository
 
     public function showScheduleDonation($id)
     {
-        $schedule=$this->schedule->with('donation')->with('user')->where('donation_id',$id)->get();
+        $donation=$this->donation->with('schedule')->with('donationHour')->find($id);
 
-        return $schedule;
+        return $donation;
+    }
+
+    public function getNameUser()
+    {
+        $user =$this->user->get(['firstname','lastname','id']);
+
+        return $user;
+    }
+
+    public function getInfoUser($id)
+    {
+        return $this->user->find($id);
     }
 }
