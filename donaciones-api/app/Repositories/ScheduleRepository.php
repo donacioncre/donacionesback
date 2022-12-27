@@ -89,7 +89,13 @@ class ScheduleRepository extends BaseRepository
         $donationHour = $this->bloodDonationHour->where('donation_id',$id)->where('days',$numDay)->first();
 
         if (is_object($donationHour )) {
-            $times= $this->create_time_range($donationHour['start_time'],$donationHour['end_time'],'30 mins');
+            $times = $this->create_time_range($donationHour['start_time'],$donationHour['end_time'],'30 mins');
+
+            if ($donationHour['start_time_1'] != null && $donationHour['end_time_1'] != null ) {
+                $times_1=  $this->create_time_range($donationHour['start_time_1'],
+                                $donationHour['end_time_1'],'30 mins');
+                array_push($times, ...$times_1);
+            }
 
             if(count($dataSchedule)){
                 foreach($dataSchedule as   $schedule){

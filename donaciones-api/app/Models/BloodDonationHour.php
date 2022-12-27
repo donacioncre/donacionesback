@@ -28,6 +28,8 @@ class BloodDonationHour extends Model
         'days',
         'start_time',
         'end_time',
+        'start_time_1',
+        'end_time_1',
         'donation_id'
     ];
 
@@ -84,6 +86,22 @@ class BloodDonationHour extends Model
         ];
 
         return array_search($nameDay,$data);
+    }
+
+    public function weekdays()
+    {
+        $data=[
+            '1' =>'Lunes',
+            '2' =>'Martes',
+            '3' =>'Miercoles',
+            '4'=>'Jueves',
+            '5'=>'Viernes',
+            '6'=>'Sabado',
+            '0'=>'Domingo',
+           
+        ];
+
+        return $data;
     }
 
     public function donation()

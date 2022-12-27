@@ -17,11 +17,11 @@
 
         <div class="card">
 
-            {!! Form::model($bloodDonationHour, ['route' => ['bloodDonationHours.update', $bloodDonationHour->id], 'method' => 'patch']) !!}
+            {!! Form::model($bloodDonationHours, ['route' => ['bloodDonationHours.update', $bloodDonationHours->id], 'method' => 'patch']) !!}
 
             <div class="card-body">
                 <div class="row">
-                    @include('blood_donation_hours.fields')
+                    @include('blood_donation_hours.edit_fields')
                 </div>
             </div>
 

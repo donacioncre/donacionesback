@@ -53,12 +53,43 @@ class BloodDonationHourRepository extends BaseRepository
 
     public function list()
     {
-        return $this->bloodDonationHour->with('donation')->get();
+        $donation = $this->pointsDonation->with('donationHour')->get();
+
+        $data=[];
+        foreach($donation as $key => $value){
+
+            if (count($value->donationHour)) {
+                $data[]=[
+                    'id' => $value->id,
+                    'name'=>$value->name,
+                    'city'=>$value->city->name,
+                    'address'=>$value->address
+                ];
+            }
+
+          
+
+        }
+
+        //return $this->bloodDonationHour->with('donation')->get();
+        return $data;
     }
 
     public function pointsDonations()
     {
-       return $this->pointsDonation->get()->pluck('name', 'id');
+       
+       $donations=[];
+       $data =$this->pointsDonation->with('donationHour')->get();
+       foreach ($data as $key => $value) {
+           if (!count($value->donationHour)) {
+               $donations[]=[
+                    'name' => $value->name,
+                    'id' =>$value->id,
+               ];
+           }
+       }
+     
+      return $donations;
     }
 
     public function days($nameDay)
@@ -66,11 +97,42 @@ class BloodDonationHourRepository extends BaseRepository
         return $this->bloodDonationHour->days($nameDay);
     }
 
+    public function weekdays()
+    {
+        return $this->bloodDonationHour->weekdays();
+    }
+
     public function store($data)
     {
         try {
             DB::beginTransaction();
+            
             $this->bloodDonationHour->create($data);
+            DB::commit();
+            
+            return 'ok';
+        } catch (Exception $ex) {
+            DB::rollBack();
+            return 'Register Failed ' .$ex->getMessage();
+        }
+
+       
+    }
+
+    public function show($id)
+    {
+       
+        $donations =$this->pointsDonation->with('donationHour')->find($id);
+        
+       return $donations;
+    }
+
+    public function delete($id)
+    {
+        try {
+            DB::beginTransaction();
+            
+            $this->bloodDonationHour->where('donation_id',$id)->delete();
             DB::commit();
             
             return 'ok';

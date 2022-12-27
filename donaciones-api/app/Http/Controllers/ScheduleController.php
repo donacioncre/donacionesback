@@ -76,9 +76,6 @@ class ScheduleController extends AppBaseController
     {
         $days=[0,1,2,3,4,5,6];
        
-      
-       
-
         $donation = $this->scheduleRepository->showScheduleDonation($id);
 
     
