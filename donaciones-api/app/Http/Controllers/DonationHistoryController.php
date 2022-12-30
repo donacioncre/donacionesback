@@ -64,7 +64,7 @@ class DonationHistoryController extends AppBaseController
 
         Flash::success('Donation History saved successfully.');
 
-        return redirect(route('donation_histories.index'));
+        return redirect(route('donationHistories.index'));
     }
 
     /**
