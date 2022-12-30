@@ -75,6 +75,7 @@ class ScheduleController extends AppBaseController
     public function show($id)
     {
         $days=[0,1,2,3,4,5,6];
+        $daysWithoutSchedules=[];
        
         $donation = $this->scheduleRepository->showScheduleDonation($id);
 
@@ -117,7 +118,7 @@ class ScheduleController extends AppBaseController
             ];
         } 
         
-        $data['daysWithoutSchedules']=$days;
+        $daysWithoutSchedules=$days;
         $user= $this->scheduleRepository->getNameUser();
         
        /* if (empty($schedule)) {
@@ -126,7 +127,9 @@ class ScheduleController extends AppBaseController
             return redirect(route('schedule.index'));
         }*/
 
-        return view('schedule.show')->with('donation', $donation)->with('dataschedule',$data);
+       
+
+        return view('schedule.show')->with('donation', $donation)->with('dataschedule',$data)->with('daysWithoutSchedules',$daysWithoutSchedules);
     }
 
     public function getUser($id)

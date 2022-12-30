@@ -32,11 +32,24 @@
         <p>Horarios Donación</p>
     </a>
 </li>
+<li class="nav-item">
+    <a href="{{ route('plateletDonationHours.index') }}"
+       class="nav-link {{ Request::is('plateletDonationHours*') ? 'active' : '' }}">
+        <p>Horarios Plaqueta</p>
+    </a>
+</li>
 
 <li class="nav-item">
     <a href="{{ route('schedule.index') }}"
        class="nav-link {{ Request::is('schedule*') ? 'active' : '' }}">
         <p>Agenda Donaciones</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('donationHistories.index') }}"
+       class="nav-link {{ Request::is('donationHistories*') ? 'active' : '' }}">
+        <p>Historial</p>
     </a>
 </li>
 

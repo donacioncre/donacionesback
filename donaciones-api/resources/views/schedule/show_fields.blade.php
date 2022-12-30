@@ -83,7 +83,8 @@
 
     $(document).ready(function () {
     
-        let  days= Object.values ( @json($dataschedule['daysWithoutSchedules']));
+        let  days= Object.values ( @json($daysWithoutSchedules));
+        console.log(@json($dataschedule));
         $.ajaxSetup({
             headers:{
                 'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
@@ -100,15 +101,15 @@
                  right:'agendaWeek,month',
             },
             defaultView: 'agendaWeek',
-           /* events:[
-                {
-                    title:"pruebas",
-                    start:"2022-12-16 12:30:00",
-                    end:"2022-12-16 13:00:00"
-                }
-            ],*/
+        //    events:[
+        //         {
+        //             title:"pruebas",
+        //             start:"2022-12-16 12:30:00",
+        //             end:"2022-12-16 13:00:00"
+        //         }
+        //     ],
             hiddenDays:days,
-            events: @json($dataschedule),
+           events: @json($dataschedule),
             selectable:true,
             selectHelper: true,
             slotLabelFormat:"HH:mm",

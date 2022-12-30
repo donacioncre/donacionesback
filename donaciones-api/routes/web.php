@@ -42,4 +42,9 @@ Route::resource('cities', App\Http\Controllers\CityController::class);
 
 Route::resource('bloodDonationHours',\App\Http\Controllers\BloodDonationHourController::class);
 
+Route::resource('plateletDonationHours',\App\Http\Controllers\PlateletDonationHourController::class);
+
+Route::resource('donationHistories',\App\Http\Controllers\DonationHistoryController::class);
+
+
 Route::get('getUser/{id}',[ScheduleController::class,'getUser']);

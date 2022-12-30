@@ -3,13 +3,16 @@
 use App\Http\Controllers\Api\BenefitDonatingController;
 use App\Http\Controllers\Api\ConvocationController;
 use App\Http\Controllers\Api\DonationController;
+use App\Http\Controllers\Api\DonationHistoryAPIController;
 use App\Http\Controllers\Api\DonationRequirementsController;
 use App\Http\Controllers\Api\MythController;
 use App\Http\Controllers\Api\NewCallAPIController;
 use App\Http\Controllers\Api\QuestionsAPIController;
 use App\Http\Controllers\Api\ScheduleController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DonationHistoryController;
 use App\Http\Controllers\OrganizationController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -64,6 +67,14 @@ Route::group(['middleware' => 'auth:api'], function() {
         Route::post('store',[ScheduleController::class,'store']);
         Route::get('show/{id}',[ScheduleController::class,'show']);
         Route::post('update/{id}',[ScheduleController::class,'update']);
+        //Route::post('/updateDate/{id}', 'App\Http\Controllers\Api\IngresoVisitaController@updateDate');
+        //Route::get('/getListMiembro/{id}', 'App\Http\Controllers\Api\IngresoVisitaController@getListMiembro');
+
+    });
+
+    Route::prefix('donationHistories')->group(function () {
+        Route::get('list', [DonationHistoryAPIController::class,'index']);
+       
         //Route::post('/updateDate/{id}', 'App\Http\Controllers\Api\IngresoVisitaController@updateDate');
         //Route::get('/getListMiembro/{id}', 'App\Http\Controllers\Api\IngresoVisitaController@getListMiembro');
 
