@@ -1,9 +1,30 @@
 @extends('layouts.app')
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
+
+@section('scripts')
+
+<link rel="stylesheet" href="{{asset('fullcalendar/packages/core/main.css')}}" />
+<link rel="stylesheet" href="{{asset('fullcalendar/packages/daygrid/main.css')}}" />
+<link rel="stylesheet" href="{{asset('fullcalendar/packages/list/main.css')}}" />
+<link rel="stylesheet" href="{{asset('fullcalendar/packages/timegrid/main.css')}}" />
+
+
+
+
+
+
+<script src="{{asset('fullcalendar/packages/core/main.js')}}" defer></script>
+<script src="{{asset('fullcalendar/packages/core/locales-all.js')}}" defer></script>
+
+<script src="{{asset('fullcalendar/packages/interaction/main.js')}}" defer></script>
+<script src="{{asset('fullcalendar/packages/daygrid/main.js')}}" defer></script>
+<script src="{{asset('fullcalendar/packages/timegrid/main.js')}}" defer></script>
+<script src="{{asset('fullcalendar/packages/list/main.js')}}" defer></script>
+
+
+
+
+@endsection
+
 @section('content')
     <section class="content-header">
         <div class="container-fluid">

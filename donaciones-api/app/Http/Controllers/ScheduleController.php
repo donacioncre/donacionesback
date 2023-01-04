@@ -172,19 +172,14 @@ class ScheduleController extends AppBaseController
      */
     public function update($id, Request $request)
     {
-        $schedule = $this->scheduleRepository->find($id);
+       
+        $input = request()->except(['_token','method']);
+       
+        $schedule = $this->scheduleRepository->update($input,$id);
 
-        if (empty($Schedule)) {
-            Flash::error('Schedule not found');
+       
 
-            return redirect(route('Schedule.index'));
-        }
-
-        $schedule = $this->scheduleRepository->update($request->all(), $id);
-
-        Flash::success('Schedule updated successfully.');
-
-        return redirect(route('schedule.index'));
+        return response()->json($schedule);
     }
 
     /**

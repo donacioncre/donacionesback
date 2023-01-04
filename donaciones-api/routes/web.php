@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\Api\ScheduleController;
+use App\Http\Controllers\Api\ScheduleController as ApiScheduleController;
+use App\Http\Controllers\ScheduleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,4 +48,11 @@ Route::resource('plateletDonationHours',\App\Http\Controllers\PlateletDonationHo
 Route::resource('donationHistories',\App\Http\Controllers\DonationHistoryController::class);
 
 
-Route::get('getUser/{id}',[ScheduleController::class,'getUser']);
+Route::get('getUser/{id}',[ApiScheduleController::class,'getUser']);
+
+Route::post('schedules/{id}',[ScheduleController::class,'update']);
+
+Route::resource('users', App\Http\Controllers\UserController::class);
+
+
+//Route::resource('users', 'UserController')->middleware('auth');

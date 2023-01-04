@@ -102,6 +102,8 @@ class AuthController extends Controller
 
         $user=Auth::user();
 
+        $user->device_token = $request->token;
+
         return response()->json([
             'status' => true,
             'token' =>[

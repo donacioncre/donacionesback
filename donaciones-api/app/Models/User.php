@@ -30,7 +30,7 @@ class User extends Authenticatable
         "phone_number",
         "conventional_number",
         "date_birth",
-
+        "device_token",
 
     ];
 

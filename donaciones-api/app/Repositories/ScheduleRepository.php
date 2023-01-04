@@ -167,6 +167,7 @@ class ScheduleRepository extends BaseRepository
         try {
             DB::beginTransaction();
             $schedule=$this->schedule->find($id);
+           
             $schedule->update($data);
             DB::commit();
 

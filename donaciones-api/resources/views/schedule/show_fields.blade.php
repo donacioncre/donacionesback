@@ -12,9 +12,11 @@
         </div>
         <div class="modal-body">
           <div class="row">
+           
             <div class="form-group col-sm-6">
                 <label for="name">Nombres:</label>
                 <label for="" id="name" class="labelDonation"></label>
+                <input hidden  name="schedule_id" id="schedule_id">
             </div>
             <div class="form-group col-sm-6">
                 <label for="lastname">Apellidos:</label>
@@ -65,8 +67,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="button" id="btnUpdate" class="btn btn-primary">Modificar</button>
         </div>
       </div>
     </div>
@@ -76,52 +78,63 @@
     .labelDonation{
         font-weight: 400 !important
     }
+    #calendar {
+    max-width: 900px;
+    margin: 0 auto;
+  }
 </style>
 
 
 <script>
-
-    $(document).ready(function () {
+    document.addEventListener('DOMContentLoaded', function () {
     
         let  days= Object.values ( @json($daysWithoutSchedules));
-        console.log(@json($dataschedule));
-        $.ajaxSetup({
-            headers:{
-                'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-    
-        var calendar = $('#calendar').fullCalendar({
+       
+        var calendarEl = document.getElementById('calendar');
+        var initialLocaleCode = 'es';
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],
 
             editable:true,
+            eventLimit: true, 
             header:{
                 left:'prev,next today',
                 center:'title',
                 //right:'month,agendaWeek'
-                 right:'agendaWeek,month',
+                //right:'agendaWeek,month',
+                right: 'dayGridMonth,timeGridWeek,listMonth'
             },
-            defaultView: 'agendaWeek',
-        //    events:[
-        //         {
-        //             title:"pruebas",
-        //             start:"2022-12-16 12:30:00",
-        //             end:"2022-12-16 13:00:00"
-        //         }
-        //     ],
+            //defaultView: 'agendaWeek',
+            locale: initialLocaleCode,
             hiddenDays:days,
-           events: @json($dataschedule),
+            events: @json($dataschedule),
             selectable:true,
             selectHelper: true,
-            slotLabelFormat:"HH:mm",
+            scrollTime: '00:00',
+            slotLabelFormat:
+            {
+                hour: 'numeric',
+                minute: '2-digit',
+                omitZeroMinute: false,
+            },
+            eventTimeFormat: { // like '14:30:00'
+                hour: '2-digit',
+                minute: '2-digit',
+                meridiem: false
+            },
             minTime: "07:00:00",
             maxTime: "20:00:00",
-           
+        
             /*dateClick:function(info){
                 console.log(info);
             },*/
             eventClick:function(info){
                 //var modalToggle = document.getElementById('schedule_modal')
+
+                var info=info.event.extendedProps;
+                
                 $('#schedule_modal').modal('show');  
+                $('#schedule_id').val(info.schedule_id);
                 $('#name').text(info.name);
                 $('#lastname').text(info.lastname);
                 $('#blood_type').text(info.blood_type);
@@ -139,37 +152,9 @@
             select:function(start, end, allDay)
             {
                 console.log(start);
-                var dateSchedule = $.fullCalendar.formatDate(start, 'Y-MM-DD');
-                var timeSchedule = $.fullCalendar.formatDate(start, 'HH:mm:ss');
-               $('#donation_date').val(dateSchedule);
-               $('#donation_time').val(timeSchedule);
-               $('#schedule_modal').modal('show');
-               //calendar.addEvent({title:"pru",date:info.dateStr});
-    
-                /*if(title)
-                {
-                    var start = $.fullCalendar.formatDate(start, 'Y-MM-DD HH:mm:ss');
-    
-                    var end = $.fullCalendar.formatDate(end, 'Y-MM-DD HH:mm:ss');
-    
-                    $.ajax({
-                        url:"/full-calender/action",
-                        type:"POST",
-                        data:{
-                            title: title,
-                            start: start,
-                            end: end,
-                            type: 'add'
-                        },
-                        success:function(data)
-                        {
-                            calendar.fullCalendar('refetchEvents');
-                            alert("Event Created Successfully");
-                        }
-                    })
-                }*/
+               
             },
-          
+        
             eventResize: function(event, delta)
             {
                 var start = $.fullCalendar.formatDate(event.start, 'Y-MM-DD HH:mm:ss');
@@ -195,53 +180,56 @@
             },
             eventDrop: function(event, delta)
             {
-                var start = $.fullCalendar.formatDate(event.start, 'Y-MM-DD HH:mm:ss');
-                var end = $.fullCalendar.formatDate(event.end, 'Y-MM-DD HH:mm:ss');
-                var title = event.title;
-                var id = event.id;
-                $.ajax({
-                    url:"/full-calender/action",
-                    type:"POST",
-                    data:{
-                        title: title,
-                        start: start,
-                        end: end,
-                        id: id,
-                        type: 'update'
-                    },
-                    success:function(response)
-                    {
-                        calendar.fullCalendar('refetchEvents');
-                        alert("Event Updated Successfully");
-                    }
-                })
+               
             },
-    
-            /*eventClick:function(event)
-            {
-                if(confirm("Are you sure you want to remove it?"))
-                {
-                    var id = event.id;
-                    $.ajax({
-                        url:"/full-calender/action",
-                        type:"POST",
-                        data:{
-                            id:id,
-                            type:"delete"
-                        },
-                        success:function(response)
-                        {
-                            calendar.fullCalendar('refetchEvents');
-                            alert("Event Deleted Successfully");
-                        }
-                    })
-                }
-            }*/
+
+           
         });
-    
-        function sendSchedule(){
-            
+
+       
+        calendar.render();
+
+        $('#btnUpdate').click( function(){
+
+            objEvent = storeData("PATCH");
+        
+            sendData('/'+ $('#schedule_id').val() ,objEvent);
+
+        });
+
+        function storeData(method){
+
+            schedule={
+                id:$('#schedule_id').val(),
+                donation_date:$('#donation_date').val(),
+                donation_time:$('#donation_time').val(),
+                //note:$('#').val(),
+
+                '_token':$("meta[name='csrf-token']").attr("content"),
+                'method':method
+            }
+
+            return (schedule)
+        }
+
+        function sendData(accion,objEvent){
+            $.ajax(
+                {
+                    type:"POST",
+                    url:"{{ url('/schedules') }}"+accion,
+                    data:objEvent,
+                    success :function(msg){
+                        console.log(msg);
+
+                        $('#schedule_modal').modal('toggle');
+                        calendarEl.refetchEvents();
+                    },
+                    error:function(){
+                        alert('Error')
+                    }
+                }
+            );
         }
     });
-      
-    </script>
+
+</script>
