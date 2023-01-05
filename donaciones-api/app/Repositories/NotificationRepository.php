@@ -54,7 +54,7 @@ class NotificationRepository
                 "priority" => "high",
             ]
         ];
-
+        dd($data);
         $encodedData = json_encode($data);
 
         $headers = [
