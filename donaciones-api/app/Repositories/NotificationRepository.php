@@ -76,6 +76,8 @@ class NotificationRepository
         // Execute post
         $result = curl_exec($ch);
 
+        dd($result);
+
         if ($result === FALSE) {
             die('Curl failed: ' . curl_error($ch));
         }
