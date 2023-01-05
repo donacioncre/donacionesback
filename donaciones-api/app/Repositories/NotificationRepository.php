@@ -31,7 +31,7 @@ class NotificationRepository
         $url = 'https://fcm.googleapis.com/fcm/send';
         $firebaseToken = $this->user::find($userNotificate);
 
-        dd($firebaseToken );
+       
         $notificacion=[
             'user_create'=> $userCreate, //Auth::user()->id,
             'user_notificate'=> $userNotificate,
@@ -82,8 +82,9 @@ class NotificationRepository
             die('Curl failed: ' . curl_error($ch));
         }
         // Close connection
-        curl_close($ch);
+       $resp= curl_close($ch);
 
+       dd($resp );
         //return $result;
     }
 
