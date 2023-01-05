@@ -78,10 +78,8 @@ class ScheduleController extends AppBaseController
     {
         $days=[0,1,2,3,4,5,6];
         $daysWithoutSchedules=[];
-       
+        $data=[];
         $donation = $this->scheduleRepository->showScheduleDonation($id);
-
-    
 
         foreach($donation->schedule as $value){
             $data[]=[
