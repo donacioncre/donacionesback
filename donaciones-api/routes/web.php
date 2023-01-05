@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ScheduleController as ApiScheduleController;
+use App\Http\Controllers\RolController;
 use App\Http\Controllers\ScheduleController;
 use Illuminate\Support\Facades\Route;
 
@@ -52,7 +53,12 @@ Route::get('getUser/{id}',[ApiScheduleController::class,'getUser']);
 
 Route::post('schedules/{id}',[ScheduleController::class,'update']);
 
-Route::resource('users', App\Http\Controllers\UserController::class);
+
 
 
 //Route::resource('users', 'UserController')->middleware('auth');
+
+Route::group(['middleware'=>['auth']], function(){
+     Route::resource('roles',RolController::class);
+     Route::resource('users', App\Http\Controllers\UserController::class);
+});
