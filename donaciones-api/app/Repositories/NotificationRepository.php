@@ -43,9 +43,7 @@ class NotificationRepository
         //$this->notifications::create($notificacion);
 
 
-        $SERVER_API_KEY = 'AAAAs2RSSEg:APA91bHwFvaKa1N1p3leQTW41H6OLZ-uY7tZb4POwb
-                            N6FVFkyFM529TyZiRgUIN1qrLWgq5rJ3dgUfZpM7qg1r46t2oz
-                            z97X_77H-suvHap6W5f_lYePwetA6xutl8pyLYLwJ0ipgQ7U';
+        $SERVER_API_KEY = 'AAAAs2RSSEg:APA91bHwFvaKa1N1p3leQTW41H6OLZ-uY7tZb4POwbN6FVFkyFM529TyZiRgUIN1qrLWgq5rJ3dgUfZpM7qg1r46t2ozz97X_77H-suvHap6W5f_lYePwetA6xutl8pyLYLwJ0ipgQ7U';
 
         $data = [
             "registration_ids" =>[isset ($firebaseToken->device_token) == false ? '' : $firebaseToken->device_token] ,
