@@ -31,7 +31,7 @@ class ScheduleRepository extends BaseRepository
     protected $schedule,$donation,$user,$city,$bloodDonationHour;
 
     public function __construct(Schedule $schedule, DonationPoint $donation, City $city, 
-                                    BloodDonationHour $bloodDonationHour, User $user) {
+                                    BloodDonationHour $bloodDonationHour, User $user  ) {
         $this->schedule = $schedule;
         $this->donation = $donation;
         $this->city = $city;
@@ -166,12 +166,14 @@ class ScheduleRepository extends BaseRepository
     {
         try {
             DB::beginTransaction();
-            $schedule=$this->schedule->find($id);
+            $schedule=$this->schedule->with('user')->find($id);
            
+
             $schedule->update($data);
+
             DB::commit();
 
-            return ['ok',$schedule->id];
+            return ['ok',$schedule->id,$schedule->user->id];
         } catch (Exception $ex) {
             DB::rollBack();
             return 'Register Failed ' .$ex->getMessage();

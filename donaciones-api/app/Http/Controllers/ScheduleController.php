@@ -6,6 +6,7 @@ use App\Http\Requests\CreateScheduleRequest;
 use App\Http\Requests\UpdateScheduleRequest;
 use App\Repositories\ScheduleRepository;
 use App\Http\Controllers\AppBaseController;
+use App\Repositories\NotificationRepository;
 use Exception;
 use Illuminate\Http\Request;
 use Flash;
@@ -14,12 +15,13 @@ use Response;
 class ScheduleController extends AppBaseController
 {
     /** @var ScheduleRepository $ScheduleRepository*/
-    private $scheduleRepository;
+    private $scheduleRepository,$notificationRepo;
     private $errorStatus = 500;
 
-    public function __construct(ScheduleRepository $scheduleRepo)
+    public function __construct(ScheduleRepository $scheduleRepo, NotificationRepository $notificationRepo)
     {
         $this->scheduleRepository = $scheduleRepo;
+        $this->notificationRepo=$notificationRepo;
     }
 
     /**
@@ -177,7 +179,9 @@ class ScheduleController extends AppBaseController
        
         $schedule = $this->scheduleRepository->update($input,$id);
 
-       
+        $notification = "Fecha u Hora modificada para realizar la Donación";
+
+        $this->notificationRepo->CreateNotification($notification,1,$schedule[2]);
 
         return response()->json($schedule);
     }
