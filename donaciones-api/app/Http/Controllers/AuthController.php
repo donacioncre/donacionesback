@@ -78,7 +78,7 @@ class AuthController extends Controller
             [
                 'name' => 'required|string',
                 'password' => 'required|string',
-                //'remember_me' => 'boolean'
+                'device_token' => 'required',
 
             ]
         );
@@ -102,8 +102,8 @@ class AuthController extends Controller
 
         $user=Auth::user();
 
-        $user->device_token = $request->token;
-
+        $user->device_token = $request->device_token;
+        $user->save();
         return response()->json([
             'status' => true,
             'token' =>[
