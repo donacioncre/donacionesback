@@ -2,26 +2,42 @@
     <table class="table" id="users-table">
         <thead>
         <tr>
-            <th>Name</th>
+            <th>Nombre Usuario</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Cédula</th>
+            <th>Célular</th>
             <th>Email</th>
-            <th colspan="3">Action</th>
+            <th>Rol</th>
+            <th colspan="2">Action</th>
         </tr>
         </thead>
         <tbody>
         @foreach($users as $user)
             <tr>
                 <td>{!! $user->name !!}</td>
+                <td>{!! $user->firstname !!}</td>
+                <td>{!! $user->lastname !!}</td>
+                <td>{!! $user->identification !!}</td>
+                <td>{!! $user->phone_number !!}</td>
                 <td>{!! $user->email !!}</td>
                 <td>
+
+                    @if(!empty($user->getRoleNames()))
+                        @foreach($user->getRoleNames() as $rolName)
+                            <span>{{$rolName}}</span>
+                        @endforeach
+                    @endif
+                </td>
+                <td width="120">
                     {!! Form::open(['route' => ['users.destroy', $user->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>
-                        <a href="{!! route('users.show', [$user->id]) !!}" class='btn btn-default btn-xs'>
-                            <i class="glyphicon glyphicon-eye-open"></i>
+                       
+                        <a href="{{ route('users.edit', [$user->id]) }}"
+                           class='btn btn-default btn-xs'>
+                            <i class="far fa-edit"></i>
                         </a>
-                        <a href="{!! route('users.edit', [$user->id]) !!}" class='btn btn-default btn-xs'>
-                            <i class="glyphicon glyphicon-edit"></i>
-                        </a>
-                        {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                        {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
                     </div>
                     {!! Form::close() !!}
                 </td>
@@ -29,4 +45,7 @@
         @endforeach
         </tbody>
     </table>
+    <div class="pagination justify-content-end">
+        {{-- {{$users->links()}} --}}
+    </div>
 </div>

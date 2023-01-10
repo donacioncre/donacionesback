@@ -71,12 +71,15 @@
 <li class="nav-item">
     <a href="{{ route('users.index') }}"
        class="nav-link {{ Request::is('users*') ? 'active' : '' }}">
-        <p>Users</p>
+       <i class="fa fa-user"></i> <p>Usuarios</p>
     </a>
 </li>
 
 
 
-<li class="{{ Request::is('users*') ? 'active' : '' }}">
-    <a href="{!! route('users.index') !!}"><i class="fa fa-user"></i><span>Users</span></a>
+<li class="nav-item">
+    <a href="{{ route('roles.index') }}"
+       class="nav-link {{ Request::is('roles*') ? 'active' : '' }}">
+       <i class="fa fa-user"></i> <p>Roles</p>
+    </a>
 </li>

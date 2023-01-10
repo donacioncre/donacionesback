@@ -176,6 +176,9 @@ return [
         App\Providers\RouteServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
 
+        //spati
+        Spatie\Permission\PermissionServiceProvider::class,
+
     ],
 
     /*

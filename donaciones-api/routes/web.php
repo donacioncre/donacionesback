@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ScheduleController as ApiScheduleController;
+use App\Http\Controllers\RolController;
 use App\Http\Controllers\ScheduleController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,43 +17,55 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    //return view('welcome');
+
+    return view('auth.login');
 });
+
+
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 //Route::resource('countries', App\Http\Controllers\countriesController::class);
 
 
-Route::resource('questions', App\Http\Controllers\QuestionsController::class);
 
-
-Route::resource('newCalls', App\Http\Controllers\NewCallController::class);
-
-Route::resource('schedule', App\Http\Controllers\ScheduleController::class);
-
-Route::resource('donation', App\Http\Controllers\DonationController::class);
-
-
-Route::resource('countries', App\Http\Controllers\CountryController::class);
-
-Route::resource('cities', App\Http\Controllers\CityController::class);
-
-Route::resource('bloodDonationHours',\App\Http\Controllers\BloodDonationHourController::class);
-
-Route::resource('plateletDonationHours',\App\Http\Controllers\PlateletDonationHourController::class);
-
-Route::resource('donationHistories',\App\Http\Controllers\DonationHistoryController::class);
 
 
 Route::get('getUser/{id}',[ApiScheduleController::class,'getUser']);
 
 Route::post('schedules/{id}',[ScheduleController::class,'update']);
 
-Route::resource('users', App\Http\Controllers\UserController::class);
+
 
 
 //Route::resource('users', 'UserController')->middleware('auth');
+
+Route::group(['middleware'=>['auth']], function(){
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    Route::resource('questions', App\Http\Controllers\QuestionsController::class);
+
+
+    Route::resource('newCalls', App\Http\Controllers\NewCallController::class);
+
+    Route::resource('schedule', App\Http\Controllers\ScheduleController::class);
+
+    Route::resource('donation', App\Http\Controllers\DonationController::class);
+
+
+    Route::resource('countries', App\Http\Controllers\CountryController::class);
+
+    Route::resource('cities', App\Http\Controllers\CityController::class);
+
+    Route::resource('bloodDonationHours',\App\Http\Controllers\BloodDonationHourController::class);
+
+    Route::resource('plateletDonationHours',\App\Http\Controllers\PlateletDonationHourController::class);
+
+    Route::resource('donationHistories',\App\Http\Controllers\DonationHistoryController::class);
+
+     Route::resource('roles',RolController::class);
+     Route::resource('users', App\Http\Controllers\UserController::class);
+});
