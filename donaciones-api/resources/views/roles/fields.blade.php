@@ -1,29 +1,20 @@
 <!-- Name Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('name', 'Name') !!}
+    {!! Form::label('name', 'Nombre Rol') !!}
     {!! Form::text('name', null, ['class' => 'form-control']) !!}
 </div>
 
-<!-- Email Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('email', 'Email') !!}
-    {!! Form::email('email', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Password Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('password', 'Password') !!}
-    {!! Form::password('password', ['class' => 'form-control']) !!}
-</div>
-
-<!-- Confirmation Password Field -->
-<div class="form-group col-sm-6">
-      {!! Form::label('password', 'Password Confirmation') !!}
-    {!! Form::password('password_confirmation', ['class' => 'form-control']) !!}
-</div>
-
-<!-- Submit Field -->
 <div class="form-group col-sm-12">
-    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-    <a href="{!! route('users.index') !!}" class="btn btn-default">Cancel</a>
+    {!! Form::label('permission', 'Permisos del  Rol') !!}
+    <br>
+    @foreach($permission as $value)
+        <label for="permission">
+            {!! Form::checkbox('permission[]',$value->id,in_array($value->id,$rolePermissions)? true : false, ['class' => 'name']) !!}
+            {{$value->name}} 
+        </label> 
+        <br>
+    @endforeach
+ 
 </div>
+
+

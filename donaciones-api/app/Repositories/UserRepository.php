@@ -5,10 +5,12 @@ namespace App\Repositories;
 use App\Models\User;
 use App\Repositories\BaseRepository;
 
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\DB;
 /**
  * Class UserRepository
  * @package App\Repositories
-*/
+*/ 
 
 class UserRepository extends BaseRepository
 {
@@ -37,5 +39,10 @@ class UserRepository extends BaseRepository
     public function model()
     {
         return User::class;
+    }
+
+    public function roles()
+    {
+        return Role::pluck('name','name')->all();
     }
 }

@@ -2,26 +2,25 @@
     <table class="table" id="roles-table">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th colspan="3">Action</th>
+            <th>Rol</th>
+            <th colspan="2">Action</th>
         </tr>
         </thead>
         <tbody>
         @foreach($roles as $rol)
             <tr>
                 <td>{!! $rol->name !!}</td>
-              
-                <td>
+               
+               
+                <td width="120">
                     {!! Form::open(['route' => ['roles.destroy', $rol->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>
-                        <a href="{!! route('roles.show', [$rol->id]) !!}" class='btn btn-default btn-xs'>
-                            <i class="glyphicon glyphicon-eye-open"></i>
+                       
+                        <a href="{{ route('roles.edit', [$rol->id]) }}"
+                           class='btn btn-default btn-xs'>
+                            <i class="far fa-edit"></i>
                         </a>
-                        <a href="{!! route('roles.edit', [$rol->id]) !!}" class='btn btn-default btn-xs'>
-                            <i class="glyphicon glyphicon-edit"></i>
-                        </a>
-                        {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                        {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
                     </div>
                     {!! Form::close() !!}
                 </td>
@@ -29,4 +28,7 @@
         @endforeach
         </tbody>
     </table>
+    <div class="pagination justify-content-end">
+        {{-- {{$roles->links()}} --}}
+    </div>
 </div>

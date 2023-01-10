@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Flash;
 use Response;
 use Hash;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends AppBaseController
 {
@@ -27,10 +28,12 @@ class UserController extends AppBaseController
      * @param Request $request
      *
      * @return Response
-     */
+     */ 
     public function index(Request $request)
     {
         $users = $this->userRepository->all();
+
+     
 
         return view('users.index')->with('users', $users);
     }
@@ -42,7 +45,9 @@ class UserController extends AppBaseController
      */
     public function create()
     {
-        return view('users.create');
+        $roles = $this->userRepository->roles();
+        $userRole=[];
+        return view('users.create',compact('roles','userRole'));
     }
 
     /**
@@ -57,6 +62,7 @@ class UserController extends AppBaseController
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
         $user = $this->userRepository->create($input);
+        $user->assignRole($request->input('roles'));
 
         Flash::success('User saved successfully.');
 
@@ -93,6 +99,9 @@ class UserController extends AppBaseController
     public function edit($id)
     {
         $user = $this->userRepository->find($id);
+        $roles = $this->userRepository->roles();
+
+        $userRole = $user->roles->pluck('name','name')->all();
 
         if (empty($user)) {
             Flash::error('User not found');
@@ -100,7 +109,7 @@ class UserController extends AppBaseController
             return redirect(route('users.index'));
         }
 
-        return view('users.edit')->with('user', $user);
+        return view('users.edit',compact('user','roles','userRole'));
     }
 
     /**
@@ -128,6 +137,8 @@ class UserController extends AppBaseController
         }
         $user = $this->userRepository->update($input, $id);
 
+        DB::table('model_has_roles')->where('model_id',$id)->delete();
+        $user->assignRole($request->input('roles'));
         Flash::success('User updated successfully.');
 
         return redirect(route('users.index'));
