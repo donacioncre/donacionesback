@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\BloodDonationHour;
 use App\Models\City;
 use App\Models\DonationPoint;
+use App\Models\PlateletDonationHour;
 use App\Models\Questions;
 use App\Models\Schedule;
 use App\Models\User;
@@ -28,15 +29,16 @@ class ScheduleRepository extends BaseRepository
 
     ];
 
-    protected $schedule,$donation,$user,$city,$bloodDonationHour;
+    protected $schedule,$donation,$user,$city,$bloodDonationHour, $plateletDonationHour;
 
     public function __construct(Schedule $schedule, DonationPoint $donation, City $city, 
-                                    BloodDonationHour $bloodDonationHour, User $user  ) {
+                                    BloodDonationHour $bloodDonationHour, User $user, PlateletDonationHour $plateletDonationHour  ) {
         $this->schedule = $schedule;
         $this->donation = $donation;
         $this->city = $city;
         $this->bloodDonationHour=$bloodDonationHour;
         $this->user=$user;
+        $this->plateletDonationHour= $plateletDonationHour;
     }
     /**
      * Return searchable fields
@@ -68,11 +70,18 @@ class ScheduleRepository extends BaseRepository
         return $data;
     }
 
-    public function listDonationCenter($id)
+    public function listDonationCenter($id,$data)
     {
 
+        if ($data['platelet']== true) {
+            $data= $this->donation::where('city_id',$id)
+                        ->where('platelet', true)
+                        ->get();
+        }else{
+            $data= $this->donation::where('city_id',$id)->get();
+        }
 
-        $data= $this->donation::where('city_id',$id)->get();
+      
 
         return $data;
     }
@@ -86,12 +95,17 @@ class ScheduleRepository extends BaseRepository
 
 
         $numDay= date('w',strtotime($data['date']));
-        $donationHour = $this->bloodDonationHour->where('donation_id',$id)->where('days',$numDay)->first();
+
+        if ($data['platelet']== true) {
+            $donationHour = $this->plateletDonationHour->where('donation_id',$id)->where('days',$numDay)->first();
+        }else{
+            $donationHour = $this->bloodDonationHour->where('donation_id',$id)->where('days',$numDay)->first();
+        }
 
         if (is_object($donationHour )) {
             $times = $this->create_time_range($donationHour['start_time'],$donationHour['end_time'],'30 mins');
 
-            if ($donationHour['start_time_1'] != null && $donationHour['end_time_1'] != null ) {
+            if ($donationHour->start_time_1 != null && $donationHour->end_time_1 != null ) {
                 $times_1=  $this->create_time_range($donationHour['start_time_1'],
                                 $donationHour['end_time_1'],'30 mins');
                 array_push($times, ...$times_1);
@@ -111,7 +125,6 @@ class ScheduleRepository extends BaseRepository
             }else{
                 $dataTime =$this->formatTime($times);
             }
-
 
             return $dataTime;
         }else{

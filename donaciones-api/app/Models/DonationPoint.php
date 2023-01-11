@@ -27,6 +27,8 @@ class DonationPoint extends Model
         "address",
         "phone",
         "email",
+        "blood",
+        "platelet"
     ];
 
     /**

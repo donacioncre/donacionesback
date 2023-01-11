@@ -106,7 +106,10 @@ class PlateletDonationHourRepository extends BaseRepository
     {
         try {
             DB::beginTransaction();
-            
+            $pointsDonation =  $this->pointsDonation->find($data['donation_id']);
+
+            $pointsDonation->update(['platelet' => true]);
+
             $this->plateletDonationHour->create($data);
             DB::commit();
             
