@@ -12,10 +12,10 @@ class Schedule extends Model
     public $fillable = [
         'donation_date',
         'donation_time',
-        
         'user_id',
         'donation_id',
-        'note'
+        'note',
+        'type_donation'
     ];
 
     /**

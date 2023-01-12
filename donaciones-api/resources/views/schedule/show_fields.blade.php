@@ -222,7 +222,7 @@
                         console.log(msg);
 
                         $('#schedule_modal').modal('toggle');
-                        calendarEl.refetchEvents();
+                        //calendarEl.refetchEvents();
                     },
                     error:function(){
                         alert('Error')

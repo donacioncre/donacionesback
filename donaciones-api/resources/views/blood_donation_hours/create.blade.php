@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12">
-                    <h1>Create Blood Donation Hour</h1>
+                    <h1>Crear Horarios Sangre</h1>
                 </div>
             </div>
         </div>

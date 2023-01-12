@@ -69,11 +69,12 @@ class ScheduleController extends Controller
         }
     }
 
-    public function listDonationCenter($id,$request)
+    public function listDonationCenter($id,Request $request)
     {
         try {
 
             $input=$request->all();
+
             $data = $this->schedule->listDonationCenter($id,$input);
             return response()->json(['status' => true, 'data' => $data]);
         } catch (Exception $ex) {

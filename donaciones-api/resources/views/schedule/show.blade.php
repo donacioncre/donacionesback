@@ -8,10 +8,6 @@
 <link rel="stylesheet" href="{{asset('fullcalendar/packages/timegrid/main.css')}}" />
 
 
-
-
-
-
 <script src="{{asset('fullcalendar/packages/core/main.js')}}" defer></script>
 <script src="{{asset('fullcalendar/packages/core/locales-all.js')}}" defer></script>
 
@@ -19,9 +15,6 @@
 <script src="{{asset('fullcalendar/packages/daygrid/main.js')}}" defer></script>
 <script src="{{asset('fullcalendar/packages/timegrid/main.js')}}" defer></script>
 <script src="{{asset('fullcalendar/packages/list/main.js')}}" defer></script>
-
-
-
 
 @endsection
 

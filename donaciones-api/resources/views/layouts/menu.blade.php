@@ -93,6 +93,8 @@
 
 
 
+@section('javascript')
+
 
 
 <style>
@@ -177,7 +179,9 @@
     }
 
 </style>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
+
 <script>
     const mobileScreen = window.matchMedia("(max-width: 990px )");
     $(document).ready(function () {
@@ -193,3 +197,8 @@
         
     });
 </script>
+
+
+@stop
+
+

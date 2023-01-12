@@ -68,4 +68,6 @@ Route::group(['middleware'=>['auth']], function(){
 
      Route::resource('roles',RolController::class);
      Route::resource('users', App\Http\Controllers\UserController::class);
+
+     Route::get('/consultDonation', [App\Http\Controllers\ConsultController::class, 'index']);
 });

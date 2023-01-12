@@ -13,7 +13,7 @@
 </div>
 
 
-@foreach ($bloodDonationHours->donationHour as $key=> $value)
+@foreach ($bloodDonationHours->plateletDonationHour as $key=> $value)
     <!-- days -->
     <div class="form-group col-sm-4">
         {!! Form::label('days', 'Dia:') !!}

@@ -3,8 +3,6 @@
 <div class="form-group col-sm-12">
     <div class="col-sm-6">
         {!! Form::label('donation_id', 'Punto de Donación:') !!}
-      
-
         <select name="donation_id" class="form-control "  >
             <option value="">Seleccionar </option>
             @foreach ($pointsDonations as $key=>$value)
@@ -51,7 +49,7 @@
 
     var disabled = [];
     var disableOptions = function () {
-    
+
         $('option').prop('disabled', false);
         $.each(disabled, function(key, val){
             $('option[value="' + val + '"]').prop('disabled', true);

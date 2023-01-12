@@ -70,5 +70,10 @@ class DonationPoint extends Model
         return $this->hasMany(BloodDonationHour::class,'donation_id','id');
     }
 
+    public function plateletDonationHour()
+    {
+        return $this->hasMany(PlateletDonationHour::class,'donation_id','id');
+    }
+
 
 }

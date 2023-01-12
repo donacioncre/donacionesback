@@ -59,7 +59,8 @@ class PlateletDonationHourController extends AppBaseController
      */
     public function store(Request $request)
     {
-       
+
+      
         $input = $request->all();
         for($i=0 ; $i < count($input['weekdays']); $i++){
            
@@ -78,6 +79,7 @@ class PlateletDonationHourController extends AppBaseController
             }
 
         }
+        
 
         Flash::success('Blood Donation Hour saved successfully.');
 
@@ -94,6 +96,7 @@ class PlateletDonationHourController extends AppBaseController
     public function show($id)
     {
         $bloodDonationHours = $this->plateletDonationHourRepository->show($id);
+
 
         if (empty($bloodDonationHours)) {
             Flash::error('Blood Donation Hour not found');

@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12">
-                    <h1>Editar Horarios Sangre</h1>
+                    <h1>Nuevo Punto de Donación</h1>
                 </div>
             </div>
         </div>
@@ -17,17 +17,19 @@
 
         <div class="card">
 
-            {!! Form::model($bloodDonationHours, ['route' => ['bloodDonationHours.update', $bloodDonationHours->id], 'method' => 'patch']) !!}
+            {!! Form::open(['route' => 'donation.store']) !!}
 
             <div class="card-body">
+
                 <div class="row">
-                    @include('blood_donation_hours.edit_fields')
+                    @include('donation.fields')
                 </div>
+
             </div>
 
             <div class="card-footer">
                 {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('bloodDonationHours.index') }}" class="btn btn-default">Cancel</a>
+                <a href="{{ route('donation.index') }}" class="btn btn-default">Cancel</a>
             </div>
 
             {!! Form::close() !!}

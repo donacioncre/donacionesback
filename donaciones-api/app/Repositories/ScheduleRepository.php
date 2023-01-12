@@ -73,7 +73,7 @@ class ScheduleRepository extends BaseRepository
     public function listDonationCenter($id,$data)
     {
 
-        if ($data['platelet']== true) {
+        if ($data['donation_type']== 'plaqueta') {
             $data= $this->donation::where('city_id',$id)
                         ->where('platelet', true)
                         ->get();
@@ -96,14 +96,16 @@ class ScheduleRepository extends BaseRepository
 
         $numDay= date('w',strtotime($data['date']));
 
-        if ($data['platelet']== true) {
+        if ($data['donation_type']== "plaqueta") {
             $donationHour = $this->plateletDonationHour->where('donation_id',$id)->where('days',$numDay)->first();
+            $times = $this->create_time_range($donationHour['start_time'],$donationHour['end_time'],'120 mins');
         }else{
             $donationHour = $this->bloodDonationHour->where('donation_id',$id)->where('days',$numDay)->first();
+            $times = $this->create_time_range($donationHour['start_time'],$donationHour['end_time'],'30 mins');
         }
 
         if (is_object($donationHour )) {
-            $times = $this->create_time_range($donationHour['start_time'],$donationHour['end_time'],'30 mins');
+            
 
             if ($donationHour->start_time_1 != null && $donationHour->end_time_1 != null ) {
                 $times_1=  $this->create_time_range($donationHour['start_time_1'],
@@ -171,6 +173,7 @@ class ScheduleRepository extends BaseRepository
             'email_center' => $data->donation->email,
             'donation_date'=>$data->donation_date,
             'donation_time' => $data->donation_time,
+            'donation_type' => $data->type_donation,
         ];
     }
 

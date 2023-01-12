@@ -53,12 +53,13 @@ class PlateletDonationHourRepository extends BaseRepository
 
     public function list()
     {
-        $donation = $this->pointsDonation->with('donationHour')->get();
+        $donation = $this->pointsDonation->with('plateletDonationHour')->get();
 
+        
         $data=[];
         foreach($donation as $key => $value){
 
-            if (count($value->donationHour)) {
+            if (count($value->plateletDonationHour)) {
                 $data[]=[
                     'id' => $value->id,
                     'name'=>$value->name,
@@ -79,9 +80,9 @@ class PlateletDonationHourRepository extends BaseRepository
     {
        
        $donations=[];
-       $data =$this->pointsDonation->with('donationHour')->get();
+       $data =$this->pointsDonation->with('plateletDonationHour')->get();
        foreach ($data as $key => $value) {
-           if (!count($value->donationHour)) {
+           if (!count($value->plateletDonationHour)) {
                $donations[]=[
                     'name' => $value->name,
                     'id' =>$value->id,
@@ -108,13 +109,18 @@ class PlateletDonationHourRepository extends BaseRepository
             DB::beginTransaction();
             $pointsDonation =  $this->pointsDonation->find($data['donation_id']);
 
+           
+
             $pointsDonation->update(['platelet' => true]);
 
-            $this->plateletDonationHour->create($data);
+           $data = $this->plateletDonationHour->create($data);
+
+        
             DB::commit();
             
             return 'ok';
         } catch (Exception $ex) {
+            dd($ex);
             DB::rollBack();
             return 'Register Failed ' .$ex->getMessage();
         }
@@ -125,7 +131,7 @@ class PlateletDonationHourRepository extends BaseRepository
     public function show($id)
     {
        
-        $donations =$this->pointsDonation->with('donationHour')->find($id);
+        $donations =$this->pointsDonation->with('plateletDonationHour')->find($id);
         
        return $donations;
     }
