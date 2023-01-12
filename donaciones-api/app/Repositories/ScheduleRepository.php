@@ -98,15 +98,18 @@ class ScheduleRepository extends BaseRepository
 
         if ($data['donation_type']== "plaqueta") {
             $donationHour = $this->plateletDonationHour->where('donation_id',$id)->where('days',$numDay)->first();
-            dd($donationHour);
-            $times = $this->create_time_range($donationHour['start_time'],$donationHour['end_time'],'120 mins');
+           
+          
         }else{
             $donationHour = $this->bloodDonationHour->where('donation_id',$id)->where('days',$numDay)->first();
-            $times = $this->create_time_range($donationHour['start_time'],$donationHour['end_time'],'30 mins');
+            
         }
 
         if (is_object($donationHour )) {
             
+            $range_time= $data['donation_type']== "plaqueta"?  '120 mins': '30 mins';
+
+            $times = $this->create_time_range($donationHour['start_time'],$donationHour['end_time'],$range_time);
 
             if ($donationHour->start_time_1 != null && $donationHour->end_time_1 != null ) {
                 $times_1=  $this->create_time_range($donationHour['start_time_1'],
