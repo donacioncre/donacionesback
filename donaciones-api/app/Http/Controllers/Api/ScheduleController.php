@@ -217,6 +217,7 @@ class ScheduleController extends Controller
         $input=$request->all();
 
         $input['user_id']= Auth::user()->id;
+        $input['type_donation']=$request->donation_type;
 
         $data= $this->schedule->update($input,$id);
 
