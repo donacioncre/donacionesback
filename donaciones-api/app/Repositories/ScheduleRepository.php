@@ -70,7 +70,7 @@ class ScheduleRepository extends BaseRepository
         return $data;
     }
 
-    public function listDonationCenter($id,$data)
+    public function listDonationCenter($id)
     {
 
         $data= $this->donation::where('city_id',$id)->get();
