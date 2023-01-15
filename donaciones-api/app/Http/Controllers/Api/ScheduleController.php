@@ -69,7 +69,7 @@ class ScheduleController extends Controller
         }
     }
 
-    public function listDonationCenter($id,Request $request)
+    public function listDonationCenter($id)
     {
         try {
 

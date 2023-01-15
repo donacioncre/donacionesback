@@ -73,13 +73,7 @@ class ScheduleRepository extends BaseRepository
     public function listDonationCenter($id,$data)
     {
 
-        if ($data['donation_type']== 'plaqueta') {
-            $data= $this->donation::where('city_id',$id)
-                        ->where('platelet', true)
-                        ->get();
-        }else{
-            $data= $this->donation::where('city_id',$id)->get();
-        }
+        $data= $this->donation::where('city_id',$id)->get();
 
       
 
