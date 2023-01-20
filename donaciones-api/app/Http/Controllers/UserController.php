@@ -31,11 +31,15 @@ class UserController extends AppBaseController
      */ 
     public function index(Request $request)
     {
-        $users = $this->userRepository->all();
-
-     
-
+        $users = $this->userRepository->listUserRol();
         return view('users.index')->with('users', $users);
+    }
+
+    public function listDonors(Request $request)
+    {
+        $users = $this->userRepository->listUserDonors();
+
+        return view('users.donors')->with('users', $users);
     }
 
     /**
@@ -46,8 +50,11 @@ class UserController extends AppBaseController
     public function create()
     {
         $roles = $this->userRepository->roles();
+        
+        $donation = $this->userRepository->listDonationCenter();
+      
         $userRole=[];
-        return view('users.create',compact('roles','userRole'));
+        return view('users.create',compact('roles','userRole','donation'));
     }
 
     /**
@@ -63,6 +70,13 @@ class UserController extends AppBaseController
         $input['password'] = Hash::make($input['password']);
         $user = $this->userRepository->create($input);
         $user->assignRole($request->input('roles'));
+
+        $dataDonationCenter=[
+            'user_id' =>$user->id,
+            'donation_id' =>$input['donation_id'],
+            'status' => true
+        ];
+        $donation=$this->userRepository->saveDonationCenter($dataDonationCenter);
 
         Flash::success('User saved successfully.');
 
@@ -100,8 +114,11 @@ class UserController extends AppBaseController
     {
         $user = $this->userRepository->find($id);
         $roles = $this->userRepository->roles();
+        $donation = $this->userRepository->listDonationCenter();
 
         $userRole = $user->roles->pluck('name','name')->all();
+        $userDonation = $user->donationCenter->first();
+        
 
         if (empty($user)) {
             Flash::error('User not found');
@@ -109,7 +126,7 @@ class UserController extends AppBaseController
             return redirect(route('users.index'));
         }
 
-        return view('users.edit',compact('user','roles','userRole'));
+        return view('users.edit',compact('user','roles','userRole','donation','userDonation'));
     }
 
     /**
@@ -136,6 +153,13 @@ class UserController extends AppBaseController
             unset($input['password']);
         }
         $user = $this->userRepository->update($input, $id);
+
+        $dataDonationCenter=[
+            'user_id' =>$user->id,
+            'donation_id' =>$input['donation_id'],
+            'status' => true
+        ];
+        $donation=$this->userRepository->updateDonationCenter($dataDonationCenter);
 
         DB::table('model_has_roles')->where('model_id',$id)->delete();
         $user->assignRole($request->input('roles'));

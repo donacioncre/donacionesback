@@ -2,13 +2,13 @@
     <table class="table" id="donationHistories-table">
         <thead>
         <tr>
-            <th>Code</th>
-        <th>Hemoglobin</th>
-        <th>Weight</th>
-        <th>Blood Pressure</th>
-        <th>Note</th>
-        <th>Status</th>
-            <th colspan="3">Action</th>
+            <th>Código</th>
+            <th>Hemoglobina</th>
+            <th>Peso</th>
+            <th>Presión Arterial</th>
+            <th>Nota</th>
+            <th>Estado</th>
+            <th colspan="3">Acción</th>
         </tr>
         </thead>
         <tbody>
@@ -19,15 +19,15 @@
             <td>{{ $donationHistory->weight }}</td>
             <td>{{ $donationHistory->blood_pressure }}</td>
             <td>{{ $donationHistory->note }}</td>
-            <td>{{ $donationHistory->status }}</td>
+            <td>{{  $donationHistory->status == 1 ? 'Habilitado' : 'Deshabilitado' }}</td>
                 <td width="120">
-                    {!! Form::open(['route' => ['donationHistories.destroy', $donationHistory->id], 'method' => 'delete']) !!}
+                    {!! Form::open(['route' => ['histories.destroy', $donationHistory->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>
-                        <a href="{{ route('donationHistories.show', [$donationHistory->id]) }}"
+                        <a href="{{ route('histories.show', [$donationHistory->id]) }}"
                            class='btn btn-default btn-xs'>
                             <i class="far fa-eye"></i>
                         </a>
-                        <a href="{{ route('donationHistories.edit', [$donationHistory->id]) }}"
+                        <a href="{{ route('histories.edit', [$donationHistory->id]) }}"
                            class='btn btn-default btn-xs'>
                             <i class="far fa-edit"></i>
                         </a>

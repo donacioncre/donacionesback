@@ -21,7 +21,7 @@
 
             <div class="card-body">
                 <div class="row">
-                    @include('users.fields')
+                    @include('users.edit_fields')
                 </div>
             </div>
 

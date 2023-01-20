@@ -28,7 +28,7 @@
                 <div class="col-sm-4">
                     <a class="btn btn-default float-right"
                        href="{{ route('schedule.index') }}">
-                        Back
+                        Regresar
                     </a>
                 </div>
             </div>

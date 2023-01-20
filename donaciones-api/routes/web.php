@@ -64,10 +64,12 @@ Route::group(['middleware'=>['auth']], function(){
 
     Route::resource('plateletDonationHours',\App\Http\Controllers\PlateletDonationHourController::class);
 
-    Route::resource('donationHistories',\App\Http\Controllers\DonationHistoryController::class);
+    Route::resource('histories',\App\Http\Controllers\DonationHistoryController::class);
 
      Route::resource('roles',RolController::class);
      Route::resource('users', App\Http\Controllers\UserController::class);
 
-     Route::get('/consultDonation', [App\Http\Controllers\ConsultController::class, 'index']);
+     Route::get('/donors', [App\Http\Controllers\UserController::class, 'listDonors'])->name('donors');
+
+     Route::get('/consultDonation', [App\Http\Controllers\ConsultController::class, 'index'])->name('consultDonation');
 });

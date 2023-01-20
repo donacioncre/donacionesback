@@ -24,7 +24,9 @@ class PlateletDonationHourRepository extends BaseRepository
     protected $fieldSearchable = [
         'days',
         'start_time',
-        'end_time'
+        'end_time',
+        'start_time_1',
+        'end_time_1'
     ];
 
     public function __construct(PlateletDonationHour $plateletDonationHour, DonationPoint $pointsDonation) {

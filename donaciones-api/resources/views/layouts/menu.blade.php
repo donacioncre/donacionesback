@@ -43,19 +43,16 @@
     </div>
 </li>
 
-
-
-
 <li class="nav-item">
     <a href="{{ route('schedule.index') }}"
        class="nav-link {{ Request::is('schedule*') ? 'active' : '' }}">
         <p>Agenda Donaciones</p>
     </a>
-</li>
+</li> 
 
 <li class="nav-item">
-    <a href="{{ route('donationHistories.index') }}"
-       class="nav-link {{ Request::is('donationHistories*') ? 'active' : '' }}">
+    <a href="{{ route('histories.index') }}"
+       class="nav-link {{ Request::is('histories*') ? 'active' : '' }}">
         <p>Historial</p>
     </a>
 </li>
@@ -82,6 +79,13 @@
     </a>
 </li>
 
+<li class="nav-item">
+    <a href="{{ route('donors') }}"
+       class="nav-link {{ Request::is('donors*') ? 'active' : '' }}">
+       <i class="fa fa-user"></i> <p>Donadores</p>
+    </a>
+</li>
+
 
 
 <li class="nav-item">
@@ -90,6 +94,16 @@
        <i class="fa fa-user"></i> <p>Roles</p>
     </a>
 </li>
+
+
+<li class="nav-item">
+    <a href="{{ route('consultDonation') }}"
+       class="nav-link {{ Request::is('consultDonation*') ? 'active' : '' }}">
+       <i class="fa fa-user"></i> <p>Consultas Donaciones</p>
+    </a>
+</li>
+
+
 
 
 

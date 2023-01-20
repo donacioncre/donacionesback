@@ -29,10 +29,10 @@ class DonationHistoryRepository extends BaseRepository
 
     protected $donationHistory,$schedule;
 
-    public function __construct(DonationHistory $donationHistory, Schedule $schedule) {
-        $this->donationHistory = $donationHistory;
-        $this->schedule = $schedule; 
-    }
+    // public function __construct(DonationHistory $donationHistory, Schedule $schedule) {
+    //     $this->donationHistory = $donationHistory;
+    //     $this->schedule = $schedule; 
+    // }
 
     /**
      * Return searchable fields
@@ -54,38 +54,38 @@ class DonationHistoryRepository extends BaseRepository
 
     public function getScheduleUser()
     {
-        return $this->schedule->get();
+        return Schedule::get();
     }
 
-    public function store($data)
-    {
-        try {
-            DB::beginTransaction();
+    // public function store($data)
+    // {
+    //     try {
+    //         DB::beginTransaction();
             
-            $this->donationHistory->create($data);
-            DB::commit();
+    //         $model = DonationHistory->create($data);
+    //         DB::commit();
             
-            return 'ok';
-        } catch (Exception $ex) {
-            DB::rollBack();
-            return 'Register Failed ' .$ex->getMessage();
-        }
+    //         return 'ok';
+    //     } catch (Exception $ex) {
+    //         DB::rollBack();
+    //         return 'Register Failed ' .$ex->getMessage();
+    //     }
 
        
-    }
+    // }
 
     public function list()
     {
         $user_id=Auth()->user()->id;
 
         
-        return $this->donationHistory->get();
+        return DonationHistory::get();
     }
 
     public function listUser()
     {
         $user_id=Auth()->user()->id;
-        $data = $this->donationHistory::with(['schedule'=> function ($query) use($user_id)
+        $data = DonationHistory::with(['schedule'=> function ($query) use($user_id)
                     {
                         $query->where('user_id',$user_id);
                     }

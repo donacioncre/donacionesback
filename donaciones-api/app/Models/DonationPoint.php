@@ -26,6 +26,7 @@ class DonationPoint extends Model
         "latitude",
         "address",
         "phone",
+        "whatsapp_number",
         "email",
         "blood",
         "platelet"

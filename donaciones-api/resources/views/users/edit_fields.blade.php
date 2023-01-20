@@ -56,7 +56,10 @@
     <select name="donation_id" class="form-control "  >
         <option value="">Seleccionar </option>
         @foreach ($donation as $key=>$value)
-            <option   value="{{$key}}">{{$value}}</option>
+            <option   @if($userDonation)
+                        @if($userDonation->id == $key) selected  @endif 
+                    @endif
+            value="{{$key}}">{{$value}}</option>
         @endforeach
     </select>
 </div>

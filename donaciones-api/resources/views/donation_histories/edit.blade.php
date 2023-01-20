@@ -17,7 +17,7 @@
 
         <div class="card">
 
-            {!! Form::model($donationHistory, ['route' => ['donationHistories.update', $donationHistory->id], 'method' => 'patch']) !!}
+            {!! Form::model($donationHistory, ['route' => ['histories.update', $donationHistory->id], 'method' => 'patch']) !!}
 
             <div class="card-body">
                 <div class="row">
@@ -27,7 +27,7 @@
 
             <div class="card-footer">
                 {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('donationHistories.index') }}" class="btn btn-default">Cancel</a>
+                <a href="{{ route('histories.index') }}" class="btn btn-default">Cancel</a>
             </div>
 
             {!! Form::close() !!}

@@ -33,6 +33,8 @@ class User extends Authenticatable
         "conventional_number",
         "date_birth",
         "device_token",
+        "country",
+        "city",
 
     ];
 
@@ -61,5 +63,17 @@ class User extends Authenticatable
     public function getFullNameAttribute()
     {
         return "{$this->firstname} {$this->lastname}";
+    }
+
+    public function donationCenter()
+    {
+        return $this->hasManyThrough(
+            DonationPoint::class,
+            UserDonationCenter::class,
+            'user_id',
+            'id',
+            'id',
+            'donation_id',
+        );
     }
 }

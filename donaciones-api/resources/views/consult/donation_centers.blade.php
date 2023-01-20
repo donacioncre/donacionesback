@@ -69,7 +69,7 @@
                         <h2></h2>
                         <br>
                         <div class="table-responsive">
-                            <table id="dataTable" class="table table-hover" data-order='[[ 0, "desc" ]]' >
+                            <table  class="table table-striped table-bordered" id="dataTable"  data-order='[[ 0, "asc" ]]' >
                                 <thead>
                                     <tr>
                                         <th>Nombre del Centro</th>
@@ -103,43 +103,84 @@
 
 @endsection
 
+<style>
+    .dataTables_length{
+        padding-left: 10px;
+    }
 
+    .table{
+        padding-top: 20px;
+        width:100%
+    }
+</style>
 
-@section('scripts')
-
-  <!-- DataTable -->
- 
-  
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.dataTables.min.css">
-  
-
-<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js" type="text/javascript" defer></script>
-<script src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js" defer></script>
-<script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.html5.min.js" defer></script>
-<script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js" defer></script>
-
-
-
-@endsection
 
 <script>
   
     document.addEventListener('DOMContentLoaded', function () {
-         
-          $('#dataTable').DataTable({
-                      dom: "Blfrtip",
-  
-                      buttons: [
-                            'excel', 'pdf',
-                        ]
-  
-                  });
+        
+       
+        let imageBase64 ='';
+
+        var flagsUrl = '{{ URL::asset('icon/logotipo_cre.png') }}';
+
+        toDataUrl(flagsUrl, function(myBase64) {
+                imageBase64 =  myBase64; // myBase64 is the base64 string
+        });
+
+     
+
+        $('#dataTable').DataTable({
+                    dom: "Blfrtip",
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.13.1/i18n/es-MX.json'
+                    },
+                    
+                    buttons: [
+                        {
+                            extend: 'excelHtml5',
+                            autoFilter: true,
+                            sheetName: 'Exported data',
+                            title: 'Cruz Roja Ecuatoriana',
+                            messageTop: 'Centros  de Donaciones',
+                        }, 
+                        {
+                            extend: 'pdfHtml5',
+                            title: '.',
+                            messageTop: 'Centros de Donaciones',
+                            download: 'open',
+                            customize: function ( doc ) {
+                                doc.content.splice( 1, 0, {
+                                    margin: [ -50, -50, 0, 10 ],
+                                    alignment: 'center',
+                                    //width: 100,
+                                    //height: 60,
+                                    fit: [300, 300],
+                                    image: imageBase64
+                                } );
+                            }
+                        }
+                        ,
+                    ]
+
+                
+        });
+
       });
                   
   
+      function toDataUrl(url, callback) {
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function() {
+                var reader = new FileReader();
+                reader.onloadend = function() {
+                    callback(reader.result);
+                }
+                reader.readAsDataURL(xhr.response);
+            };
+            xhr.open('GET', url);
+            xhr.responseType = 'blob';
+            xhr.send();
+        }
   
-  </script>
+</script>

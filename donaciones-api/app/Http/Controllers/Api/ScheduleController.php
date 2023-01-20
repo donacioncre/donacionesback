@@ -125,8 +125,8 @@ class ScheduleController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                //'entity_1' => 'required',
-                //'entity_2' => 'required',
+                //'' => 'required',
+                //'' => 'required',
             ]
         );
 
@@ -140,6 +140,7 @@ class ScheduleController extends Controller
 
         $input['user_id']= Auth::user()->id;
         $input['type_donation']=$request->donation_type;
+        $input['status'] = true;
 
         $data= $this->schedule->store($input);
 

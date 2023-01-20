@@ -29,7 +29,7 @@ class DonationHistoryController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $donationHistories = $this->donationHistoryRepository->list();
+        $donationHistories = $this->donationHistoryRepository->all();
 
       
 
@@ -60,7 +60,7 @@ class DonationHistoryController extends AppBaseController
     {
         $input = $request->all();
 
-        $donationHistory = $this->donationHistoryRepository->store($input);
+        $donationHistory = $this->donationHistoryRepository->create($input);
 
         Flash::success('Donation History saved successfully.');
 

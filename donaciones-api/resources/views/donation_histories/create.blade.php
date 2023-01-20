@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12">
-                    <h1>Create Donation History</h1>
+                    <h1>Crear Historial</h1>
                 </div>
             </div>
         </div>
@@ -17,7 +17,7 @@
 
         <div class="card">
 
-            {!! Form::open(['route' => 'donationHistories.store']) !!}
+            {!! Form::open(['route' => 'histories.store']) !!}
 
             <div class="card-body">
 
@@ -29,7 +29,7 @@
 
             <div class="card-footer">
                 {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('donationHistories.index') }}" class="btn btn-default">Cancel</a>
+                <a href="{{ route('histories.index') }}" class="btn btn-default">Cancel</a>
             </div>
 
             {!! Form::close() !!}
