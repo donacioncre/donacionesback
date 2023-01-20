@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\DonationHistory;
 use App\Models\Schedule;
 use App\Repositories\BaseRepository;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -31,7 +32,7 @@ class DonationHistoryRepository extends BaseRepository
 
     // public function __construct(DonationHistory $donationHistory, Schedule $schedule) {
     //     $this->donationHistory = $donationHistory;
-    //     $this->schedule = $schedule; 
+    //     $this->schedule = $schedule;
     // }
 
     /**
@@ -61,24 +62,24 @@ class DonationHistoryRepository extends BaseRepository
     // {
     //     try {
     //         DB::beginTransaction();
-            
+
     //         $model = DonationHistory->create($data);
     //         DB::commit();
-            
+
     //         return 'ok';
     //     } catch (Exception $ex) {
     //         DB::rollBack();
     //         return 'Register Failed ' .$ex->getMessage();
     //     }
 
-       
+
     // }
 
     public function list()
     {
         $user_id=Auth()->user()->id;
 
-        
+
         return DonationHistory::get();
     }
 
@@ -92,5 +93,14 @@ class DonationHistoryRepository extends BaseRepository
         ])->where('status',true)->get();
 
         return $data;
+    }
+
+    public function searchDate($data)
+    {
+        $donation=[];
+        $date= isset($data) ? $data: Carbon::today()->toDateString();
+        $donation = Schedule::with('donation')->with('user')->where('donation_date',$date)->where('status',true)->get();
+
+        return $donation;
     }
 }

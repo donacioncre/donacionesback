@@ -6,6 +6,8 @@ use App\Http\Requests\CreateDonationHistoryRequest;
 use App\Http\Requests\UpdateDonationHistoryRequest;
 use App\Repositories\DonationHistoryRepository;
 use App\Http\Controllers\AppBaseController;
+use App\Repositories\ScheduleRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
@@ -13,11 +15,12 @@ use Response;
 class DonationHistoryController extends AppBaseController
 {
     /** @var DonationHistoryRepository $donationHistoryRepository*/
-    private $donationHistoryRepository;
+    private $donationHistoryRepository, $scheduleRepository;
 
-    public function __construct(DonationHistoryRepository $donationHistoryRepo)
+    public function __construct(DonationHistoryRepository $donationHistoryRepo,ScheduleRepository $scheduleRepo)
     {
         $this->donationHistoryRepository = $donationHistoryRepo;
+        $this->scheduleRepository = $scheduleRepo;
     }
 
     /**
@@ -31,7 +34,7 @@ class DonationHistoryController extends AppBaseController
     {
         $donationHistories = $this->donationHistoryRepository->all();
 
-      
+
 
         return view('donation_histories.index')
             ->with('donationHistories', $donationHistories);
@@ -42,11 +45,16 @@ class DonationHistoryController extends AppBaseController
      *
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $schedules= $this->donationHistoryRepository->getScheduleUser();
-        //dd($schedules);
-        return view('donation_histories.create')->with('schedules',$schedules);
+
+
+        $date = $request->donation_date == null ?  Carbon::today()->toDateString() : $request->donation_date;
+
+        $schedules= $this->donationHistoryRepository->searchDate($date);
+
+
+        return view('donation_histories.create',compact('date'))->with('schedules',$schedules);
     }
 
     /**
@@ -62,9 +70,15 @@ class DonationHistoryController extends AppBaseController
 
         $donationHistory = $this->donationHistoryRepository->create($input);
 
+        if ($donationHistory) {
+            $data['status'] = false;
+            $this->scheduleRepository->update($data['status'] ,$input['schedule_id']);
+        }
+
+
         Flash::success('Donation History saved successfully.');
 
-        return redirect(route('donationHistories.index'));
+        return redirect(route('histories.index'));
     }
 
     /**
@@ -81,7 +95,7 @@ class DonationHistoryController extends AppBaseController
         if (empty($donationHistory)) {
             Flash::error('Donation History not found');
 
-            return redirect(route('donationHistories.index'));
+            return redirect(route('histories.index'));
         }
 
         return view('donation_histories.show')->with('donationHistory', $donationHistory);
@@ -101,7 +115,7 @@ class DonationHistoryController extends AppBaseController
         if (empty($donationHistory)) {
             Flash::error('Donation History not found');
 
-            return redirect(route('donationHistories.index'));
+            return redirect(route('histories.index'));
         }
 
         return view('donation_histories.edit')->with('donationHistory', $donationHistory);
@@ -122,14 +136,14 @@ class DonationHistoryController extends AppBaseController
         if (empty($donationHistory)) {
             Flash::error('Donation History not found');
 
-            return redirect(route('donationHistories.index'));
+            return redirect(route('histories.index'));
         }
 
         $donationHistory = $this->donationHistoryRepository->update($request->all(), $id);
 
         Flash::success('Donation History updated successfully.');
 
-        return redirect(route('donationHistories.index'));
+        return redirect(route('histories.index'));
     }
 
     /**
@@ -148,13 +162,13 @@ class DonationHistoryController extends AppBaseController
         if (empty($donationHistory)) {
             Flash::error('Donation History not found');
 
-            return redirect(route('donationHistories.index'));
+            return redirect(route('histories.index'));
         }
 
         $this->donationHistoryRepository->delete($id);
 
         Flash::success('Donation History deleted successfully.');
 
-        return redirect(route('donationHistories.index'));
+        return redirect(route('histories.index'));
     }
 }
