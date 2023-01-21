@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12">
-                    <h1>Editar Preguntas</h1>
+                    <h1>Editar Convocatoria</h1>
                 </div>
             </div>
         </div>
@@ -17,17 +17,17 @@
 
         <div class="card">
 
-            {!! Form::model($questions, ['route' => ['questions.update', $questions->id], 'method' => 'patch']) !!}
+            {!! Form::model($call, ['route' => ['calls.update', $call['id']], 'method' => 'patch', 'files' => true]) !!}
 
             <div class="card-body">
                 <div class="row">
-                    @include('questions.fields')
+                    @include('calls.fields')
                 </div>
             </div>
 
             <div class="card-footer">
                 {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('questions.index') }}" class="btn btn-default">Cancelar</a>
+                <a href="{{ route('calls.index') }}" class="btn btn-default">Cancelar</a>
             </div>
 
             {!! Form::close() !!}

@@ -97,10 +97,27 @@ class DonationHistoryRepository extends BaseRepository
 
     public function searchDate($data)
     {
+        
         $donation=[];
-        $date= isset($data) ? $data: Carbon::today()->toDateString();
-        $donation = Schedule::with('donation')->with('user')->where('donation_date',$date)->where('status',true)->get();
+        $user =Auth::user();
+       
 
+        switch ($user->roles->first()->name) {
+            case 'user':
+                $donationCenter= $user->donationCenter->first()->id;
+                
+                $donation = Schedule::with('donation')
+                    ->with('user')->where('donation_date',$data)->where('status',true)
+                    ->where('donation_id',$donationCenter)->get();
+                break;
+            case 'admin':
+                    $donation = Schedule::with('donation')
+                        ->with('user')->where('donation_date',$data)->where('status',true)->get();
+                break;
+            
+        }
+
+      
         return $donation;
     }
 }

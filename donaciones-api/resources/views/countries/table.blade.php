@@ -2,8 +2,8 @@
     <table class="table" id="countries-table">
         <thead>
         <tr>
-            <th>Name</th>
-            <th colspan="3">Action</th>
+            <th>Nombre</th>
+            <th colspan="3">Acción</th>
         </tr>
         </thead>
         <tbody>

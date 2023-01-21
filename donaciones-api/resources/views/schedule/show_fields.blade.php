@@ -50,11 +50,15 @@
                 <label for="email_center">Correo Centro: </label>
                 <label for="" id="email_center" class="labelDonation"></label>
             </div>
-            <div class="form-group col-sm-12">
+            <div class="form-group col-sm-6">
                 <label for="phone_center">Teléfono Centro: </label>
                 <label for="" id="phone_center" class="labelDonation"></label>
             </div>
-           
+            <div class="form-group col-sm-6">
+                <label for="donation_type">Tipo Donación: </label>
+                <label for="" id="donation_type" class="labelDonation"></label>
+            </div>
+            
             <div class="form-group col-sm-6">
                 <label for="donation_date">Fecha Donación: </label>
                 <input type="date" name="" id="donation_date">
@@ -132,7 +136,7 @@
                 //var modalToggle = document.getElementById('schedule_modal')
 
                 var info=info.event.extendedProps;
-                
+               
                 $('#schedule_modal').modal('show');  
                 $('#schedule_id').val(info.schedule_id);
                 $('#name').text(info.name);
@@ -147,6 +151,7 @@
                 $('#email_center').text(info.email_center);
                 $('#donation_date').val(info.donation_date);
                 $('#donation_time').val(info.donation_time);
+                $('#donation_type').text(info.donation_type);
             },
 
             select:function(start, end, allDay)

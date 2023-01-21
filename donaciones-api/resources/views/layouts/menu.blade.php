@@ -14,7 +14,13 @@
 <li class="nav-item">
     <a href="{{ route('newCalls.index') }}"
        class="nav-link {{ Request::is('newCalls*') ? 'active' : '' }}">
-        <p>Noticias y Convocatorias</p>
+        <p>Noticias </p>
+    </a>
+</li>
+<li class="nav-item">
+    <a href="{{ route('calls.index') }}"
+       class="nav-link {{ Request::is('calls*') ? 'active' : '' }}">
+        <p> Convocatorias</p>
     </a>
 </li>
 
@@ -29,7 +35,7 @@
 <li class="nav-item">
     <div class='nav-link dashboard-nav-dropdown'>
         <a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle">
-            <i class="fas fa-photo-video"></i> Horarios de Donación 
+           Horarios de Donación 
         </a>
         <div class='dashboard-nav-dropdown-menu'>
             <a href="{{ route('bloodDonationHours.index') }}" 
@@ -53,7 +59,7 @@
 <li class="nav-item">
     <a href="{{ route('histories.index') }}"
        class="nav-link {{ Request::is('histories*') ? 'active' : '' }}">
-        <p>Historial</p>
+        <p>Historial de Donaciones</p>
     </a>
 </li>
 
@@ -75,14 +81,14 @@
 <li class="nav-item">
     <a href="{{ route('users.index') }}"
        class="nav-link {{ Request::is('users*') ? 'active' : '' }}">
-       <i class="fa fa-user"></i> <p>Usuarios</p>
+      </i> <p>Usuarios</p>
     </a>
 </li>
 
 <li class="nav-item">
     <a href="{{ route('donors') }}"
        class="nav-link {{ Request::is('donors*') ? 'active' : '' }}">
-       <i class="fa fa-user"></i> <p>Donadores</p>
+      </i> <p>Donadores</p>
     </a>
 </li>
 
@@ -91,7 +97,7 @@
 <li class="nav-item">
     <a href="{{ route('roles.index') }}"
        class="nav-link {{ Request::is('roles*') ? 'active' : '' }}">
-       <i class="fa fa-user"></i> <p>Roles</p>
+      </i> <p>Roles</p>
     </a>
 </li>
 
@@ -99,7 +105,7 @@
 <li class="nav-item">
     <a href="{{ route('consultDonation') }}"
        class="nav-link {{ Request::is('consultDonation*') ? 'active' : '' }}">
-       <i class="fa fa-user"></i> <p>Consultas Donaciones</p>
+       </i> <p>Consultas Donaciones</p>
     </a>
 </li>
 

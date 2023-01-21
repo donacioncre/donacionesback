@@ -2,8 +2,8 @@
     <table class="table" id="questions-table">
         <thead>
         <tr>
-            <th>Ask</th>
-        <th>Answer</th>
+            <th>Pregunta</th>
+            <th>Respuesta</th>
             <th colspan="3">Action</th>
         </tr>
         </thead>

@@ -1,4 +1,4 @@
-<!-- Ask Field -->
+
 <div class="form-group col-sm-6">
     {!! Form::label('nombre', 'Nombre:') !!}
     {!! Form::text('name', null, ['class' => 'form-control']) !!}
@@ -20,11 +20,15 @@
     {!! Form::text('phone', null, ['class' => 'form-control']) !!}
 </div>
 <div class="form-group col-sm-6">
+    {!! Form::label('telefono', 'Número de Whatsapp:') !!}
+    {!! Form::text('whatsapp_number', null, ['class' => 'form-control']) !!}
+</div>
+<div class="form-group col-sm-6">
     {!! Form::label('correo', 'Correo:') !!}
     {!! Form::text('email', null, ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group col-sm-6">
     {!! Form::label('ciudad', 'Ciudad:') !!}
-    {!! Form::select('city_id', $cities, ['class' => 'form-control']) !!}
+    {!! Form::select('city_id', $cities, null,['class' => 'form-control']) !!}
 </div>

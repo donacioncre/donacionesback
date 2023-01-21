@@ -88,14 +88,14 @@ class DonationController extends Controller
     public function edit($id)
     {
         $donation = $this->donation->show($id);
-
+        $cities=$this->donation->create();
         if (empty($donation)) {
             Flash::error('Donation not found');
 
             return redirect(route('Donation.index'));
         }
 
-        return view('donation.edit')->with('donation', $donation);
+        return view('donation.edit',compact('cities','donation'));
     }
 
     /**

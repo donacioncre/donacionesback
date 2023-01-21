@@ -101,6 +101,7 @@ class ScheduleController extends AppBaseController
                 'email_center' => $donation->email,
                 'donation_date'=>$value->donation_date,
                 'donation_time' => $value->donation_time,
+                'donation_type' => $value->type_donation,
             ];
         }
         foreach($donation->donationHour as $value){

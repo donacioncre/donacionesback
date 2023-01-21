@@ -39,7 +39,7 @@ class ConvocationRepository
 
     public function create()
     {
-        return $this->donation->get();
+        return $this->donation->get()->pluck('name', 'id');
     }
 
     public function store($data)
@@ -62,8 +62,8 @@ class ConvocationRepository
     {
         try {
             DB::beginTransaction();
-            $data=$this->convocation->find($id);
-            $data->update($data);
+            $convocation=$this->convocation->find($id);
+            $convocation->update($data);
             DB::commit();
             return 'ok';
            
@@ -80,6 +80,7 @@ class ConvocationRepository
         
         if (is_object($convocation)) {
             $data=[
+                'id' =>$convocation->id,
                 'title' => $convocation->title,
                 'blood_type' => $convocation->blood_type,
                 'place' => $convocation->donation->name,
@@ -91,6 +92,7 @@ class ConvocationRepository
                 'address' => $convocation->donation->address,
                 'phone' => $convocation->donation->phone,
                 'email' => $convocation->donation->email,
+                'donation_id' =>$convocation->donation->id,
 
             ];
         }

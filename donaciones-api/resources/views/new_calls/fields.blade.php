@@ -1,22 +1,22 @@
 <!-- Title Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('title', 'Title:') !!}
+    {!! Form::label('title', 'Titulo:') !!}
     {!! Form::text('title', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Description Field -->
 <div class="form-group col-sm-12 col-lg-12">
-    {!! Form::label('description', 'Description:') !!}
+    {!! Form::label('description', 'Descripción:') !!}
     {!! Form::textarea('description', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Image Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('image', 'Image:') !!}
+    {!! Form::label('image', 'Imagen:') !!}
     <div class="input-group">
         <div class="custom-file">
             {!! Form::file('image', ['class' => 'custom-file-input']) !!}
-            {!! Form::label('image', 'Choose file', ['class' => 'custom-file-label']) !!}
+            {!! Form::label('image', 'Elegir Imagen', ['class' => 'custom-file-label']) !!}
         </div>
     </div>
 </div>

@@ -2,10 +2,10 @@
     <table class="table" id="newCalls-table">
         <thead>
         <tr>
-            <th>Title</th>
-        <th>Description</th>
-        <th>Image</th>
-        <th>Author</th>
+            <th>Titulo</th>
+            <th>Descripción</th>
+            <th>Imagen</th>
+            <th>Autor</th> 
             <th colspan="3">Action</th>
         </tr>
         </thead>

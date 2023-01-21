@@ -1,24 +1,19 @@
 <!-- Ask Field -->
 <div class="col-sm-12">
-    {!! Form::label('ask', 'Ask:') !!}
+    {!! Form::label('ask', 'Pregunta:') !!}
     <p>{{ $questions->ask }}</p>
 </div>
 
 <!-- Answer Field -->
 <div class="col-sm-12">
-    {!! Form::label('answer', 'Answer:') !!}
+    {!! Form::label('answer', 'Respuesta:') !!}
     <p>{{ $questions->answer }}</p>
 </div>
 
 <!-- Created At Field -->
 <div class="col-sm-12">
-    {!! Form::label('created_at', 'Created At:') !!}
+    {!! Form::label('created_at', 'Fecha de Creacción:') !!}
     <p>{{ $questions->created_at }}</p>
 </div>
 
-<!-- Updated At Field -->
-<div class="col-sm-12">
-    {!! Form::label('updated_at', 'Updated At:') !!}
-    <p>{{ $questions->updated_at }}</p>
-</div>
 

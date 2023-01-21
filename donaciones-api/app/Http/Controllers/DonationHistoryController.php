@@ -54,7 +54,7 @@ class DonationHistoryController extends AppBaseController
         $schedules= $this->donationHistoryRepository->searchDate($date);
 
 
-        return view('donation_histories.create',compact('date'))->with('schedules',$schedules);
+        return view('donation_histories.create',compact('date','schedules'));
     }
 
     /**
@@ -71,8 +71,8 @@ class DonationHistoryController extends AppBaseController
         $donationHistory = $this->donationHistoryRepository->create($input);
 
         if ($donationHistory) {
-            $data['status'] = false;
-            $this->scheduleRepository->update($data['status'] ,$input['schedule_id']);
+            $status= false;
+            $this->scheduleRepository->updateState($status ,$input['schedule_id']);
         }
 
 
@@ -108,17 +108,17 @@ class DonationHistoryController extends AppBaseController
      *
      * @return Response
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
         $donationHistory = $this->donationHistoryRepository->find($id);
-
+       
         if (empty($donationHistory)) {
             Flash::error('Donation History not found');
 
             return redirect(route('histories.index'));
         }
 
-        return view('donation_histories.edit')->with('donationHistory', $donationHistory);
+        return view('donation_histories.edit',compact('donationHistory'));
     }
 
     /**

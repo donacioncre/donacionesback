@@ -51,6 +51,9 @@ Route::group(['middleware'=>['auth']], function(){
 
     Route::resource('newCalls', App\Http\Controllers\NewCallController::class);
 
+    Route::resource('calls', App\Http\Controllers\ConvocationController::class);
+
+
     Route::resource('schedule', App\Http\Controllers\ScheduleController::class);
 
     Route::resource('donation', App\Http\Controllers\DonationController::class);

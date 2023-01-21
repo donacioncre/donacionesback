@@ -53,8 +53,8 @@ class DonationRepository
     {
         try {
             DB::beginTransaction();
-            $data=$this->donation_point->find($id);
-            $data->update($data);
+            $donation_point=$this->donation_point->find($id);
+            $donation_point->update($data);
             DB::commit();
             return 'ok';
            

@@ -181,8 +181,6 @@ class ScheduleRepository extends BaseRepository
         try {
             DB::beginTransaction();
             $schedule=$this->schedule->with('user')->find($id);
-           
-
             $schedule->update($data);
 
             DB::commit();
@@ -192,9 +190,24 @@ class ScheduleRepository extends BaseRepository
             DB::rollBack();
             return 'Register Failed ' .$ex->getMessage();
         }
-
-
     }
+
+    public function updateState($data,$id)
+    {
+        try {
+            DB::beginTransaction();
+            $schedule=$this->schedule->with('user')->find($id);
+            $schedule->update(['status'=>$data]);
+            DB::commit();
+
+            return ['ok',$schedule->id,$schedule->user->id];
+        } catch (Exception $ex) {
+            DB::rollBack();
+            return 'Register Failed ' .$ex->getMessage();
+        }
+    }
+
+
 
     public function create_time_range($start, $end, $interval = '30 mins', $format = '24') {
         $startTime = strtotime($start);
