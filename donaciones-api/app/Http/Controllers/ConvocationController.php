@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateNewCallRequest;
 
 use App\Http\Controllers\AppBaseController;
 use App\Repositories\ConvocationRepository;
+use App\Repositories\NotificationRepository;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
@@ -14,15 +15,16 @@ use Response;
 class ConvocationController extends AppBaseController
 {
     /** @var ConvocationRepository $newCallRepository*/
-    private $callRepository;
+    private $callRepository, $notificationRepo;
 
-    public function __construct(ConvocationRepository $callRepo)
+    public function __construct(ConvocationRepository $callRepo , NotificationRepository $notificationRepo)
     {
         $this->middleware('permission:ver-convocatoria|crear-convocatoria|editar-convocatoria|eliminar-convocatoria',['only'=>['index']]);
         $this->middleware('permission:crear-convocatoria',['only'=>['create','store']]);
         $this->middleware('permission:editar-convocatoria',['only'=>['edit','update']]);
         $this->middleware('permission:eliminar-convocatoria',['only'=>['destroy']]);
         $this->callRepository = $callRepo;
+        $this->notificationRepo = $notificationRepo;
     }
 
     /**
@@ -68,6 +70,18 @@ class ConvocationController extends AppBaseController
 
 
         $call = $this->callRepository->store($input);
+
+        $country =  $call->donation->city->country->name;
+
+        $notification = "Nueva convocatoria";
+
+        if ($request->send_notification) {
+            
+            $this->notificationRepo->CreateNotificationCountry($notification,$country);
+        }else{
+            
+            $this->notificationRepo->CreateNotificationAllUser($notification);
+        }
 
         Flash::success('New Call saved successfully.');
 

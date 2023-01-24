@@ -23,7 +23,7 @@ class AuthController extends Controller
                 [
                     'identification' => 'required',
                     'email' => 'required|string|unique:users',
-                    'password' => 'required|string|confirmed'
+                    'password' => 'required|string|confirmed',
 
                 ]
             );
@@ -47,9 +47,12 @@ class AuthController extends Controller
                     'conventional_number' => $request->conventional_number == null ? 'N/A': $request->conventional_number,
                     'date_birth' => $request->date_birth,
                     'blood_type' => $request->blood_type,
-                    'profile_picture' =>'N/A'
+                    'profile_picture' =>'N/A',
+                    'country' => $request->country,
+                    'device_token' =>$request->device_token
                 ]);
-
+                
+                $user->assignRole('donante');
                 $user->save();
 
                 return response()->json([
@@ -104,6 +107,7 @@ class AuthController extends Controller
 
         $user->device_token = $request->device_token;
         $user->save();
+       
         return response()->json([
             'status' => true,
             'token' =>[

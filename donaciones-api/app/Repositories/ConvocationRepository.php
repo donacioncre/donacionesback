@@ -46,10 +46,10 @@ class ConvocationRepository
     {
         try {
             DB::beginTransaction();
-            $this->convocation->create($data);
+            $convocation =  $this->convocation->create($data);
             DB::commit();
             
-            return 'ok';
+            return $convocation;
         } catch (Exception $ex) {
             DB::rollBack();
             return 'Register Failed ' .$ex->getMessage();

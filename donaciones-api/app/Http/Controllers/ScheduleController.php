@@ -174,7 +174,7 @@ class ScheduleController extends AppBaseController
      * @param UpdateScheduleRequest $request
      *
      * @return Response
-     */
+     */ 
     public function update($id, Request $request)
     {
        
@@ -184,7 +184,7 @@ class ScheduleController extends AppBaseController
 
         $notification = "Fecha u Hora modificada para realizar la Donación";
 
-        $this->notificationRepo->CreateNotification($notification,1,$schedule[2]);
+        $this->notificationRepo->CreateNotificationUser($notification,$schedule[2]);
 
         return response()->json($schedule);
     }

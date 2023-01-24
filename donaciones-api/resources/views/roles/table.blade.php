@@ -10,8 +10,6 @@
         @foreach($roles as $rol)
             <tr>
                 <td>{!! $rol->name !!}</td>
-               
-               
                 <td width="120">
                     {!! Form::open(['route' => ['roles.destroy', $rol->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>

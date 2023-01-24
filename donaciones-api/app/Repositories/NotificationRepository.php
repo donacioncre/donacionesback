@@ -26,27 +26,13 @@ class NotificationRepository
        // return $this->city->with('country')->get();
     }
 
-    public function CreateNotification($notification, $userCreate, $userNotificate)
+    public function CreateNotificationUser($notification, $userNotificate)
     {
-        $url = 'https://fcm.googleapis.com/fcm/send';
         $firebaseToken = $this->user::find($userNotificate);
 
        
-        $notificacion=[
-            'user_create'=> $userCreate, //Auth::user()->id,
-            'user_notificate'=> $userNotificate,
-            'date_create'=>Carbon::now(),
-            'note'=>$notification,
-            'status'=>true,
-
-        ];
-        //$this->notifications::create($notificacion);
-
-
-        $SERVER_API_KEY = 'AAAAWOH_v3w:APA91bHDcZDcnfHIQTIY8EeKFz90t43hz44zS-MhJTws8Ry6ZurU_jWlH3oQuw0mr9skUpzrdEqALI2tiHAjvlI_3KglJP9LxvCGG3hNeyI61vWuiHlCfc-Sg9D1eWb-yxTsac8he2Uh';
-
         $data = [
-            "registration_ids" =>[isset ($firebaseToken->device_token) == false ? '' : $firebaseToken->device_token] ,
+            "registration_ids" =>$firebaseToken->device_token,
             "notification" => [
                 "title" => "SiDono",
                 "body" => $notification,
@@ -54,6 +40,57 @@ class NotificationRepository
                 "priority" => "high",
             ]
         ];
+
+        $this->notificacion($data);
+    }
+    public function CreateNotificationAllUser($notification)
+    {
+        $firebaseToken = $this->user::whereNotNull('device_token')->pluck('device_token')->all();
+
+       
+        $data = [
+            "registration_ids" =>$firebaseToken,
+            "notification" => [
+                "title" => "SiDono",
+                "body" => $notification,
+                "content_available" => true,
+                "priority" => "high",
+            ]
+        ];
+
+        $this->notificacion($data);
+    }
+    public function CreateNotificationCountry($notification,$country)
+    {
+        $firebaseToken = $this->user::whereNotNull('device_token')->where('country',$country)
+            ->pluck('device_token')->all();
+
+       
+        $data = [
+            "registration_ids" =>$firebaseToken,
+            "notification" => [
+                "title" => "SiDono",
+                "body" => $notification,
+                "content_available" => true,
+                "priority" => "high",
+            ]
+        ];
+
+        $this->notificacion($data);
+    }
+
+    public function CreateNotification($notification, $userNotificate)
+    {
+      
+       
+
+        
+    }
+
+    public function notificacion($data)
+    {
+        $url = 'https://fcm.googleapis.com/fcm/send';
+        $SERVER_API_KEY = 'AAAAWOH_v3w:APA91bHDcZDcnfHIQTIY8EeKFz90t43hz44zS-MhJTws8Ry6ZurU_jWlH3oQuw0mr9skUpzrdEqALI2tiHAjvlI_3KglJP9LxvCGG3hNeyI61vWuiHlCfc-Sg9D1eWb-yxTsac8he2Uh';
 
         $encodedData = json_encode($data);
 
@@ -83,8 +120,6 @@ class NotificationRepository
         }
         // Close connection
         curl_close($ch);
-
-        //return $result;
     }
 
    

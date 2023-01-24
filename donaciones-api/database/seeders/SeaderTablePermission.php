@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class SeaderTablePermission extends Seeder
 {
@@ -74,6 +75,16 @@ class SeaderTablePermission extends Seeder
 
         foreach($permissions as $permission){
             Permission::create(['name'=>$permission]);
+        }
+
+        $roles=[
+            'admin',
+            'user',
+            'donante'
+        ];
+
+        foreach($roles as $rol){
+            Role::create(['name'=>$rol]);
         }
     }
 }

@@ -9,6 +9,7 @@
             <th>Célular</th>
             <th>Email</th>
             <th>Rol</th>
+            <th>Centro de Donación</th>
             <th colspan="2">Action</th>
         </tr>
         </thead>
@@ -28,6 +29,14 @@
                             <span>{{$rolName}}</span>
                         @endforeach
                     @endif
+                </td>
+                <td>
+                    @if(!empty( $user->donationCenter))
+                        @foreach( $user->donationCenter as $donation)
+                            <span>{{$donation->name}}</span>
+                        @endforeach
+                    @endif
+                  
                 </td>
                 <td width="120">
                     {!! Form::open(['route' => ['users.destroy', $user->id], 'method' => 'delete']) !!}
