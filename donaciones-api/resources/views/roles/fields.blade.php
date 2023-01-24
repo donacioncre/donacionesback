@@ -5,16 +5,20 @@
 </div>
 
 <div class="form-group col-sm-12">
-    {!! Form::label('permission', 'Permisos del  Rol') !!}
-    <br>
-    @foreach($permission as $value)
-        <label for="permission">
-            {!! Form::checkbox('permission[]',$value->id,in_array($value->id,$rolePermissions)? true : false, ['class' => 'name']) !!}
-            {{$value->name}} 
-        </label> 
+    @foreach ($name as $item)
+        {!! Form::label('permission', 'Permisos  '. $item) !!}
         <br>
+        @foreach($permission as $value)
+            @if ( explode("-", $value->name)[1] ==  $item)
+                <label for="permission">
+                    {!! Form::checkbox('permission[]',$value->id,in_array($value->id,$rolePermissions)? true : false, ['class' => 'name']) !!}
+                    {{$value->name}} 
+                </label> 
+                <br>
+            @endif
+           
+        @endforeach
     @endforeach
- 
 </div>
 
 

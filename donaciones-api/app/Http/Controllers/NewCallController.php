@@ -17,6 +17,10 @@ class NewCallController extends AppBaseController
 
     public function __construct(NewCallRepository $newCallRepo)
     {
+        $this->middleware('permission:ver-noticias|crear-noticias|editar-noticias|eliminar-noticias',['only'=>['index']]);
+        $this->middleware('permission:crear-noticias',['only'=>['create','store']]);
+        $this->middleware('permission:editar-noticias',['only'=>['edit','update']]);
+        $this->middleware('permission:eliminar-noticias',['only'=>['destroy']]);
         $this->newCallRepository = $newCallRepo;
     }
 

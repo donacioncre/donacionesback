@@ -18,6 +18,10 @@ class ConvocationController extends AppBaseController
 
     public function __construct(ConvocationRepository $callRepo)
     {
+        $this->middleware('permission:ver-convocatoria|crear-convocatoria|editar-convocatoria|eliminar-convocatoria',['only'=>['index']]);
+        $this->middleware('permission:crear-convocatoria',['only'=>['create','store']]);
+        $this->middleware('permission:editar-convocatoria',['only'=>['edit','update']]);
+        $this->middleware('permission:eliminar-convocatoria',['only'=>['destroy']]);
         $this->callRepository = $callRepo;
     }
 

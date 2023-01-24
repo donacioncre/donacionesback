@@ -17,10 +17,10 @@ class RolController extends Controller
      */
 
      public function __construct() {
-        $this->middleware('permission:show-rol|create-rol|edit-rol|delete-rol',['only'=>['index']]);
-        $this->middleware('permission:create-rol',['only'=>['create','store']]);
-        $this->middleware('permission:edit-rol',['only'=>['edit','update']]);
-        $this->middleware('permission:delete-rol',['only'=>['destroy']]);
+        $this->middleware('permission:ver-rol|crear-rol|editar-rol|eliminar-rol',['only'=>['index']]);
+        $this->middleware('permission:crear-rol',['only'=>['create','store']]);
+        $this->middleware('permission:editar-rol',['only'=>['edit','update']]);
+        $this->middleware('permission:eliminar-rol',['only'=>['destroy']]);
      }
     public function index()
     {
@@ -37,7 +37,14 @@ class RolController extends Controller
     {
         $permission = Permission::get();
         $rolePermissions=[];
-        return view('roles.create',compact('permission','rolePermissions'));
+        $name=[];
+        foreach($permission as $value){
+            $part = explode("-", $value->name);
+            array_push($name,$part[1]);
+        }
+        $name = array_unique($name);
+       
+        return view('roles.create',compact('permission','rolePermissions','name'));
     }
 
     /**
@@ -76,11 +83,18 @@ class RolController extends Controller
         $role=Role::find($id);
         $permission=Permission::get();
 
+        $name=[];
+        foreach($permission as $value){
+            $part = explode("-", $value->name);
+            array_push($name,$part[1]);
+        }
+        $name = array_unique($name);
+
         $rolePermissions=DB::table('role_has_permissions')->where('role_has_permissions.role_id',$id)
             ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
             ->all();
        
-        return view('roles.edit',compact('role','permission','rolePermissions'));
+        return view('roles.edit',compact('role','permission','rolePermissions','name'));
     }
 
     /**

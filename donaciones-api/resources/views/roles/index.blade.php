@@ -8,7 +8,7 @@
                     <h1>Roles</h1>
                 </div>
                 <div class="col-sm-6">
-                    @can('create-rol')
+                    @can('crear-rol')
                     <a class="btn btn-primary float-right"
                         href="{{ route('roles.create') }}">
                         Nuevo

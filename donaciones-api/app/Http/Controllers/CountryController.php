@@ -17,6 +17,10 @@ class CountryController extends AppBaseController
 
     public function __construct(CountryRepository $countryRepo)
     {
+        $this->middleware('permission:ver-pais|crear-pais|editar-pais|eliminar-pais',['only'=>['index']]);
+        $this->middleware('permission:crear-pais',['only'=>['create','store']]);
+        $this->middleware('permission:editar-pais',['only'=>['edit','update']]);
+        $this->middleware('permission:eliminar-pais',['only'=>['destroy']]);
         $this->countryRepository = $countryRepo;
     }
 

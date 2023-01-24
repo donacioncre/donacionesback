@@ -17,6 +17,11 @@ class BloodDonationHourController extends AppBaseController
 
     public function __construct(BloodDonationHourRepository $bloodDonationHourRepo)
     {
+        $this->middleware('permission:ver-horarioDonacion|crear-horarioDonacion|editar-horarioDonacion|eliminar-horarioDonacion',['only'=>['index']]);
+        $this->middleware('permission:crear-horarioDonacion',['only'=>['create','store']]);
+        $this->middleware('permission:editar-horarioDonacion',['only'=>['edit','update']]);
+        $this->middleware('permission:eliminar-horarioDonacion',['only'=>['destroy']]);
+
         $this->bloodDonationHourRepository = $bloodDonationHourRepo;
     }
 

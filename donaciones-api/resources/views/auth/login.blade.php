@@ -35,7 +35,7 @@
 <div class="login-box">
     <div class="login-logo">
         <a href="{{ url('/home') }}"><img src="{{ asset('icon/logotipo_cre.png') }}"
-            class="user-image  elevation-2" style="width: 100%" alt="User Image"></a>
+            class="user-image  " style="width: 100%" alt="User Image"></a>
     </div>
 
     <!-- /.login-logo -->

@@ -6,6 +6,12 @@
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <!-- site css -->
+    <link rel="stylesheet" href="{{asset('template-pluto/css/style.css')}} " />
+
+  
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
           integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
@@ -68,13 +74,13 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                     <!-- User image -->
-                    <li class="user-header bg-primary">
+                    <li class="user-header " style="background-color: #b9c7d77d">
                         <img src="{{ asset('icon/icon_cruzroja.png') }}"
                              class="img-circle elevation-2"
                              alt="User Image">
                         <p>
                             {{ Auth::user()->name }}
-                            <small>Miembro desde{{ Auth::user()->created_at->format('M. Y') }}</small>
+                            <small>Miembro desde {{ Auth::user()->created_at->format('M. Y') }}</small>
                         </p>
                     </li>
                     <!-- Menu Footer-->

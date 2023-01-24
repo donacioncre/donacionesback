@@ -19,6 +19,10 @@ class DonationHistoryController extends AppBaseController
 
     public function __construct(DonationHistoryRepository $donationHistoryRepo,ScheduleRepository $scheduleRepo)
     {
+        $this->middleware('permission:ver-historialDonacion|crear-historialDonacion|editar-historialDonacion|eliminar-historialDonacion',['only'=>['index']]);
+        $this->middleware('permission:crear-historialDonacion',['only'=>['create','store']]);
+        $this->middleware('permission:editar-historialDonacion',['only'=>['edit','update']]);
+        $this->middleware('permission:eliminar-historialDonacion',['only'=>['destroy']]);
         $this->donationHistoryRepository = $donationHistoryRepo;
         $this->scheduleRepository = $scheduleRepo;
     }

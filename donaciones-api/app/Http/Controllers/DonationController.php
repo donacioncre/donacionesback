@@ -20,6 +20,10 @@ class DonationController extends Controller
 
     public function __construct(DonationRepository $donation)
     {
+        $this->middleware('permission:ver-centroDonacion|crear-centroDonacion|editar-centroDonacion|eliminar-centroDonacion',['only'=>['index']]);
+        $this->middleware('permission:crear-centroDonacion',['only'=>['create','store']]);
+        $this->middleware('permission:editar-centroDonacion',['only'=>['edit','update']]);
+        $this->middleware('permission:eliminar-centroDonacion',['only'=>['destroy']]);
         $this->donation = $donation;
     }
 

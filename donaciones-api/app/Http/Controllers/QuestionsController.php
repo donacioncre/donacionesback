@@ -17,6 +17,10 @@ class QuestionsController extends AppBaseController
 
     public function __construct(QuestionsRepository $questionsRepo)
     {
+        $this->middleware('permission:ver-preguntas|crear-preguntas|editar-preguntas|eliminar-preguntas',['only'=>['index']]);
+        $this->middleware('permission:crear-preguntas',['only'=>['create','store']]);
+        $this->middleware('permission:editar-preguntas',['only'=>['edit','update']]);
+        $this->middleware('permission:eliminar-preguntas',['only'=>['destroy']]);
         $this->questionsRepository = $questionsRepo;
     }
 
