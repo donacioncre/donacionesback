@@ -93,6 +93,7 @@ class ConvocationRepository
                 'phone' => $convocation->donation->phone,
                 'email' => $convocation->donation->email,
                 'donation_id' =>$convocation->donation->id,
+                'whatsapp_number' => $convocation->donation->whatsapp_number,
 
             ];
         }
