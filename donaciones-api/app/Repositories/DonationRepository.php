@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\City;
 use App\Models\Country;
+use App\Models\DonationHistory;
 use App\Models\DonationPoint;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -72,8 +73,15 @@ class DonationRepository
     public function digitalDonationCard()
     {
         $user = Auth::user();
+        $user_id=$user->id;
+       
 
-        return $user;
+        $donation_history = DonationHistory::with(['schedule'=> function ($query) use($user_id)
+                    {
+                        $query->where('user_id',$user_id);
+                    }
+        ])->where('status',true)->get();
+        return ['user'=>$user,'donation_history'=>$donation_history];
     }
 
 }

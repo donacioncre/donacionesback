@@ -53,4 +53,9 @@ class Schedule extends Model
     {
         return $this->belongsTo(User::class,'user_id','id');
     }
+
+     function donationHistory()
+    {
+        return $this->hasMany(DonationHistory::class,'schedule_id','id');
+    }
 }

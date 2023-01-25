@@ -137,17 +137,5 @@ class DonationController extends Controller
         
     }
 
-    public function digitalDonationCard()
-    {
-        $data = $this->donation->digitalDonationCard();
-
-        $pdf = PDF::loadView('pdf.digital_donation_card',['data'=> $data]);
-        $pdf->setPaper('A4', 'landscape');
-        return response()->json([
-            'status'=>true,
-            'pdf' => base64_encode($pdf->output()),
-            'filename' => 'DonationCard'
-        ],200);
-
-    }
+    
 }

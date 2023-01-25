@@ -43,6 +43,7 @@ class DonationHistoryAPIController extends AppBaseController
 
         try {
             $data = $this->donationHistoryRepository->listUser();
+            
             return response()->json(['status' => true, 'data' => $data]);
         } catch (Exception $ex) {
             dd($ex);

@@ -3,14 +3,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <style>
-        td{
+        .table-profile td{
             padding-left: 4px;
             padding-right: 4px;
             /*border: 1px solid #66B2AC;*/
             text-align: center;
             font-size: 16px
         }
-        th{
+        .table-profile th{
             text-align: right;
             /* background-color:#DDA466; */
             padding-left: 4px;
@@ -20,23 +20,25 @@
             
         }
 
-        .table-donation th{
-            text-align: right;
+        .table-donation tr th{
+           
             /* background-color:#DDA466; */
-            /*padding-left: 4px;
-            padding-right: 4px;*/
+            padding: 6px 0px 5px 0px ;
             border: 1px solid black;
             color: white; 
             text-align: center;  
-            font-size: 30px
+            font-size: 26px;
+            font-weight: 500;
+            width: 165px;
         }
 
-       .table-donation td{
+       .table-donation  tr td{
            /* padding-left: 4px;
             padding-right: 4px;*/
+            padding: 10px 1px 10px 1px ;
             border: 1px solid black;
             text-align: center;
-            font-size: 28px
+            font-size: 24px
         }
        
         .first{
@@ -120,7 +122,7 @@
         <div class="row" style="width: 100%" >
             <div class="container">
                    <div class="table-responsive col-md-12 col-sm-12">
-                    <table id="dataTable"  class="table table-hover" >
+                    <table id="dataTable"  class="table table-profile table-hover" >
                         <thead>
                             <tr>
                                 <th style="margin-left: -20px"> <img class="logoCruz" src="{{public_path('/icon/logotipo_cre.png')}}"  alt=""> </th>
@@ -131,14 +133,14 @@
                             <tr >
                                 <td style="text-align: left; padding-left: 20px">  
                                     <br> <br> <br> <br> 
-                                    <span class="labels" >Nombres: </span> <span class="text-card"> {{$data->firstname }}</span> <br> <br> <br>
-                                    <span class="labels">Apellidos: </span>   <span class="text-card">{{$data->lastname}}</span> <br> <br> <br>
-                                    <span class="labels">No. Cédula: </span>   <span class="text-card">{{$data->identification}}</span> <br> <br> <br>
-                                    <span class="labels">Fecha de emisión: </span>   <span class="text-card">{{$data->created_at->format('Y-m-d')}}</span> <br> <br> <br>
-                                    <span class="labels"> Tipo de sangre: </span>   <span class="text-card">{{$data->blood_type}}</span> <br> <br> <br>
+                                    <span class="labels" >Nombres: </span> <span class="text-card"> {{$data['user']->firstname }}</span> <br> <br> <br>
+                                    <span class="labels">Apellidos: </span>   <span class="text-card">{{$data['user']->lastname}}</span> <br> <br> <br>
+                                    <span class="labels">No. Cédula: </span>   <span class="text-card">{{$data['user']->identification}}</span> <br> <br> <br>
+                                    <span class="labels">Fecha de emisión: </span>   <span class="text-card">{{$data['user']->created_at->format('Y-m-d')}}</span> <br> <br> <br>
+                                    <span class="labels"> Tipo de sangre: </span>   <span class="text-card">{{$data['user']->blood_type}}</span> <br> <br> <br>
                                 </td>
                                 <td>  
-                                    <img class="imgRedonda" src="{{public_path($data->profile_picture)}}"  alt="">
+                                    <img class="imgRedonda" src="{{public_path($data['user']->profile_picture)}}"  alt="">
                                 </td>
                                
                             </tr>
@@ -157,59 +159,28 @@
                 <img class="logoCruz" src="{{public_path('/icon/logotipo_cre.png')}}"  alt="">
                 <br> <br>
                 <div class="table-responsive col-md-12 col-sm-12">
-                    <table id="dataTable"  class="table-donation table-hover" >
+                    <table id="dataTable"  class="table-donation " >
                         <thead style="background-color: red">
                             <tr>
                                 <th>Código de Donación</th>
                                 <th>Fecha de Donación</th>
                                 <th>Hemoglobina</th>
-                                <th style="padding: 10px 0px 10px 0">Peso</th>
+                                <th >Peso</th>
                                 <th>Presión arterial</th>
+                                <th>Tipo</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>123456789</td>
-                                <td>13/08/2022</td>
-                                <td>6.1%</td>
-                                <td>72 libras</td>
-                                <td>190/80</td>
-                            </tr>
-                            <tr>
-                                <td>123456789</td>
-                                <td>13/08/2022</td>
-                                <td>6.1%</td>
-                                <td>72 libras</td>
-                                <td>190/80</td>
-                            </tr>
-                            <tr>
-                                <td>123456789</td>
-                                <td>13/08/2022</td>
-                                <td>6.1%</td>
-                                <td>72 libras</td>
-                                <td>190/80</td>
-                            </tr>
-                            <tr>
-                                <td>123456789</td>
-                                <td>13/08/2022</td>
-                                <td>6.1%</td>
-                                <td>72 libras</td>
-                                <td>190/80</td>
-                            </tr>
-                            <tr>
-                                <td>123456789</td>
-                                <td>13/08/2022</td>
-                                <td>6.1%</td>
-                                <td>72 libras</td>
-                                <td>190/80</td>
-                            </tr>
-                            <tr>
-                                <td>123456789</td>
-                                <td>13/08/2022</td>
-                                <td>6.1%</td>
-                                <td>72 libras</td>
-                                <td>190/80</td>
-                            </tr>
+                            @foreach ($data['donation_history'] as $donation)
+                                <tr>
+                                    <td>{{$donation->code}}</td>
+                                    <td>{{$donation->schedule->donation_date}}</td>
+                                    <td>{{$donation->hemoglobin}}</td>
+                                    <td>{{$donation->weight}}</td>
+                                    <td>{{$donation->blood_pressure}}</td>
+                                    <td>{{$donation->schedule->type_donation}}</td>
+                                </tr> 
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

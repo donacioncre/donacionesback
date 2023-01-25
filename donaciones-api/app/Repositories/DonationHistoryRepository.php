@@ -83,16 +83,52 @@ class DonationHistoryRepository extends BaseRepository
         return DonationHistory::get();
     }
 
-    public function listUser()
+    public function  listUser()
     {
         $user_id=Auth()->user()->id;
-        $data = DonationHistory::with(['schedule'=> function ($query) use($user_id)
+        $data=[];
+        $count=0;
+        $donations = DonationHistory::with(['schedule'=> function ($query) use($user_id)
                     {
-                        $query->where('user_id',$user_id);
+                        $query->where('user_id',$user_id)->orderBy('donation_date','asc');
                     }
         ])->where('status',true)->get();
 
-        return $data;
+        $donation_histories=Schedule::with('donationHistory')->where('user_id',$user_id)->orderBy('donation_date','asc')->get();
+
+        foreach($donation_histories as $key => $donation){
+
+            
+
+            if ($donation->donationHistory->first()->status) {
+                $count++;
+                $donation_data[]=[
+                    'donation_date' => $donation->donation_date,
+                    'type_donation' =>$donation->type_donation,
+                    'code'=> $donation->donationHistory->first()->code,
+                    'hemoglobin'=> $donation->donationHistory->first()->hemoglobin,
+                    'weight'=> $donation->donationHistory->first()->weight,
+                    'blood_pressure'=> $donation->donationHistory->first()->blood_pressure,
+                ];
+
+                if ($count==8) {
+                    $data[]=[
+                        'date'=>$donation->donation_date,
+                        'donation_data' =>$donation_data
+        
+                    ];
+
+                    $donation_data=[];
+
+
+                }
+            }
+            
+
+            
+        }
+
+        return $donations;
     }
 
     public function searchDate($data)
