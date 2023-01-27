@@ -173,12 +173,12 @@
                         <tbody>
                             @foreach ($data['donation_history'] as $donation)
                                 <tr>
-                                    <td>{{$donation->code}}</td>
-                                    <td>{{$donation->schedule->donation_date}}</td>
-                                    <td>{{$donation->hemoglobin}}</td>
-                                    <td>{{$donation->weight}}</td>
-                                    <td>{{$donation->blood_pressure}}</td>
-                                    <td>{{$donation->schedule->type_donation}}</td>
+                                    <td>{{$donation['code']}}</td>
+                                    <td>{{$donation['donation_date']}}</td>
+                                    <td>{{$donation['hemoglobin']}}</td>
+                                    <td>{{$donation['weight']}}</td>
+                                    <td>{{$donation['blood_pressure']}}</td>
+                                    <td>{{$donation['type_donation']}}</td>
                                 </tr> 
                             @endforeach
                         </tbody>

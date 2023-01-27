@@ -248,18 +248,27 @@ class ScheduleRepository extends BaseRepository
 
     public function listScheduleDonationUser()
     {
-
+        $scheduel_data=[];
         $user_id=Auth()->user()->id;
         $donation=$this->schedule->with('donation')->with('user')
-                    ->where('user_id',$user_id)->where('status',true)->get();
+                    ->where('user_id',$user_id)->where('status',true)->orderBy('donation_date','asc')->get();
 
-        return $donation;
+        foreach($donation as $value){
+
+            $scheduel_data[]=[
+                'id'=> $value->id,
+                'place' => $value->donation->name,
+                'address'=> $value->donation->address,
+                'donation_date'=>$value->donation_date,
+                'donation_time' =>$value->donation_time,
+            ];
+        }
+
+        return $scheduel_data;
     }
 
     public function cancelScheduleDonationUser($id)
     {
-
-        $user_id=Auth()->user()->id;
         $schedule=$this->schedule->find($id);
         $schedule->update(['status'=>false]);
         return $schedule;

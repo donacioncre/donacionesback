@@ -52,10 +52,9 @@ Route::group([ 'prefix' => 'auth'], function () {
 });
 
 Route::group(['middleware' => 'auth:api'], function() {
-    Route::get('/digitalDonationCard',  [DonationController::class,'digitalDonationCard']);
+    Route::get('/digitalDonationCard/{data}',  [DonationHistoryAPIController::class,'digitalDonationCard']);
+    
     Route::resource('/convocations', ConvocationController::class);
-
-
 
     Route::prefix('schedule')->group(function () {
         Route::get('listCountry', [ScheduleController::class,'listCountry']);
@@ -71,7 +70,7 @@ Route::group(['middleware' => 'auth:api'], function() {
 
         Route::get('userListSchedule', [ScheduleController::class,'listScheduleDonation']);
 
-        Route::post('cancelScheduleDonation/{id}',[ScheduleController::class,'cancelScheduleDonationUser']);
+        Route::post('cancelScheduleDonation/{id}',[ScheduleController::class,'cancelScheduleDonation']);
         //Route::post('/updateDate/{id}', 'App\Http\Controllers\Api\IngresoVisitaController@updateDate');
         //Route::get('/getListMiembro/{id}', 'App\Http\Controllers\Api\IngresoVisitaController@getListMiembro');
 

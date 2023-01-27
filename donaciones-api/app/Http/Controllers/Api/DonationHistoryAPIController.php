@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use Exception;
 use Response;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 /**
  * Class DonationHistoryController
@@ -35,14 +36,8 @@ class DonationHistoryAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        // $donationHistories = $this->donationHistoryRepository->all(
-        //     $request->except(['skip', 'limit']),
-        //     $request->get('skip'),
-        //     $request->get('limit')
-        // );
-
         try {
-            $data = $this->donationHistoryRepository->listUser();
+            $data = $this->donationHistoryRepository->listUserDonationHistory();
             
             return response()->json(['status' => true, 'data' => $data]);
         } catch (Exception $ex) {
@@ -51,6 +46,21 @@ class DonationHistoryAPIController extends AppBaseController
         }
 
        
+    }
+
+    public function digitalDonationCard($date)
+    {
+        
+        $data = $this->donationHistoryRepository->digitalDonationCard($date);
+       
+        $pdf = PDF::loadView('pdf.digital_donation_card',['data'=> $data]);
+        $pdf->setPaper('A4', 'landscape');
+        return response()->json([
+            'status'=>true,
+            'pdf' => base64_encode($pdf->output()),
+            'filename' => 'DonationCard'
+        ],200);
+
     }
 
     /**

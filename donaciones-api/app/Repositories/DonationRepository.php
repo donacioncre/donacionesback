@@ -70,18 +70,6 @@ class DonationRepository
         return $this->donation_point->find($id);
     }
 
-    public function digitalDonationCard()
-    {
-        $user = Auth::user();
-        $user_id=$user->id;
-       
-
-        $donation_history = DonationHistory::with(['schedule'=> function ($query) use($user_id)
-                    {
-                        $query->where('user_id',$user_id);
-                    }
-        ])->where('status',true)->get();
-        return ['user'=>$user,'donation_history'=>$donation_history];
-    }
+    
 
 }

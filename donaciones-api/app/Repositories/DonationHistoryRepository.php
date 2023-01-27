@@ -83,7 +83,8 @@ class DonationHistoryRepository extends BaseRepository
         return DonationHistory::get();
     }
 
-    public function  listUser()
+    
+    public function  listUserDonationHistory()
     {
         $user_id=Auth()->user()->id;
         $array_donation=[];
@@ -142,5 +143,23 @@ class DonationHistoryRepository extends BaseRepository
 
       
         return $donation;
+    }
+
+    public function digitalDonationCard($data)
+    {
+        $user = Auth::user();
+        
+        $donation_history=[];
+        $data_history = $this->listUserDonationHistory();
+
+
+        foreach($data_history as $value){
+            if ($value['donation_date']==$data) {
+                $donation_history=$value["data"]; 
+            }
+        }
+
+           
+        return ['user'=>$user,'donation_history'=>$donation_history];
     }
 }
