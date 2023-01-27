@@ -67,6 +67,11 @@ Route::group(['middleware' => 'auth:api'], function() {
         Route::post('store',[ScheduleController::class,'store']);
         Route::get('show/{id}',[ScheduleController::class,'show']);
         Route::post('update/{id}',[ScheduleController::class,'update']);
+        
+
+        Route::get('userListSchedule', [ScheduleController::class,'listScheduleDonation']);
+
+        Route::post('cancelScheduleDonation/{id}',[ScheduleController::class,'cancelScheduleDonationUser']);
         //Route::post('/updateDate/{id}', 'App\Http\Controllers\Api\IngresoVisitaController@updateDate');
         //Route::get('/getListMiembro/{id}', 'App\Http\Controllers\Api\IngresoVisitaController@getListMiembro');
 

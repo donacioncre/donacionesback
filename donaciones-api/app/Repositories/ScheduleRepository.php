@@ -246,6 +246,25 @@ class ScheduleRepository extends BaseRepository
         return $donation;
     }
 
+    public function listScheduleDonationUser()
+    {
+
+        $user_id=Auth()->user()->id;
+        $donation=$this->schedule->with('donation')->with('user')
+                    ->where('user_id',$user_id)->where('status',true)->get();
+
+        return $donation;
+    }
+
+    public function cancelScheduleDonationUser($id)
+    {
+
+        $user_id=Auth()->user()->id;
+        $schedule=$this->schedule->find($id);
+        $schedule->update(['status'=>false]);
+        return $schedule;
+    }
+
     public function getNameUser()
     {
         $user =$this->user->get(['firstname','lastname','id']);

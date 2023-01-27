@@ -103,6 +103,37 @@ class ScheduleController extends Controller
         }
     }
 
+    public function listScheduleDonation(Request $request)
+    {
+        try {
+
+            $data = $this->schedule->listScheduleDonationUser();
+            return response()->json(['status' => true, 'data' => $data]);
+        } catch (Exception $ex) {
+            dd($ex);
+            return response()->json([
+                'status' => false,
+                'error' => 'Algo a sucedido por favor intente después de unos minutos',
+                'message' => $ex->getMessage()
+            ], $this->errorStatus);
+        }
+    }
+    public function cancelScheduleDonation($id)
+    {
+        try {
+
+            $data = $this->schedule->cancelScheduleDonationUser($id);
+            return response()->json(['status' => true, 'data' => $data]);
+        } catch (Exception $ex) {
+            dd($ex);
+            return response()->json([
+                'status' => false,
+                'error' => 'Algo a sucedido por favor intente después de unos minutos',
+                'message' => $ex->getMessage()
+            ], $this->errorStatus);
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *

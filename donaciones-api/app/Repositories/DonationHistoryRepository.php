@@ -86,22 +86,14 @@ class DonationHistoryRepository extends BaseRepository
     public function  listUser()
     {
         $user_id=Auth()->user()->id;
-        $data=[];
-        $count=0;
-        $donations = DonationHistory::with(['schedule'=> function ($query) use($user_id)
-                    {
-                        $query->where('user_id',$user_id)->orderBy('donation_date','asc');
-                    }
-        ])->where('status',true)->get();
-
-        $donation_histories=Schedule::with('donationHistory')->where('user_id',$user_id)->orderBy('donation_date','asc')->get();
-
+        $array_donation=[];
+        
+        $donation_histories=Schedule::with('donationHistory')->where('user_id',$user_id)
+                            ->orderBy('donation_date','asc')->get();
         foreach($donation_histories as $key => $donation){
 
-            
-
             if ($donation->donationHistory->first()->status) {
-                $count++;
+                
                 $donation_data[]=[
                     'donation_date' => $donation->donation_date,
                     'type_donation' =>$donation->type_donation,
@@ -109,26 +101,21 @@ class DonationHistoryRepository extends BaseRepository
                     'hemoglobin'=> $donation->donationHistory->first()->hemoglobin,
                     'weight'=> $donation->donationHistory->first()->weight,
                     'blood_pressure'=> $donation->donationHistory->first()->blood_pressure,
-                ];
-
-                if ($count==8) {
-                    $data[]=[
-                        'date'=>$donation->donation_date,
-                        'donation_data' =>$donation_data
-        
-                    ];
-
-                    $donation_data=[];
-
-
-                }
-            }
-            
-
-            
+                ];    
+            }   
         }
 
-        return $donations;
+        $array_chunck= array_chunk($donation_data, 8);
+       
+        for ($i=0; $i <count($array_chunck) ; $i++) { 
+            $array_donation[] =[
+                'donation_date' => $array_chunck[$i][0]['donation_date'] ,
+                'data'=> $array_chunck[$i],
+            ]; 
+     
+        }
+
+        return $array_donation;
     }
 
     public function searchDate($data)

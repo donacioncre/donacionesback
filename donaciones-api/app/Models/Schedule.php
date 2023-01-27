@@ -16,7 +16,7 @@ class Schedule extends Model
         'donation_id',
         'note',
         'type_donation',
-        'status'
+        'status' 
     ];
 
     /**
