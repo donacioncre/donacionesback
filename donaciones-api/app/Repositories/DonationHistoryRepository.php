@@ -88,22 +88,27 @@ class DonationHistoryRepository extends BaseRepository
     {
         $user_id=Auth()->user()->id;
         $array_donation=[];
+        $donation_data=[];
         
         $donation_histories=Schedule::with('donationHistory')->where('user_id',$user_id)
                             ->orderBy('donation_date','asc')->get();
         foreach($donation_histories as $key => $donation){
 
-            if ($donation->donationHistory->first()->status) {
+            if (count($donation->donationHistory)) {
+                if ($donation->donationHistory->first()->status) {
                 
-                $donation_data[]=[
-                    'donation_date' => $donation->donation_date,
-                    'type_donation' =>$donation->type_donation,
-                    'code'=> $donation->donationHistory->first()->code,
-                    'hemoglobin'=> $donation->donationHistory->first()->hemoglobin,
-                    'weight'=> $donation->donationHistory->first()->weight,
-                    'blood_pressure'=> $donation->donationHistory->first()->blood_pressure,
-                ];    
-            }   
+                    $donation_data[]=[
+                        'donation_date' => $donation->donation_date,
+                        'type_donation' =>$donation->type_donation,
+                        'code'=> $donation->donationHistory->first()->code,
+                        'hemoglobin'=> $donation->donationHistory->first()->hemoglobin,
+                        'weight'=> $donation->donationHistory->first()->weight,
+                        'blood_pressure'=> $donation->donationHistory->first()->blood_pressure,
+                    ];    
+                }  
+            }
+
+           
         }
 
         $array_chunck= array_chunk($donation_data, 8);
