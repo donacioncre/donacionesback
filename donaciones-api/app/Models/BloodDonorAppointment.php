@@ -11,13 +11,13 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 
 
-class BloodDonationHour extends Model
+class BloodDonorAppointment extends Model
 {
     //use SoftDeletes;
 
     use HasApiTokens, HasFactory, Notifiable;
 
-    public $table = 'blood_donation_hours';
+    public $table = 'blood_donor_appointments';
     
 
    // protected $dates = ['deleted_at'];
@@ -25,12 +25,9 @@ class BloodDonationHour extends Model
 
 
     public $fillable = [
-        'days',
-        'start_time',
-        'end_time',
-        'start_time_1',
-        'end_time_1',
-        'donation_id'
+        'amount',
+        'time',
+        'donation_hours_id',
     ];
 
     /**
@@ -104,13 +101,8 @@ class BloodDonationHour extends Model
         return $data;
     }
 
-    public function donation()
+    public function bloodDonationHour()
     {
-        return $this->belongsTo(DonationPoint::class,'donation_id','id');
-    }
-
-    public function bloodDonorAppointment()
-    {
-        return $this->hasMany(BloodDonorAppointment::class,'donation_hours_id','id');
+        return $this->belongsTo(BloodDonationHour::class,'donation_hours_id','id');
     }
 }

@@ -4,8 +4,14 @@
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-12">
+                <div class="col-sm-6">
                     <h1>Editar Horarios Sangre</h1>
+                </div>
+                <div class="col-sm-6">
+                    <a class="btn btn-primary float-right"
+                       href="{{ route('editAppointment',['id'=> $id]) }}">
+                        Ver citas por hora
+                    </a>
                 </div>
             </div>
         </div>
@@ -26,8 +32,8 @@
             </div>
 
             <div class="card-footer">
-                {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('bloodDonationHours.index') }}" class="btn btn-default">Cancel</a>
+                {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
+                <a href="{{ route('bloodDonationHours.index') }}" class="btn btn-default">Cancelar</a>
             </div>
 
             {!! Form::close() !!}
