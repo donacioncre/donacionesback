@@ -91,11 +91,13 @@ class ScheduleRepository extends BaseRepository
         $numDay= date('w',strtotime($data['date']));
 
         if ($data['donation_type']== "plaqueta") {
-            $donationHour = $this->plateletDonationHour->where('donation_id',$id)->where('days',$numDay)->first();
+            $donationHour = $this->plateletDonationHour->where('donation_id',$id)
+                        ->where('days',$numDay)->first();
            
           
         }else{
-            $donationHour = $this->bloodDonationHour->where('donation_id',$id)->where('days',$numDay)->first();
+            $donationHour = $this->bloodDonationHour
+                        ->where('donation_id',$id)->where('days',$numDay)->first();
             
         }
 
