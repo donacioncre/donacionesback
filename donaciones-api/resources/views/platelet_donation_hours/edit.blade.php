@@ -4,8 +4,14 @@
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-12">
+                <div class="col-sm-6">
                     <h1>Editar Horarios Donación Plaquetas</h1>
+                </div>
+                <div class="col-sm-6">
+                    <a class="btn btn-primary float-right"
+                       href="{{ route('editAppointmentPlatelet',['id'=> $id]) }}">
+                        Ver citas por hora
+                    </a>
                 </div>
             </div>
         </div>
@@ -21,13 +27,13 @@
 
             <div class="card-body">
                 <div class="row">
-                    @include('blood_donation_hours.edit_fields')
+                    @include('platelet_donation_hours.edit_fields')
                 </div>
             </div>
 
             <div class="card-footer">
-                {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('plateletDonationHours.index') }}" class="btn btn-default">Cancel</a>
+                {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
+                <a href="{{ route('plateletDonationHours.index') }}" class="btn btn-default">Cancelar</a>
             </div>
 
             {!! Form::close() !!}

@@ -4,7 +4,7 @@
         <tr>
             <th>Pregunta</th>
             <th>Respuesta</th>
-            <th colspan="3">Action</th>
+            <th colspan="3">Acción</th>
         </tr>
         </thead>
         <tbody>

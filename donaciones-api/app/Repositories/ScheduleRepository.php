@@ -82,58 +82,52 @@ class ScheduleRepository extends BaseRepository
 
     public function dateDonation($data,$id)
     {
-        $dataTime=[];
-      
         $date = Carbon::parse($data['date']);
-        $dataSchedule=$this->schedule->where('donation_date',$date)->get();
-
-
+        $dataSchedule=[];
+        $date_time=[];
         $numDay= date('w',strtotime($data['date']));
 
         if ($data['donation_type']== "plaqueta") {
-            $donationHour = $this->plateletDonationHour->where('donation_id',$id)
+            $donationHour = $this->plateletDonationHour->with('plateletDonorAppointment')
+                        ->where('donation_id',$id)
                         ->where('days',$numDay)->first();
-           
-          
-        }else{
-            $donationHour = $this->bloodDonationHour
+            if (!is_object($donationHour)){
+                return "Sin Horario";
+            }
+
+            foreach ($donationHour->plateletDonorAppointment as $key => $value) {
+
+                $dataSchedule=$this->schedule->where('donation_date',$date)
+                        ->where('donation_time',$value->time)->get();
+    
+                if (count($dataSchedule)  < $value->amount) {
+                    $date_time[]= $value->time;
+                }
+              
+            }
+
+        }
+        if ($data['donation_type']== "sangre"){
+            $donationHour = $this->bloodDonationHour->with('bloodDonorAppointment')
                         ->where('donation_id',$id)->where('days',$numDay)->first();
             
-        }
-
-        if (is_object($donationHour )) {
-            
-            $range_time= $data['donation_type']== "plaqueta"?  '120 mins': '30 mins';
-
-            $times = $this->create_time_range($donationHour['start_time'],$donationHour['end_time'],$range_time);
-
-            if ($donationHour->start_time_1 != null && $donationHour->end_time_1 != null ) {
-                $times_1=  $this->create_time_range($donationHour['start_time_1'],
-                                $donationHour['end_time_1'],'30 mins');
-                array_push($times, ...$times_1);
+            if (!is_object($donationHour)){
+                return "Sin Horario";
             }
+            foreach ($donationHour->bloodDonorAppointment as $key => $value) {
 
-            if(count($dataSchedule)){
-                foreach($dataSchedule as   $schedule){
-                    
-                    $key=array_search(strtotime($schedule['donation_time']),$times,true);
-
-                    if ($key !== false) {
-                        unset($times[$key]);
-                    }
+                $dataSchedule=$this->schedule->where('donation_date',$date)
+                        ->where('donation_time',$value->time)->get();
+    
+                if (count($dataSchedule)  < $value->amount) {
+                    $date_time[]= $value->time;
                 }
-             $dataTime =$this->formatTime($times);
-
-            }else{
-                $dataTime =$this->formatTime($times);
+                
             }
-
-            return $dataTime;
-        }else{
-            return "Sin Horario";
         }
-
-
+        
+        return  $date_time;
+       
     }
 
 

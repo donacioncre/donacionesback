@@ -66,9 +66,10 @@ class BloodDonationHourController extends AppBaseController
     {
        
         $input = $request->all();
+        //dd($input);
         for($i=0 ; $i < count($input['weekdays']); $i++){
            
-            if ($input['weekdays'][$i]) {
+            if ($input['weekdays'][$i] != null ) {
            
 
                 $data=[
@@ -82,8 +83,10 @@ class BloodDonationHourController extends AppBaseController
                 $bloodDonationHour = $this->bloodDonationHourRepository->store($data);
             }
 
-        }
+            
 
+        }
+        
         Flash::success('Blood Donation Hour saved successfully.');
 
         return redirect(route('createAppointment',['id'=>$input['donation_id']]));
@@ -92,7 +95,7 @@ class BloodDonationHourController extends AppBaseController
     public function createAppointment($id)
     {
         
-        $bloodDonationHours = $this->bloodDonationHourRepository->show($id);
+        //$bloodDonationHours = $this->bloodDonationHourRepository->show($id);
         //$days=$this->bloodDonationHourRepository->days();
 
         $donation_hours = $this->bloodDonationHourRepository->dateDonation($id);
@@ -113,7 +116,6 @@ class BloodDonationHourController extends AppBaseController
        //dd($donation_hours[0]);
         return view('blood_donation_hours.edit_appointment',compact('bloodDonationHours','id'));
     }
-
 
     public function storeAppointment(Request $request)
     {
@@ -229,7 +231,7 @@ class BloodDonationHourController extends AppBaseController
 
         for($i=0 ; $i < count($input['weekdays']); $i++){
            
-            if ($input['weekdays'][$i]) {
+            if ($input['weekdays'][$i] != null) {
            
 
                 $data=[
@@ -247,7 +249,9 @@ class BloodDonationHourController extends AppBaseController
 
         Flash::success('Blood Donation Hour updated successfully.');
 
-        return redirect(route('bloodDonationHours.index'));
+        //return redirect(route('bloodDonationHours.index'));
+
+        return redirect(route('createAppointment',['id'=>$input['donation_id']]));
     }
 
     /**

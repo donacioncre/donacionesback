@@ -63,14 +63,12 @@ class PlateletDonationHourController extends AppBaseController
      */
     public function store(Request $request)
     {
-
-      
         $input = $request->all();
+        
         for($i=0 ; $i < count($input['weekdays']); $i++){
            
-            if ($input['weekdays'][$i]) {
+            if ($input['weekdays'][$i] != null) {
            
-
                 $data=[
                     'donation_id'=> $input['donation_id'],
                     'days' => $input['weekdays'][$i],
@@ -78,7 +76,8 @@ class PlateletDonationHourController extends AppBaseController
                     'end_time' => $input['end_time'][$i],
                     'start_time_1' => $input['start_time_1'][$i],
                     'end_time_1'=> $input['end_time_1'][$i],
-                ];           
+                ];
+                      
                 $bloodDonationHour = $this->plateletDonationHourRepository->store($data);
             }
 
@@ -87,7 +86,71 @@ class PlateletDonationHourController extends AppBaseController
 
         Flash::success('Blood Donation Hour saved successfully.');
 
-        return redirect(route('plateletDonationHours.index'));
+        //return redirect(route('plateletDonationHours.index'));
+        return redirect(route('createAppointmentPlatelet',['id'=>$input['donation_id']]));
+
+    }
+
+    public function createAppointment($id)
+    {
+        
+        //$bloodDonationHours = $this->bloodDonationHourRepository->show($id);
+        //$days=$this->bloodDonationHourRepository->days();
+
+        $donation_hours = $this->plateletDonationHourRepository->dateDonation($id);
+
+        return view('platelet_donation_hours.create_appointment',compact('donation_hours','id'));
+    }
+
+    public function editAppointment($id)
+    {
+       
+        $bloodDonationHours = $this->plateletDonationHourRepository->show($id);
+
+      
+        //$days=$this->bloodDonationHourRepository->days();
+
+        //dd($bloodDonationHours->donationHour[0]->bloodDonorAppointment);
+        //$donation_hours = $this->bloodDonationHourRepository->dateDonation($id);
+      
+       //dd($donation_hours[0]);
+        return view('platelet_donation_hours.edit_appointment',compact('bloodDonationHours','id'));
+    }
+
+    public function storeAppointment(Request $request)
+    {
+        
+       $input = $request->all(); 
+       $donation_hours =[];
+     
+        //$days=$this->bloodDonationHourRepository->days();
+        $this->plateletDonationHourRepository->deleteTimeDonator($input['donation_id']);
+        foreach ($input['day'] as $keyDay => $day) {
+            foreach($input['time_'.$day] as $keyTime => $itemTime){
+
+                foreach($input['num_attention_time_'.$day] as $keyAttention => $itemAttention){
+
+                    if ($keyTime == $keyAttention) {
+                        $data=[
+                            'donation_id'=>$input['donation_id'],
+                            'day' => $day,
+                            'time' => $itemTime,
+                            'num_attention_time' => $itemAttention
+                        ];
+                        
+                        $donation_hours = $this->plateletDonationHourRepository->saveTimeDonator($data);
+
+
+                    }    
+                    
+                }
+
+            }
+        }
+       
+       Flash::success('Blood Donation Hour updated successfully.');
+
+       return redirect(route('plateletDonationHours.index'));
     }
 
     /**
@@ -122,13 +185,14 @@ class PlateletDonationHourController extends AppBaseController
     public function edit($id)
     {
 
+        
         $pointsDonations=$this->plateletDonationHourRepository->pointsDonations();
         $weekdays = $this->plateletDonationHourRepository->weekdays();
         $bloodDonationHours = $this->plateletDonationHourRepository->show($id);
 
         $days_available=$weekdays;
 
-        foreach($bloodDonationHours->donationHour as $key => $value){
+        foreach($bloodDonationHours->plateletDonationHour as $key => $value){
             unset($days_available[$value->days]);
         }
         $pointsDonations[]=[
@@ -141,7 +205,7 @@ class PlateletDonationHourController extends AppBaseController
             return redirect(route('plateletDonationHours.index'));
         }
 
-        return view('platelet_donation_hours.edit')->with('bloodDonationHours', $bloodDonationHours)
+        return view('platelet_donation_hours.edit',compact('id'))->with('bloodDonationHours', $bloodDonationHours)
                 ->with('pointsDonations',$pointsDonations)->with('weekdays',$weekdays)
                 ->with('days_available',$days_available);
     }
@@ -168,7 +232,7 @@ class PlateletDonationHourController extends AppBaseController
 
         for($i=0 ; $i < count($input['weekdays']); $i++){
            
-            if ($input['weekdays'][$i]) {
+            if ($input['weekdays'][$i] != null) {
            
 
                 $data=[

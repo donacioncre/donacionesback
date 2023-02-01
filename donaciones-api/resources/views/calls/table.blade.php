@@ -7,7 +7,7 @@
             <th>Lugar</th>
             <th>Provincia - Ciudad</th> 
             <th>Fecha</th> 
-            <th colspan="2">Action</th>
+            <th colspan="2">Acción</th>
         </tr>
         </thead>
         <tbody>

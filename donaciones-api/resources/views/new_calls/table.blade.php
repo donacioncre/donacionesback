@@ -6,7 +6,7 @@
             <th>Descripción</th>
             <th>Imagen</th>
             <th>Autor</th> 
-            <th colspan="3">Action</th>
+            <th colspan="3">Acción</th>
         </tr>
         </thead>
         <tbody>

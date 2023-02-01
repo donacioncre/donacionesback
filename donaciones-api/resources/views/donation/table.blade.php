@@ -9,7 +9,7 @@
             <th>Dirección</th>
             <th>Teléfono</th>
             <th>Correo</th>
-            <th colspan="3">Action</th>
+            <th colspan="3">Acción</th>
         </tr>
         </thead>
         <tbody>

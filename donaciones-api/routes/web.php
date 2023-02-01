@@ -64,19 +64,24 @@ Route::group(['middleware'=>['auth']], function(){
     Route::resource('cities', App\Http\Controllers\CityController::class);
 
     Route::resource('bloodDonationHours',\App\Http\Controllers\BloodDonationHourController::class);
-
     Route::get('createAppointment/{id}', [\App\Http\Controllers\BloodDonationHourController::class,
                 'createAppointment'])->name('createAppointment');
-
     Route::get('editAppointment/{id}', [\App\Http\Controllers\BloodDonationHourController::class,
                 'editAppointment'])->name('editAppointment');
-    
-
     Route::post('storeAppointment', [\App\Http\Controllers\BloodDonationHourController::class,
                 'storeAppointment'])->name('storeAppointment');
 
 
     Route::resource('plateletDonationHours',\App\Http\Controllers\PlateletDonationHourController::class);
+
+    Route::get('createAppointmentPlatelet/{id}', [\App\Http\Controllers\PlateletDonationHourController::class,
+    'createAppointment'])->name('createAppointmentPlatelet');
+    Route::get('editAppointmentPlatelet/{id}', [\App\Http\Controllers\PlateletDonationHourController::class,
+        'editAppointment'])->name('editAppointmentPlatelet');
+    Route::post('storeAppointmentPlatelet', [\App\Http\Controllers\PlateletDonationHourController::class,
+        'storeAppointment'])->name('storeAppointmentPlatelet');
+
+    
 
     Route::resource('histories',\App\Http\Controllers\DonationHistoryController::class);
 

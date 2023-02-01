@@ -3,7 +3,7 @@
         <thead>
         <tr>
             <th>Rol</th>
-            <th colspan="2">Action</th>
+            <th colspan="2">Acción</th>
         </tr>
         </thead>
         <tbody>

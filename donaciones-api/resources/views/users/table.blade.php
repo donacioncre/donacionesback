@@ -10,7 +10,7 @@
             <th>Email</th>
             <th>Rol</th>
             <th>Centro de Donación</th>
-            <th colspan="2">Action</th>
+            <th colspan="2">Acción</th>
         </tr>
         </thead>
         <tbody>
