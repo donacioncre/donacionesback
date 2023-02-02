@@ -49,6 +49,7 @@ class AuthController extends Controller
                     'blood_type' => $request->blood_type,
                     'profile_picture' =>'N/A',
                     'country' => $request->country,
+                    'city'=>$request->city,
                     'device_token' =>$request->device_token
                 ]);
                 

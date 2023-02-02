@@ -151,7 +151,7 @@
                             <b>Correo:</b> {{$data['user_email']}} <br>
                             <b>Fecha de nacimiento:</b> {{$data['date_birth']}}  <br>
                             <b>Provincia:</b> {{$data['country']}}  <br>
-                            {{-- <b>Ciudad:</b> {{$data['city']}} <br> --}}
+                            <b>Ciudad:</b> {{$data['city']}} <br>
                           </p>
 
                           <p style="margin-top: 20px;">

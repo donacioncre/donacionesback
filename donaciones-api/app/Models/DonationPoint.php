@@ -29,7 +29,8 @@ class DonationPoint extends Model
         "whatsapp_number",
         "email",
         "blood",
-        "platelet"
+        "platelet",
+        "reference"
     ];
 
     /**
@@ -38,7 +39,6 @@ class DonationPoint extends Model
      * @var array<int, string>
      */
     protected $hidden = [
-    
         "created_at",
         "updated_at"
     ];

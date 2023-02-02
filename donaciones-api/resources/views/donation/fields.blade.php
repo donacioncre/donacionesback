@@ -4,6 +4,10 @@
     {!! Form::text('name', null, ['class' => 'form-control']) !!}
 </div>
 <div class="form-group col-sm-6">
+    {!! Form::label('reference', 'Referencia:') !!}
+    {!! Form::text('reference', null, ['class' => 'form-control']) !!}
+</div>
+<div class="form-group col-sm-6">
     {!! Form::label('longitud', 'Longitud:') !!}
     {!! Form::text('longitude', null, ['class' => 'form-control']) !!}
 </div>

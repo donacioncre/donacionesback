@@ -3,9 +3,9 @@
         <thead>
         <tr>
             <th>Nombre</th>
+            <th>Referencia</th>
             <th>Ciudad</th>
-            <th>Longitud</th>
-            <th>Latitud</th>
+           
             <th>Dirección</th>
             <th>Teléfono</th>
             <th>Correo</th>
@@ -16,9 +16,9 @@
         @foreach($donations as $donation)
             <tr>
                 <td>{{ $donation->name }}</td>
+                <td>{{$donation->reference}}</td>
                 <td>{{ $donation->city->name }}</td>
-                <td>{{$donation->longitude}}</td>
-                <td>{{$donation->latitude}}</td>
+               
                 <td>{{$donation->address}}</td>
                 <td>{{$donation->phone}}</td>
                 <td>{{$donation->email}}</td>
