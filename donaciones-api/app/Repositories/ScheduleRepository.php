@@ -38,6 +38,8 @@ class ScheduleRepository extends BaseRepository
 
     protected $schedule,$donation,$user,$city,$bloodDonationHour, $plateletDonationHour;
 
+    public $email_user='estevez.desarrollo@gmail.com';
+
     public function __construct(Schedule $schedule, DonationPoint $donation, City $city, 
                                     BloodDonationHour $bloodDonationHour, User $user, PlateletDonationHour $plateletDonationHour  ) {
         $this->schedule = $schedule;
@@ -167,11 +169,12 @@ class ScheduleRepository extends BaseRepository
 
             //user donation
             $dataEmail=new AppointmentConfirmation($email);
-            $response = Mail::to($schedule->user->email)->send($dataEmail);
-
+            //$response = Mail::to($schedule->user->email)->send($dataEmail);
+            $response=Mail::to($this->email_user)->send($dataEmail);
             //donation center
             $dataEmail=new AppointmentDonationCenter($email);
-            $response = Mail::to($schedule->donation->email)->send($dataEmail);
+            //$response = Mail::to($schedule->donation->email)->send($dataEmail);
+            $response=Mail::to($this->email_user)->send($dataEmail);
 
 
             return ['ok',$schedule->id];
@@ -240,11 +243,13 @@ class ScheduleRepository extends BaseRepository
             ];
     
             $dataEmail=new AppointmentReschedule($email);
-            $response = Mail::to($schedule->user->email)->send($dataEmail);
-
+            //$response = Mail::to($schedule->user->email)->send($dataEmail);
+            $response=Mail::to($this->email_user)->send($dataEmail);
             //donation center
             $dataEmail=new AppointmentRescheduleDonationCenter($email);
-            $response = Mail::to($schedule->donation->email)->send($dataEmail);
+            //$response = Mail::to($schedule->donation->email)->send($dataEmail);
+            $response=Mail::to($this->email_user)->send($dataEmail);
+
             return ['ok',$schedule->id,$schedule->user->id];
         } catch (Exception $ex) {
             DB::rollBack();
@@ -353,11 +358,12 @@ class ScheduleRepository extends BaseRepository
         ];
 
         $dataEmail=new AppointmentCancel($email);
-        $response = Mail::to($schedule->user->email)->send($dataEmail);
-
+        //$response = Mail::to($schedule->user->email)->send($dataEmail);
+        $response=Mail::to($this->email_user)->send($dataEmail);
         //donation center
         $dataEmail=new AppointmentCancelDonationCenter($email);
-        $response = Mail::to($schedule->donation->email)->send($dataEmail);
+        //$response = Mail::to($schedule->donation->email)->send($dataEmail);
+        $response=Mail::to($this->email_user)->send($dataEmail);
         return $schedule;
     }
 

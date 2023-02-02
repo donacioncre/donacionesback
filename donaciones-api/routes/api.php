@@ -57,7 +57,7 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::resource('/convocations', ConvocationController::class);
 
     Route::prefix('schedule')->group(function () {
-        Route::get('listCountry', [ScheduleController::class,'listCountry']);
+        //Route::get('listCountry', [ScheduleController::class,'listCountry']);
         Route::get('/listCity/{id}', [ScheduleController::class,'listCity']);
         Route::get('/listDonationCenter/{id}', [ScheduleController::class,'listDonationCenter']);
 
@@ -88,6 +88,10 @@ Route::group(['middleware' => 'auth:api'], function() {
     //Route::get('organizations/listDepartment/{id}', 'OrganizationController@listDepartment');
 });
 
+
+Route::prefix('schedule')->group(function () {
+    Route::get('listCountry', [ScheduleController::class,'listCountry']);
+});
 
 Route::resource('/donations', DonationController::class);
 
