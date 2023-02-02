@@ -148,7 +148,7 @@
                             <b>Apellidos:</b> {{$data['lastname']}} <br>
                             <b>Grupo Sanguíneo:</b> {{$data['blood_type']}} <br>
                             <b>Celular:</b> {{$data['phone_number']}} <br>
-                            <b>Correo:</b> {{$data['email']}} <br>
+                            <b>Correo:</b> {{$data['user_email']}} <br>
                             <b>Fecha de nacimiento:</b> {{$data['date_birth']}}  <br>
                             <b>Provincia:</b> {{$data['country']}}  <br>
                             {{-- <b>Ciudad:</b> {{$data['city']}} <br> --}}
@@ -162,7 +162,7 @@
                             <b>Dirección:</b> {{$data['address']}} <br>
                             <b>Tipo de Donación:</b> {{$data['donation_type']}} <br>
                             <b>Teléfono: </b>{{$data['phone']}} <br>
-                            <b>Email:</b> {{$data['email']}} <br>
+                            <b>Email:</b> {{$data['donation_email']}} <br>
                             <b>Fecha para la donación: </b>{{$data['donation_date']}} <br>
                             <b>Hora para la donación:</b> {{$data['donation_time']}} <br>
                           </p>
