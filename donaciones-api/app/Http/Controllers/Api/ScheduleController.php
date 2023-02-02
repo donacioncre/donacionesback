@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\AppointmentConfirmation;
 use App\Repositories\BenefitDonatingRepository;
 use App\Repositories\CountryRepository;
 use App\Repositories\DonationRepository;
@@ -10,6 +11,7 @@ use App\Repositories\ScheduleRepository;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class ScheduleController extends Controller
@@ -176,6 +178,8 @@ class ScheduleController extends Controller
         $data= $this->schedule->store($input);
 
         if ($data[0]=='ok') {
+
+           
              return response()->json([
                  'status' =>  $this->successStatus,
                  'message' => 'Successfully',

@@ -2,6 +2,12 @@
 
 namespace App\Repositories;
 
+use App\Mail\AppointmentCancel;
+use App\Mail\AppointmentCancelDonationCenter;
+use App\Mail\AppointmentConfirmation;
+use App\Mail\AppointmentDonationCenter;
+use App\Mail\AppointmentReschedule;
+use App\Mail\AppointmentRescheduleDonationCenter;
 use App\Models\BloodDonationHour;
 use App\Models\City;
 use App\Models\DonationPoint;
@@ -13,6 +19,7 @@ use App\Repositories\BaseRepository;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 /**
  * Class QuestionsRepository
@@ -137,6 +144,35 @@ class ScheduleRepository extends BaseRepository
             DB::beginTransaction();
             $schedule=$this->schedule->create($data);
             DB::commit();
+            
+            $email=[
+                'name' => $schedule->user->firstname,
+                'lastname' => $schedule->user->lastname,
+                'blood_type' => $schedule->user->blood_type,
+                'phone_number' => $schedule->user->phone_number,
+                'email' => $schedule->user->email,
+                'date_birth' => Carbon::parse($schedule->user->date_birth)->format('d/m/Y'),
+                'country' => $schedule->user->country,
+                'city' => $schedule->user->city,
+
+                //hemocentro
+                'donation_center' => $schedule->donation->name,
+                'address' => $schedule->donation->address,
+                'donation_type' =>$schedule->type_donation ,
+                'phone' => $schedule->donation->phone,
+                'email' => $schedule->donation->email,
+                'donation_date' => Carbon::parse($schedule->donation_date)->format('d/m/Y'),
+                'donation_time' => $schedule->donation_time,
+            ];
+
+            //user donation
+            $dataEmail=new AppointmentConfirmation($email);
+            $response = Mail::to($schedule->user->email)->send($dataEmail);
+
+            //donation center
+            $dataEmail=new AppointmentDonationCenter($email);
+            $response = Mail::to($schedule->donation->email)->send($dataEmail);
+
 
             return ['ok',$schedule->id];
         } catch (Exception $ex) {
@@ -183,7 +219,32 @@ class ScheduleRepository extends BaseRepository
             $schedule->update($data);
 
             DB::commit();
+            $email=[
+                'name' => $schedule->user->firstname,
+                'lastname' => $schedule->user->lastname,
+                'blood_type' => $schedule->user->blood_type,
+                'phone_number' => $schedule->user->phone_number,
+                'email' => $schedule->user->email,
+                'date_birth' => Carbon::parse($schedule->user->date_birth)->format('d/m/Y'),
+                'country' => $schedule->user->country,
+                'city' => $schedule->user->city,
+    
+                //hemocentro
+                'donation_center' => $schedule->donation->name,
+                'address' => $schedule->donation->address,
+                'donation_type' =>$schedule->type_donation ,
+                'phone' => $schedule->donation->phone,
+                'email' => $schedule->donation->email,
+                'donation_date' => Carbon::parse($schedule->donation_date)->format('d/m/Y'),
+                'donation_time' => $schedule->donation_time,
+            ];
+    
+            $dataEmail=new AppointmentReschedule($email);
+            $response = Mail::to($schedule->user->email)->send($dataEmail);
 
+            //donation center
+            $dataEmail=new AppointmentRescheduleDonationCenter($email);
+            $response = Mail::to($schedule->donation->email)->send($dataEmail);
             return ['ok',$schedule->id,$schedule->user->id];
         } catch (Exception $ex) {
             DB::rollBack();
@@ -270,6 +331,33 @@ class ScheduleRepository extends BaseRepository
     {
         $schedule=$this->schedule->find($id);
         $schedule->update(['status'=>false]);
+
+        $email=[
+            'name' => $schedule->user->firstname,
+            'lastname' => $schedule->user->lastname,
+            'blood_type' => $schedule->user->blood_type,
+            'phone_number' => $schedule->user->phone_number,
+            'email' => $schedule->user->email,
+            'date_birth' => Carbon::parse($schedule->user->date_birth)->format('d/m/Y'),
+            'country' => $schedule->user->country,
+            'city' => $schedule->user->city,
+
+            //hemocentro
+            'donation_center' => $schedule->donation->name,
+            'address' => $schedule->donation->address,
+            'donation_type' =>$schedule->type_donation ,
+            'phone' => $schedule->donation->phone,
+            'email' => $schedule->donation->email,
+            'donation_date' => Carbon::parse($schedule->donation_date)->format('d/m/Y'),
+            'donation_time' => $schedule->donation_time,
+        ];
+
+        $dataEmail=new AppointmentCancel($email);
+        $response = Mail::to($schedule->user->email)->send($dataEmail);
+
+        //donation center
+        $dataEmail=new AppointmentCancelDonationCenter($email);
+        $response = Mail::to($schedule->donation->email)->send($dataEmail);
         return $schedule;
     }
 

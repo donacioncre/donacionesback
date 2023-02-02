@@ -5,6 +5,9 @@ use App\Http\Controllers\RolController;
 use App\Http\Controllers\ScheduleController;
 use Illuminate\Support\Facades\Route;
 
+use App\Mail\AppointmentConfirmation;
+use Illuminate\Support\Facades\Mail;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
