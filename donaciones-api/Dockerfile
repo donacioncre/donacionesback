@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     zip \
     unzip \
+    cron \
     && docker-php-ext-configure gd --with-freetype --with-jpeg
 #node y npm
 RUN apt-get install -y curl \
@@ -37,10 +38,26 @@ RUN useradd -u 1000 -ms /bin/bash -g www www
 COPY . /var/www
 # Copy existing application directory permissions
 COPY --chown=www:www . /var/www
+# --------------------------------------------------------------------
+# Add docker custom crontab
+ADD crontab /etc/cron.d/crontab
+
+# Give execution rights on the cron job
+RUN chmod 777 /etc/cron.d/crontab
+
+# Specify crontab file for running
+RUN crontab /etc/cron.d/crontab
+
+RUN touch /var/log/cron.log
+ENTRYPOINT ["cron", "-f"]
+# --------------------------------------------------------------------
+
 # Change current user to www
-USER www
+ USER www
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
-CMD ["php-fpm"]
 
+#CMD cron  && tail -f /var/log/cron.log
+#CMD ["php-fpm","cron","-f"]
+CMD ["php-fpm"]
 

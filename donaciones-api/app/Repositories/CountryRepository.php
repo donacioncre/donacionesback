@@ -33,12 +33,14 @@ class CountryRepository
     {
         try {
             DB::beginTransaction();
-            $this->country->create($data);
+         
+            $country=$this->country->create($data);
             DB::commit();
             
             return 'ok';
         } catch (Exception $ex) {
             DB::rollBack();
+            dd($ex);
             return 'Register Failed ' .$ex->getMessage();
         }
 
