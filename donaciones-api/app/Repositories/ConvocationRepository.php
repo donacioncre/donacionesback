@@ -23,7 +23,7 @@ class ConvocationRepository
     public function list()
     {
         $data=[];
-        $convocation = $this->convocation::with('donation')->get();
+        $convocation = $this->convocation::with('donation')->orderBy("id","asc")->get();
         foreach($convocation as $key=> $value){
             $data[]=[
                 'id' => $value->id,

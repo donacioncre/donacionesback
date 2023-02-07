@@ -33,7 +33,7 @@ class NewCallController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $newCalls = $this->newCallRepository->all();
+        $newCalls = $this->newCallRepository->all()->sortBy("id");
 
         return view('new_calls.index')
             ->with('newCalls', $newCalls);
@@ -48,6 +48,7 @@ class NewCallController extends AppBaseController
     {
         $authors = $this->newCallRepository->listUser();
 
+      
         $user =$this->newCallRepository->user();
         
         return view('new_calls.create')->with('authors',$authors)->with('user',$user);

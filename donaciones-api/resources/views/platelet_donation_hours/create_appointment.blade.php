@@ -35,8 +35,8 @@
                                 <input type="text" hidden name="day[]" value="{{$keyItem}}">
                                 @foreach ($item  as $key => $value)
                                     <div class="input-group ">
-                                        <input type="text" class="form-control" name="time_{{$keyItem}}[] "  value="{{$value}}">
-                                        <input  type="text" class="form-control" name="num_attention_time_{{$keyItem}}[]" value="1">
+                                        <input type="text" class="form-control" name="time_{{$keyItem}}[] " required value="{{$value}}">
+                                        <input  type="text" class="form-control" name="num_attention_time_{{$keyItem}}[]" required value="1">
                                     </div>
                                 @endforeach
                             </div>

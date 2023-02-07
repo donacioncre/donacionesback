@@ -47,6 +47,19 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap4.min.css">
         
 
+    <style>
+        div.dataTables_wrapper div.dataTables_length select {
+            width: 40%;
+            display: inline-block;
+        }
+        .select2-container span{
+            width: 100%
+        }
+
+        .select2-container{
+            width: 100% !important
+        }
+    </style>
 
     @yield('scripts')
     @stack('third_party_stylesheets')
@@ -171,6 +184,7 @@
 <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js" defer></script>
 <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js" defer></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js" defer ></script>
 
 
 
@@ -185,7 +199,15 @@
     });
 </script>
 
-  
+<script defer>
+    $(document).ready(function() {
+        $('#donation_id').select2();
+        $('#city_id').select2();
+        $('#schedule_id').select2();
+        $('#country_id').select2();
+        
+    });
+</script>
     
 
 @stack('third_party_scripts')

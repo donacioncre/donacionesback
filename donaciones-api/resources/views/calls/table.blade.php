@@ -1,5 +1,5 @@
 <div class="table-responsive">
-    <table class="table" id="newCalls-table">
+    <table class="table  table-striped table-bordered" id="dataTable"  data-order='[[ 0, "asc" ]]' >
         <thead>
         <tr>
             <th>Titulo</th>
@@ -7,7 +7,7 @@
             <th>Lugar</th>
             <th>Provincia - Ciudad</th> 
             <th>Fecha</th> 
-            <th colspan="2">Acción</th>
+            <th >Acción</th>
         </tr>
         </thead>
         <tbody>
@@ -38,3 +38,27 @@
         </tbody>
     </table>
 </div>
+
+<style>
+    
+
+    div.dataTables_wrapper div.dataTables_length select {
+        width: 40%;
+        display: inline-block;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        
+
+        $('#dataTable').DataTable({
+                    dom: "Blfrtip",
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.13.1/i18n/es-MX.json'
+                    },    
+                    buttons: [  ]                
+        });
+
+    });
+</script>

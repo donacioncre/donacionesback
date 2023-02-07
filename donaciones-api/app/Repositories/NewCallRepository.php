@@ -45,9 +45,8 @@ class NewCallRepository extends BaseRepository
 
    public function listUser()
    {
-        return  DB::table('users')->
-                select('id', DB::raw("CONCAT(users.firstname,' ',users.lastname) AS full_name"))
-                ->get()->pluck('full_name', 'id');
+        return  User::whereHas("roles", function($q){ $q->where("name", "admin"); })->get()
+                ->pluck('full_name', 'id');
    }
 
    public function user()

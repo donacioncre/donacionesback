@@ -7,33 +7,46 @@ use App\Models\Country;
 use App\Models\DonationPoint;
 use Illuminate\Support\Facades\DB;
 use Exception;
+use App\Repositories\BaseRepository;
 
-class CityRepository
+class CityRepository extends BaseRepository
 {
     protected $country,$donation,$city;
 
-    public function __construct(City $city, Country $country, DonationPoint $donation)
+    // public function __construct(City $city, Country $country, DonationPoint $donation)
+    // {
+    //     $this->country=$country;
+    //     $this->donation=$donation;
+    //     $this->city=$city;
+    // }
+
+    protected $fieldSearchable = [
+       
+    ];
+    public function getFieldsSearchable()
     {
-        $this->country=$country;
-        $this->donation=$donation;
-        $this->city=$city;
+        return $this->fieldSearchable;
+    }
+    public function model()
+    {
+        return City::class;
     }
 
     public function list()
     {
-        return $this->city->with('country')->get();
+        return City::with('country')->get();
     }
 
-    public function create()
+    public function createCity()
     {
-        return $this->country->get()->pluck('name', 'id');
+        return Country::get()->pluck('name', 'id');
     }
 
     public function store($data)
     {
         try {
             DB::beginTransaction();
-            $this->city->create($data);
+            City::create($data);
             DB::commit();
             
             return 'ok';
@@ -49,7 +62,7 @@ class CityRepository
     {
         try {
             DB::beginTransaction();
-            $city=$this->city->find($id);
+            $city=City::find($id);
             $city->update($data);
             DB::commit();
             return 'ok';
@@ -62,7 +75,7 @@ class CityRepository
 
     public function show($id)
     {
-        return $this->city->find($id);
+        return City::find($id);
     }
 
 }

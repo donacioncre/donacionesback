@@ -5,7 +5,7 @@
         {!! Form::label('donation_id', 'Punto de Donación:') !!}
       
 
-        <select name="donation_id" class="form-control "  >
+        <select name="donation_id" id="donation_id" class="form-control "  >
             <option value="">Seleccionar </option>
             @foreach ($pointsDonations as $key=>$value)
                 <option value="{{$value['id']}}">{{$value['name']}}</option>

@@ -18,6 +18,7 @@ use App\Models\User;
 use App\Repositories\BaseRepository;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
@@ -70,7 +71,21 @@ class ScheduleRepository extends BaseRepository
 
     public function listDonationPoint()
     {
-        return $this->donation->get();
+        $user=Auth::user();
+        $user_id=$user->id;
+        if ($user->roles->first()->name == 'admin') {
+            return $this->donation->with('userDonationCenter')->get();
+        } else {
+
+            return $this->donation->whereHas('userDonationCenter', function($q) use($user_id)
+            {
+                $q->where('user_id','=', $user_id);
+            
+            })->get();
+        }
+        
+
+       
     }
 
     public function listCities($id)

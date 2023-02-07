@@ -1,25 +1,25 @@
 <!-- Title Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('title', 'Titulo:') !!}
-    {!! Form::text('title', null, ['class' => 'form-control']) !!}
+    {!! Form::text('title', null, ['class' => 'form-control','required']) !!}
 </div>
 
 <!-- Description Field -->
 <div class="form-group col-sm-6 col-lg-6">
     {!! Form::label('blood_type', 'Tipo de Sangre:') !!}
-    {!! Form::text('blood_type', null, ['class' => 'form-control']) !!}
+    {!! Form::text('blood_type', null, ['class' => 'form-control','required']) !!}
 </div>
 <!-- Title Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('start_date', 'Fecha:') !!}
-    {!! Form::date('start_date', null, ['class' => 'form-control']) !!}
+    {!! Form::date('start_date', null, ['class' => 'form-control','required']) !!}
 </div>
 
 
 <div class="clearfix"></div>
 
 
-<!-- Author Field -->
+
 <div class="form-group col-sm-6">
     {!! Form::label('donation_id', 'Centro de Donación:') !!}
     {!! Form::select('donation_id', $donations,null, ['class' => 'form-control']) !!}
@@ -27,8 +27,8 @@
 </div>
 
 <div class="form-group col-md-4 col-sm-4">
-    <label for="Paternidad">Enviar notificación a todos los  usuarios (No) </label>
-    <label for=""> O a los que viven en la misma provincia que del centro de donación (SI)</label>
+    <label for="Paternidad">Enviar notificación a todos los  usuarios, seleccionar (No) </label>
+    <label for="">Enviar notificación a los usuarios que viven en la misma provincia que del centro de donación (SI)</label>
     <div class="onoffswitch3">
         <input type="checkbox" name="send_notification" class="onoffswitch3-checkbox" id="notification"  >
         <label class="onoffswitch3-label" for="notification">
@@ -40,6 +40,7 @@
 
 
 <style>
+    
     .onoffswitch3 {
         position: relative;
         width: 90px;
@@ -120,3 +121,5 @@
         right: 0px;
     }
 </style>
+
+

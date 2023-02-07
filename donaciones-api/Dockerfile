@@ -31,33 +31,40 @@ RUN docker-php-ext-install pgsql \
 RUN docker-php-ext-install zip
 # Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+
+
 # Add user for laravel application
-RUN groupadd -g 1000 www
-RUN useradd -u 1000 -ms /bin/bash -g www www
+    #RUN groupadd -g 1000 www 
+    #RUN useradd -u 1000 -ms /bin/bash -g www www
 # Copy existing application directory contents
 COPY . /var/www
 # Copy existing application directory permissions
 COPY --chown=www:www . /var/www
+
 # --------------------------------------------------------------------
 # Add docker custom crontab
 ADD crontab /etc/cron.d/crontab
 
 # Give execution rights on the cron job
-RUN chmod 777 /etc/cron.d/crontab
+RUN chmod 0644  /etc/cron.d/crontab
 
 # Specify crontab file for running
 RUN crontab /etc/cron.d/crontab
 
+#RUN echo "* * * * * root php /var/www/artisan schedule:run >> /var/log/cron.log 2>&1" >> /etc/crontab
+
 RUN touch /var/log/cron.log
-ENTRYPOINT ["cron", "-f"]
+#ENTRYPOINT ["cron", "-f"]
 # --------------------------------------------------------------------
 
 # Change current user to www
- USER www
+ #USER www
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
 
 #CMD cron  && tail -f /var/log/cron.log
 #CMD ["php-fpm","cron","-f"]
-CMD ["php-fpm"]
+#CMD ["php-fpm"]
 
+CMD bash -c "cron && php-fpm"

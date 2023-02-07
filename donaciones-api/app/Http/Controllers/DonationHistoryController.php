@@ -36,9 +36,7 @@ class DonationHistoryController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $donationHistories = $this->donationHistoryRepository->all();
-
-
+        $donationHistories = $this->donationHistoryRepository->list();
 
         return view('donation_histories.index')
             ->with('donationHistories', $donationHistories);

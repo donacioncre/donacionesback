@@ -34,8 +34,8 @@
     
                 <div class="form-group col-sm-12">
                     <div class="col-sm-6">
-                        {!! Form::label('donation_id', 'Punto de Donación:') !!}
-                        <select name="country_id" class="form-control "  >
+                        {!! Form::label('donation_id', 'Seleccionar Provincia:') !!}
+                        <select name="country_id" id="country_id" class="form-control "  >
                             <option value="">Seleccionar </option>
                             @foreach ($countries as $key=>$value)
                                 @if (isset($input['country_id']))
@@ -67,7 +67,7 @@
                 <div class="panel panel-bordered">
                     <div class="panel-body">
                         <h2></h2>
-                        <br>
+                        <br> 
                         <div class="table-responsive">
                             <table  class="table table-striped table-bordered" id="dataTable"  data-order='[[ 0, "asc" ]]' >
                                 <thead>
@@ -166,7 +166,7 @@
                 
         });
 
-      });
+    });
                   
   
       function toDataUrl(url, callback) {

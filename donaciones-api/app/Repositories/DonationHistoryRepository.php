@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\DonationHistory;
+use App\Models\DonationPoint;
 use App\Models\Schedule;
 use App\Repositories\BaseRepository;
 use Carbon\Carbon;
@@ -77,10 +78,32 @@ class DonationHistoryRepository extends BaseRepository
 
     public function list()
     {
-        $user_id=Auth()->user()->id;
+        $user=Auth::user();
+        $user_id=$user->id;
+        if ($user->roles->first()->name == 'admin') {
+            return  DonationHistory::get();
+        } else {
 
+           //$data_1= [];
+           $histories=[];
+            $data_donation =  DonationPoint::whereHas('userDonationCenter', function($q) use($user_id)
+            {
+                $q->where('user_id','=', $user_id);
+            
+            })->with('schedule')->first();
 
-        return DonationHistory::get();
+            foreach ($data_donation->schedule as $key => $itemSchedule) {
+                foreach ($itemSchedule->donationHistory as $key => $itemHistory) {
+                    $histories[]=$itemHistory;
+                   
+                }
+            }
+
+         
+            return $histories;
+        }
+
+        
     }
 
     

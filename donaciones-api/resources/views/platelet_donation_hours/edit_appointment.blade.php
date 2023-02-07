@@ -33,8 +33,8 @@
                                 <input type="text" hidden name="day[]" value="{{ $itemDay->days}}">
                                 @foreach ($itemDay->plateletDonorAppointment  as $key => $value)
                                     <div class="input-group ">
-                                        <input type="text" class="form-control" name="time_{{$itemDay->days}}[]"  value="{{$value['time']}}">
-                                        <input  type="text" class="form-control" name="num_attention_time_{{$itemDay->days}}[]" value="{{$value['amount']}}">
+                                        <input type="text" class="form-control" name="time_{{$itemDay->days}}[]"  required value="{{$value['time']}}">
+                                        <input  type="text" class="form-control" name="num_attention_time_{{$itemDay->days}}[]" required value="{{$value['amount']}}">
                                     </div>
                                 @endforeach
                             </div>

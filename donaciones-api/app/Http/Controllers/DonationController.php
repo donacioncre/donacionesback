@@ -31,6 +31,7 @@ class DonationController extends Controller
     {
         
             $donations = $this->donation->list();
+            
             return view('donation.index')
             ->with('donations', $donations);
         
@@ -56,6 +57,10 @@ class DonationController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
+
+        if ($input['whatsapp_number']== null) {
+            $input['whatsapp_number'] = 'N/A';
+        }
 
         $donation = $this->donation->store($input);
 

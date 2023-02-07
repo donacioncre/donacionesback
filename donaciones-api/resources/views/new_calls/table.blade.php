@@ -1,12 +1,12 @@
 <div class="table-responsive">
-    <table class="table" id="newCalls-table">
+    <table class="table  table-striped table-bordered" id="dataTable"  data-order='[[ 0, "asc" ]]' >
         <thead>
         <tr>
             <th>Titulo</th>
             <th>Descripción</th>
             <th>Imagen</th>
             <th>Autor</th> 
-            <th colspan="3">Acción</th>
+            <th>Acción</th>
         </tr>
         </thead>
         <tbody>
@@ -36,3 +36,25 @@
         </tbody>
     </table>
 </div>
+
+<style>
+    
+
+    
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        
+       
+
+        $('#dataTable').DataTable({
+                    dom: "Blfrtip",
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.13.1/i18n/es-MX.json'
+                    },    
+                    buttons: [  ]                
+        });
+
+    });
+</script>

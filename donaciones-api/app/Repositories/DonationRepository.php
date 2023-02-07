@@ -26,7 +26,7 @@ class DonationRepository
 
     public function list()
     {
-        return $this->donation_point::with('city')->get();
+        return $this->donation_point::with('city')->orderBy("id","asc")->get();
     }
 
     public function create()
@@ -44,6 +44,7 @@ class DonationRepository
             return 'ok';
         } catch (Exception $ex) {
             DB::rollBack();
+            dd($ex);
             return 'Register Failed ' .$ex->getMessage();
         }
 

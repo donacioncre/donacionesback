@@ -33,8 +33,8 @@ class QuestionsController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $questions = $this->questionsRepository->all();
-
+        $questions = $this->questionsRepository->all()->sortBy("id");
+        
         return view('questions.index')
             ->with('questions', $questions);
     }

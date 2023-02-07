@@ -27,14 +27,13 @@
                    <input type="text" hidden name="donation_id" value="{{$id}}">
                     @foreach ($bloodDonationHours->donationHour as $key=> $itemDay)
                         <!-- days -->
-                      
                             <div  class="col-sm-2">
                                 <span>{{nameDay( $itemDay['days'])}}   -  Num. Donantes </span>
                                 <input type="text" hidden name="day[]" value="{{ $itemDay->days}}">
                                 @foreach ($itemDay->bloodDonorAppointment  as $key => $value)
                                     <div class="input-group ">
-                                        <input type="text" class="form-control" name="time_{{$itemDay->days}}[]"  value="{{$value['time']}}">
-                                        <input  type="text" class="form-control" name="num_attention_time_{{$itemDay->days}}[]" value="{{$value['amount']}}">
+                                        <input type="text" class="form-control" name="time_{{$itemDay->days}}[]" required value="{{$value['time']}}">
+                                        <input  type="text" class="form-control" name="num_attention_time_{{$itemDay->days}}[]" required value="{{$value['amount']}}">
                                     </div>
                                 @endforeach
                             </div>

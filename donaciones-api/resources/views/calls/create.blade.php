@@ -29,7 +29,7 @@
 
             <div class="card-footer">
                 {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('newCalls.index') }}" class="btn btn-default">Cancelar</a>
+                <a href="{{ route('calls.index') }}" class="btn btn-default">Cancelar</a>
             </div>
 
             {!! Form::close() !!}

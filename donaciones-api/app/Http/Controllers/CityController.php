@@ -46,7 +46,7 @@ class CityController extends AppBaseController
      */
     public function create()
     {
-        $countries=$this->cityRepository->create();
+        $countries=$this->cityRepository->createCity();
         return view('cities.create')->with('countries',$countries);
     }
 
@@ -99,7 +99,7 @@ class CityController extends AppBaseController
     {
         $city = $this->cityRepository->show($id);
 
-        $countries=$this->cityRepository->create();
+        $countries=$this->cityRepository->createCity();
         if (empty($city)) {
             Flash::error('City not found');
 

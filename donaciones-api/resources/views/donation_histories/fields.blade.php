@@ -19,7 +19,7 @@
 
         <div class=" form-group  col-sm-6">
             {!! Form::label('schedule_id', 'Donante:') !!}
-            <select name="schedule_id" class="form-control "  >
+            <select name="schedule_id" id="schedule_id" class="form-control " required >
 
                 @if (count($schedules))
                     <option value="">Seleccionar </option>
@@ -45,7 +45,7 @@
         <div class="form-group col-sm-3">
         <div class="form-check">
             {!! Form::hidden('status', 0, ['class' => 'form-check-input']) !!}
-            {!! Form::checkbox('status', '1', null, ['class' => 'form-check-input']) !!}
+            {!! Form::checkbox('status', '1', null, ['class' => 'form-check-input','required']) !!}
             {!! Form::label('status', 'Estado de la Donación', ['class' => 'form-check-label']) !!}
         </div>
         </div>
@@ -53,25 +53,25 @@
         <!-- Code Field -->
         <div class="form-group col-sm-6">
         {!! Form::label('code', 'Código:') !!}
-        {!! Form::text('code', null, ['class' => 'form-control']) !!}
+        {!! Form::text('code', null, ['class' => 'form-control' ,'required']) !!}
         </div>
 
         <!-- Hemoglobin Field -->
         <div class="form-group col-sm-6">
         {!! Form::label('hemoglobin', 'Hemoglobina:') !!}
-        {!! Form::text('hemoglobin', null, ['class' => 'form-control']) !!}
+        {!! Form::text('hemoglobin', null, ['class' => 'form-control' ,'required']) !!}
         </div>
 
         <!-- Weight Field -->
         <div class="form-group col-sm-6">
         {!! Form::label('weight', 'Peso:') !!}
-        {!! Form::text('weight', null, ['class' => 'form-control']) !!}
+        {!! Form::text('weight', null, ['class' => 'form-control' ,'required']) !!}
         </div>
 
         <!-- Blood Pressure Field -->
         <div class="form-group col-sm-6">
         {!! Form::label('blood_pressure', 'Presión Arterial:') !!}
-        {!! Form::text('blood_pressure', null, ['class' => 'form-control']) !!}
+        {!! Form::text('blood_pressure', null, ['class' => 'form-control','required']) !!}
         </div>
 
 
@@ -83,8 +83,8 @@
 
 
         <div class="card-footer">
-        {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-        <a href="{{ route('histories.index') }}" class="btn btn-default">Cancel</a>
+        {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
+        <a href="{{ route('histories.index') }}" class="btn btn-default">Cancelar</a>
         </div>
     </div>
 {!! Form::close() !!}
