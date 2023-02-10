@@ -94,4 +94,6 @@ Route::group(['middleware'=>['auth']], function(){
      Route::get('/donors', [App\Http\Controllers\UserController::class, 'listDonors'])->name('donors');
 
      Route::get('/consultDonation', [App\Http\Controllers\ConsultController::class, 'index'])->name('consultDonation');
+
+     Route::get('donationCenterDetails/{id}', [App\Http\Controllers\ConsultController::class, 'donationCenterDetails'])->name('donationCenterDetails');
 });
