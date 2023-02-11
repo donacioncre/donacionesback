@@ -53,12 +53,12 @@
 
                     <div class="col-sm-3">
                         {!! Form::label('fecha_inicio', 'Fecha Inicio:') !!}
-                        {!! Form::date('Fecha Inicio', null, ['class' => 'form-control']) !!}
+                        {!! Form::date('date_start', $input['date_start'], ['class' => 'form-control']) !!}
                        
                     </div>
                     <div class="col-sm-3">
                         {!! Form::label('fecha_fin', 'Fecha Fin:') !!}
-                        {!! Form::date('Fecha Fin', null, ['class' => 'form-control']) !!}
+                        {!! Form::date('date_end', $input['date_end'], ['class' => 'form-control']) !!}
                        
                     </div>
                     <div class="form-group col-md-1 col-sm-1">

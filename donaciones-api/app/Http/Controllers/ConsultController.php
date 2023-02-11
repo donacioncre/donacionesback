@@ -55,6 +55,12 @@ class ConsultController extends Controller
     {
             $input=$request->all();
 
+            
+
+            if ($input==[]) {
+                $input['date_start'] =null;
+                $input['date_end'] = null;
+            }
           
             $user =Auth::user();
             switch ($user->roles->first()->name) {
@@ -68,6 +74,7 @@ class ConsultController extends Controller
                     break;
                 
             }
+
             $donations = $this->donationRepo->DonationCenter($input);
             $donors =  $donations['donors'];
             return view('consult.donation_center_details',compact('donors','input','id'))

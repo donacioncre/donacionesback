@@ -17,36 +17,53 @@ use Illuminate\Support\Facades\DB;
  * @version November 16, 2022, 10:16 pm UTC
 */
  
-class DonationRequirementsRepository 
+class DonationRequirementsRepository extends BaseRepository
 {
-    protected $requirement,$detailsRequirement;
+    /**
+     * @var array
+     */
+    protected $fieldSearchable = [
+        'title',
+        'description',
+        'image'
+    ];
 
-    public function __construct(DonationRequirements $requirement, RequirementsDetails $detailsRequirement)
+    /**
+     * Return searchable fields
+     *
+     * @return array
+     */
+    public function getFieldsSearchable()
     {
-        $this->requirement=$requirement;
-        $this->detailsRequirement=$detailsRequirement;
-       
+        return $this->fieldSearchable;
     }
+
+    /**
+     * Configure the Model
+     **/
+    public function model()
+    {
+        return DonationRequirements::class;
+    }
+
+   
 
     public function list()
     {
-        return $this->requirement::with('donation_details')->get();
+        return DonationRequirements::with('donation_details')->get();
     }
 
-    public function create()
-    {
-        //return $this->benefit->get();
-    }
+    
 
     public function store($data)
     {
         try {
             DB::beginTransaction();
-            $requirement = $this->requirement->create($data);
+            $requirement = DonationRequirements::create($data);
 
             foreach($data['details_requirem'] as $key=> $value){
 
-                $this->detailsRequirement->create([
+                RequirementsDetails::create([
                     'requirement_id' => $requirement->id,
                     'points' => $value['points'],
                     'points_details' => $value['points_details'],
@@ -69,8 +86,8 @@ class DonationRequirementsRepository
     {
         try {
             DB::beginTransaction();
-            $data=$this->requirement->find($id);
-            $data->update($data);
+            $requirement=DonationRequirements::find($id);
+            $requirement->update($data);
             DB::commit();
             return 'ok';
            
@@ -82,7 +99,7 @@ class DonationRequirementsRepository
 
     public function show($id)
     {
-        return $this->requirement::with('requirement_details')->find($id);
+        return DonationRequirements::with('requirement_details')->find($id);
     }
 
 }

@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\DonationPoint;
+use App\Models\Schedule;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Exception;
@@ -30,7 +31,7 @@ class ConsultRepository
         $donation=[];
         $country= isset($data['country_id']) ? $data['country_id']: null;
        
-        $donation = $this->donation_point->whereHas('city', function ($q) use($country) {
+        $donation = DonationPoint::whereHas('city', function ($q) use($country) {
             $q->Where('country_id',$country);
         })->get();
  
@@ -39,27 +40,42 @@ class ConsultRepository
 
     public function DonationCenter($data)
     {
-        //$user_id= isset($data['user_id']) ? $data['user_id']: null;
+        $user_id= isset($data['user_id']) ? $data['user_id']: null;
         $donation_id = isset($data['donation_id']) ? $data['donation_id']: null;
-
-        //$user = $this->listUserDonors();
-
-        $donations = DonationPoint::with('schedule')->find($donation_id);
-
-       
-
-        $donation_historial=[];
+        $date_start= isset($data['date_start']) ? $data['date_start']: null;
+        $date_end = isset($data['date_end']) ? $data['date_end']: null;
         $donors= [];
+        $donation_historial=[];
 
-       
+        $user_donations_center= DonationPoint::with('schedule')->find($donation_id);
 
-        if(count($donations->schedule )){
-            foreach($donations->schedule as $key => $value){
+        if(count($user_donations_center->schedule) ){
+            foreach($user_donations_center->schedule as $key => $itemUser){
                 $donors[] =  [
-                    'id'=>$value->user->id,
-                    'name'=>$value->user->firstname .' '.$value->user->lastname .' '.$value->user->identification,
+                    'id'=>$itemUser->user->id,
+                    'name'=>$itemUser->user->firstname .' '.$itemUser->user->lastname .' '.$itemUser->user->identification,
                 ];
+            }
+        }
 
+        if ($date_start != null && $date_end != null) {
+            $date_end=date('Y-m-d', strtotime($date_end) +86400);
+            $donations=Schedule::whereBetween('donation_date',[$date_start, $date_end])
+                ->when($user_id, function ($query) use($user_id){
+                    $query ->where('user_id',$user_id);
+                })
+                ->where('donation_id',$donation_id)->with('donationHistory')->with('user')->get();
+      
+        }else{
+             $donations = Schedule::where('donation_id',$donation_id)
+                    ->when($user_id, function ($query) use($user_id){
+                        $query ->where('user_id',$user_id);
+                    })
+                    ->with('donationHistory')->with('user')->get();
+        }
+
+        if(count($donations)){
+            foreach($donations as $key => $value){
                 if(count($value->donationHistory)){
                     foreach ($value->donationHistory as $key => $itemHistory) {
                         $donation_historial[] =[
