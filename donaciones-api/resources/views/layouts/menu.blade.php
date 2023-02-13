@@ -1,3 +1,21 @@
+<li class="nav-item">
+    <a href="{{ route('benefitDonatings.index') }}"
+    class="nav-link {{ Request::is('benefitDonatings*') ? 'active' : '' }}">
+        <span>Beneficios</span>
+    </a>
+</li>
+<li class="nav-item">
+    <a href="{{ route('donationRequirements.index') }}"
+    class="nav-link {{ Request::is('donationRequirements*') ? 'active' : '' }}">
+        <span>Requerimientos</span>
+    </a>
+</li>
+<li class="nav-item">
+    <a href="{{ route('myths.index') }}"
+    class="nav-link {{ Request::is('myths*') ? 'active' : '' }}">
+        <span>Mitos</span>
+    </a>
+</li>
 
 @can('ver-preguntas')
     <li class="nav-item">
@@ -106,7 +124,7 @@
 @endcan
 
 
-@can('ver-')
+@can('ver-usuario')
     <li class="nav-item">
         <a href="{{ route('users.index') }}"
         class="nav-link {{ Request::is('users*') ? 'active' : '' }}">
@@ -118,7 +136,7 @@
 
 
 
-@can('ver-usuario')
+
     <li class="nav-item">
         <a href="{{ route('donors') }}"
         class="nav-link {{ Request::is('donors*') ? 'active' : '' }}">
@@ -126,7 +144,7 @@
         <span>Donadores</span>
         </a>
     </li>
-@endcan
+
 
 
 @can('ver-rol')

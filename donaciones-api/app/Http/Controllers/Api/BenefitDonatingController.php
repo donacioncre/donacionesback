@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\BenefitDonatingRepository;
-use App\Repositories\DonationRepository;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+
 
 class BenefitDonatingController extends Controller
 {
@@ -24,13 +23,7 @@ class BenefitDonatingController extends Controller
 
     public function index()
     {
-        try {
-            $data = $this->donation->list();
-            return response()->json(['status' => true, 'data' => $data]);
-        } catch (Exception $ex) {
-            dd($ex);
-            return response()->json(['status' => false, 'error' => 'Algo a sucedido por favor intente después de unos minutos', 'message' => $ex->getMessage()], $this->errorStatus);
-        }
+        
     }
 
     /**
@@ -52,33 +45,7 @@ class BenefitDonatingController extends Controller
     public function store(Request $request)
     {
 
-        $validator = Validator::make(
-            $request->all(),
-            [
-                //'entity_1' => 'required',
-                //'entity_2' => 'required',
-            ]
-        );
-
-
-        if ($validator->fails()) {
-           return response()->json(['status' => false, 'error' => $validator->errors()], 500);
-        }
-
-       
-        $data= $this->donation->store($request->all());
-
-        if ($data=='ok') {
-             return response()->json([
-                 'status' =>  $this->successStatus,
-                 'message' => 'Successfully'
-             ], 200);
-        } else {
-             return response()->json([
-                 'status' =>  $this->errorStatus,
-                 'message' => $data
-             ], 500);
-        }
+      
     }
 
 

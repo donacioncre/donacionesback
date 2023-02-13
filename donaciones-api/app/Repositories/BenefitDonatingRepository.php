@@ -14,37 +14,52 @@ use Illuminate\Support\Facades\DB;
  * @version November 16, 2022, 10:16 pm UTC
 */
  
-class BenefitDonatingRepository 
+class BenefitDonatingRepository  extends BaseRepository
 {
-    protected $benefit,$detailsBenefit;
+     /**
+     * @var array
+     */
+    protected $fieldSearchable = [
+        'title',
+        'details'
+    ];
 
-    public function __construct(BenefitDonating $benefit, BenefitDetails $detailsBenefit)
+    /**
+     * Return searchable fields
+     *
+     * @return array
+     */
+    public function getFieldsSearchable()
     {
-        $this->benefit=$benefit;
-        $this->detailsBenefit=$detailsBenefit;
+        return $this->fieldSearchable;
+    }
+
+    /**
+     * Configure the Model
+     **/
+    public function model()
+    {
+        return BenefitDonating::class;
     }
 
     public function list()
     {
-        return $this->benefit::with('donation_details')->get();
+        return BenefitDonating::with('donation_details')->get();
     }
 
-    public function create()
-    {
-        //return $this->benefit->get();
-    }
+   
 
     public function store($data)
     {
         try {
             DB::beginTransaction();
-            $benefit = $this->benefit->create($data);
+            $benefit = BenefitDonating::create($data);
 
-            foreach($data['details_benefit'] as $key=> $value){
+            foreach($data['points'] as $key=> $value){
 
-                $this->detailsBenefit->create([
+                BenefitDetails::create([
                     'benefit_id' => $benefit->id,
-                    'points' => $value['points']
+                    'points' => $value
                 ]);
             }
 
@@ -63,8 +78,19 @@ class BenefitDonatingRepository
     {
         try {
             DB::beginTransaction();
-            $data=$this->benefit->find($id);
-            $data->update($data);
+            $benefit= BenefitDonating::find($id);
+            $benefit->update($data);
+
+            BenefitDetails::where('benefit_id',$benefit->id)->delete();
+
+            foreach($data['points'] as $key=> $value){
+
+                BenefitDetails::create([
+                    'benefit_id' => $benefit->id,
+                    'points' => $value
+                ]);
+            }
+            
             DB::commit();
             return 'ok';
            
@@ -76,7 +102,7 @@ class BenefitDonatingRepository
 
     public function show($id)
     {
-        return $this->benefit::with('donation_details')->find($id);
+        return BenefitDonating::with('donation_details')->find($id);
     }
 
 }

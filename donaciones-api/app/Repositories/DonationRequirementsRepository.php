@@ -50,7 +50,7 @@ class DonationRequirementsRepository extends BaseRepository
 
     public function list()
     {
-        return DonationRequirements::with('donation_details')->get();
+        return DonationRequirements::with('requirement_details')->get();
     }
 
     
@@ -85,9 +85,36 @@ class DonationRequirementsRepository extends BaseRepository
     public function update($data,$id)
     {
         try {
+            $image=[];
             DB::beginTransaction();
             $requirement=DonationRequirements::find($id);
             $requirement->update($data);
+            $details= RequirementsDetails::where('requirement_id',$requirement->id)->get();
+            RequirementsDetails::where('requirement_id',$requirement->id)->delete();
+
+            foreach ($details as $key => $value) {
+                $image[]=[$value->image];
+            }
+             foreach($data['item'] as $key1=> $item){
+                if ($item['image'] != null) {
+                    RequirementsDetails::create([
+                        'requirement_id' => $requirement->id,
+                        'points' => $item['points'],
+                        'points_details' => $item['points_details'],
+                        'image' => $item['image'],
+                    ]);
+                } else {
+                    RequirementsDetails::create([
+                        'requirement_id' => $requirement->id,
+                        'points' => $item['points'],
+                        'points_details' => $item['points_details'],
+                        'image' => $image[$key1][0],
+                    ]);
+                }
+                
+                
+            }
+
             DB::commit();
             return 'ok';
            

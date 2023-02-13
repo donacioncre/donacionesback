@@ -5,11 +5,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Pregunta</h1>
+                    <h1>Beneficios de Donar Sangre</h1>
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-default float-right"
-                       href="{{ route('donationRequirements.index') }}">
+                       href="{{ route('benefitDonatings.index') }}">
                         Regresar
                     </a>
                 </div>
@@ -21,7 +21,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    @include('donation_requirements.show_fields')
+                    @include('benefit_donatings.show_fields')
                 </div>
             </div>
         </div>

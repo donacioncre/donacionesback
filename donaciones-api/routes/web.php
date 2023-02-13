@@ -49,9 +49,9 @@ Route::post('schedules/{id}',[ScheduleController::class,'update']);
 Route::group(['middleware'=>['auth']], function(){
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-    Route::resource('benefitDonating', App\Http\Controllers\BenefitDonatingController::class);
+    Route::resource('benefitDonatings', App\Http\Controllers\BenefitDonatingController::class);
     Route::resource('donationRequirements', App\Http\Controllers\DonationRequirementsController::class);
-    Route::resource('myth', App\Http\Controllers\MythController::class);
+    Route::resource('myths', App\Http\Controllers\MythController::class);
 
     Route::resource('questions', App\Http\Controllers\QuestionsController::class);
 

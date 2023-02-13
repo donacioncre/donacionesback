@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12">
-                    <h1>Editar Requerimientos para donar sangre</h1>
+                    <h1>Crear Mito</h1>
                 </div>
             </div>
         </div>
@@ -17,17 +17,19 @@
 
         <div class="card">
 
-            {!! Form::model($donation, ['route' => ['donationRequirements.update', $donation->id], 'method' => 'patch', 'enctype'=>'multipart/form-data']) !!}
+            {!! Form::open(['route' => 'myths.store', 'files' => true]) !!}
 
             <div class="card-body">
+
                 <div class="row">
-                    @include('donation_requirements.fields')
+                    @include('myths.fields')
                 </div>
+
             </div>
 
             <div class="card-footer">
                 {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('donationRequirements.index') }}" class="btn btn-default">Cancelar</a>
+                <a href="{{ route('myths.index') }}" class="btn btn-default">Cancelar</a>
             </div>
 
             {!! Form::close() !!}

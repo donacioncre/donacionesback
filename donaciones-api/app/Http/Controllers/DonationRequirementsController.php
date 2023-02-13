@@ -8,6 +8,7 @@ use App\Repositories\DonationRequirementsRepository;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Flash;
 
 class DonationRequirementsController extends Controller
 {
@@ -111,7 +112,40 @@ class DonationRequirementsController extends Controller
             return redirect(route('donationRequirements.index'));
         }
 
-        $donation = $this->donation->update($request->all(), $id);
+        $file = null;
+        $details_request=[];
+   
+        foreach($request->item as $key => $value){
+            if (isset($value['image'])) {
+                $img = $value['image'];
+                $destinationPath = 'image/donation/';
+                $filename = time() . '-' . $img->getClientOriginalName();
+                $value['image']->move($destinationPath, $filename);
+                $file = $destinationPath . $filename;
+
+                $details_request[]=[
+                    'points' => $value['points'],
+                    'points_details' => $value['points_details'],
+                    'image' => $file,
+                ];
+            }else{
+                $details_request[]=[
+                    'points' => $value['points'],
+                    'points_details' => $value['points_details'],
+                    'image' => $file,
+                ];
+            }
+
+            
+
+            $file = null;
+        }
+
+        $requestData=$request->all();
+
+        $requestData['item'] = $details_request;
+        
+        $donation = $this->donation->update($requestData, $id);
 
         Flash::success('Donation Requirements updated successfully.');
 

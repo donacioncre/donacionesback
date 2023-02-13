@@ -91,10 +91,6 @@ class DonationRequirementsController extends Controller
 
         $requestData['details_requirem'] = $details_request;
         $data= $this->donation->store($requestData);
-
-       
-        $data= $this->donation->store($requestData);
-
         if ($data=='ok') {
              return response()->json([
                  'status' =>  $this->successStatus,

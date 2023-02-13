@@ -5,11 +5,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Requerimientos para donar</h1>
+                    <h1>Beneficios de Donar Sangre</h1>
                 </div>
                 <div class="col-sm-6">
                     {{-- <a class="btn btn-primary float-right"
-                       href="{{ route('donationRequirements.create') }}">
+                       href="{{ route('benefitDonatings.create') }}">
                         Nuevo
                     </a> --}}
                 </div>
@@ -24,8 +24,8 @@
         <div class="clearfix"></div>
 
         <div class="card">
-            <div class="card-body p-10">
-                @include('donation_requirements.table')
+            <div class="card-body p-0">
+                @include('benefit_donatings.table')
 
                 <div class="card-footer clearfix">
                     <div class="float-right">

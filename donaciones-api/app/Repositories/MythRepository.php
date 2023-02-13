@@ -2,9 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\BenefitDonating;
-use App\Models\benefitDetails;
-use App\Models\DonationDetails;
+
 use App\Models\MythDetails;
 use App\Models\Myths;
 use App\Repositories\BaseRepository;
@@ -17,36 +15,50 @@ use Illuminate\Support\Facades\DB;
  * @version November 16, 2022, 10:16 pm UTC
 */
  
-class MythRepository 
+class MythRepository extends BaseRepository
 {
-    protected $myth,$detailsMyth;
+     /**
+     * @var array
+     */
+    protected $fieldSearchable = [
+        'title',
+        'details'
+    ];
 
-    public function __construct(Myths $myth, MythDetails $detailsMyth)
+    /**
+     * Return searchable fields
+     *
+     * @return array
+     */
+    public function getFieldsSearchable()
     {
-        $this->myth=$myth;
-        $this->detailsMyth=$detailsMyth;
+        return $this->fieldSearchable;
+    }
+
+    /**
+     * Configure the Model
+     **/
+    public function model()
+    {
+        return Myths::class;
     }
 
     public function list()
     {
-        return $this->myth::with('myth_details')->get();
+        return Myths::with('myth_details')->get();
     }
 
-    public function create()
-    {
-        //return $this->benefit->get();
-    }
-
+   
     public function store($data)
     {
         
         try {
             DB::beginTransaction();
-            $myth = $this->myth->create($data);
+            $myth = Myths::create($data);
 
             foreach($data['details_myth'] as $key=> $value){
 
-                $this->detailsMyth->create([
+                MythDetails::create([
                     'myths_id' => $myth->id,
                     'ask' => $value['ask'],
                     'answer' => $value['answer'],
@@ -70,7 +82,7 @@ class MythRepository
     {
         try {
             DB::beginTransaction();
-            $data=$this->myth->find($id);
+            $data= Myths::find($id);
             $data->update($data);
             DB::commit();
             return 'ok';
@@ -83,7 +95,7 @@ class MythRepository
 
     public function show($id)
     {
-        return $this->myth::with('myth_details')->find($id);
+        return Myths::with('myth_details')->find($id);
     }
 
 }
