@@ -43,7 +43,7 @@ COPY . /var/www
 # Copy existing application directory permissions
 COPY --chown=www:www . /var/www
 
-RUN chmod -R 777 storage
+RUN chmod -R 777 /var/www/storage/logs/laravel.log
 # --------------------------------------------------------------------
 # Add docker custom crontab
 ADD crontab /etc/cron.d/crontab
