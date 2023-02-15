@@ -39,11 +39,9 @@ RUN groupadd -g 1000 www
 RUN useradd -u 1000 -ms /bin/bash -g www www
 # Copy existing application directory contents
 COPY . /var/www
-
 # Copy existing application directory permissions
 COPY --chown=www:www . /var/www
 
-RUN chmod -R 777 /var/www/storage/logs/laravel.log
 # --------------------------------------------------------------------
 # Add docker custom crontab
 ADD crontab /etc/cron.d/crontab
@@ -54,14 +52,14 @@ RUN chmod 0644  /etc/cron.d/crontab
 # Specify crontab file for running
 RUN crontab /etc/cron.d/crontab
 
-RUN echo "* * * * * root php /var/www/artisan schedule:run >> /var/log/cron.log 2>&1" >> /etc/crontab
+#RUN echo "* * * * * root php /var/www/artisan schedule:run >> /var/log/cron.log 2>&1" >> /etc/crontab
 
 RUN touch /var/log/cron.log
 #ENTRYPOINT ["cron", "-f"]
 # --------------------------------------------------------------------
 
 # Change current user to www
-#USER www
+USER www
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
 
