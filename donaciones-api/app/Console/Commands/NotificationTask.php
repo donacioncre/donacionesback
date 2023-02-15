@@ -2,6 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Schedule;
+use App\Models\User;
+use App\Repositories\NotificationRepository;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 
@@ -26,9 +29,12 @@ class NotificationTask extends Command
      *
      * @return void
      */
-    public function __construct()
+    protected $notification;
+    public function __construct(NotificationRepository $notification)
     {
         parent::__construct();
+
+        $this->notification=$notification;
     }
 
     /**
@@ -40,6 +46,9 @@ class NotificationTask extends Command
     {
         $texto ="[". date("Y-m-d H:i:s"). "]: Hola mm";
         Storage::append("archivo.txt",$texto);
+
+        $this->notification->NotificationBirthday();
+        $this->notification->NotificationSchedule();
        
     }
 }

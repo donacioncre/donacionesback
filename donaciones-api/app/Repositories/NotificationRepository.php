@@ -79,13 +79,50 @@ class NotificationRepository
         $this->notificacion($data);
     }
 
-    public function CreateNotification($notification, $userNotificate)
+    public function NotificationBirthday()
     {
-      
-       
+        $firebaseToken = $this->user::whereNotNull('device_token')
+                ->whereMonth('date_birth',Carbon::now()->format('m'))
+                ->whereDay('date_birth',Carbon::now()->format('d'))
+                ->pluck('device_token')->all();
 
-        
+       
+        $data = [
+            "registration_ids" =>$firebaseToken,
+            "notification" => [
+                "title" => "SiDono",
+                "body" =>"Feliz Cumpleaños te desea la Cruz Roja",
+                "content_available" => true,
+                "priority" => "high",
+            ]
+        ];
+
+        $this->notificacion($data);
     }
+
+    public function NotificationSchedule()
+    {
+        $firebaseToken = $this->user::whereNotNull('device_token')
+                ->whereHas('scheduleDonor', function($q)  { 
+                    $q->where("donation_date",Carbon::now()->subDay(3)->format('Y-m-d'))->where('status',true); 
+                })
+                ->pluck('device_token')->all();
+
+       
+        $data = [
+            "registration_ids" =>$firebaseToken,
+            "notification" => [
+                "title" => "SiDono",
+                "body" =>"Recuerda que tienes una una cita agendada para donar sangre, revisa la aplicación",
+                "content_available" => true,
+                "priority" => "high",
+            ]
+        ];
+
+        $this->notificacion($data);
+    }
+
+    
 
     public function notificacion($data)
     {

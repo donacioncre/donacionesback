@@ -10,7 +10,7 @@
         <br>
         @foreach($permission as $value)
             @if ( explode("-", $value->name)[1] ==  $item)
-                <label for="permission">
+                <label for="permission" style="font-weight: 400">
                     {!! Form::checkbox('permission[]',$value->id,in_array($value->id,$rolePermissions)? true : false, ['class' => 'name']) !!}
                     {{$value->name}} 
                 </label> 

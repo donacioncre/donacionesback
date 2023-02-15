@@ -17,6 +17,10 @@ class DonationRequirementsController extends Controller
 
     public function __construct(DonationRequirementsRepository $donation)
     {
+        $this->middleware('permission:ver-requerimientos|crear-requerimientos|editar-requerimientos|eliminar-requerimientos',['only'=>['index']]);
+        $this->middleware('permission:crear-requerimientos',['only'=>['create','store']]);
+        $this->middleware('permission:editar-requerimientos',['only'=>['edit','update']]);
+        $this->middleware('permission:eliminar-requerimientos',['only'=>['destroy']]);
         $this->donation = $donation;
     }
 

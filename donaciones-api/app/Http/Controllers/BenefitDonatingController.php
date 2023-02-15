@@ -17,6 +17,10 @@ class BenefitDonatingController extends AppBaseController
 
     public function __construct(BenefitDonatingRepository $benefitDonatingRepo)
     {
+        $this->middleware('permission:ver-beneficios|crear-beneficios|editar-beneficios|eliminar-beneficios',['only'=>['index']]);
+        $this->middleware('permission:crear-beneficios',['only'=>['create','store']]);
+        $this->middleware('permission:editar-beneficios',['only'=>['edit','update']]);
+        $this->middleware('permission:eliminar-beneficios',['only'=>['destroy']]);
         $this->benefitDonatingRepository = $benefitDonatingRepo;
     }
 

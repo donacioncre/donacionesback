@@ -52,7 +52,7 @@ RUN chmod 0644  /etc/cron.d/crontab
 # Specify crontab file for running
 RUN crontab /etc/cron.d/crontab
 
-#RUN echo "* * * * * root php /var/www/artisan schedule:run >> /var/log/cron.log 2>&1" >> /etc/crontab
+RUN echo "* * * * * root php /var/www/artisan schedule:run >> /var/log/cron.log 2>&1" >> /etc/crontab
 
 RUN touch /var/log/cron.log
 #ENTRYPOINT ["cron", "-f"]

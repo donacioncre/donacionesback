@@ -1,21 +1,33 @@
-<li class="nav-item">
-    <a href="{{ route('benefitDonatings.index') }}"
-    class="nav-link {{ Request::is('benefitDonatings*') ? 'active' : '' }}">
-        <span>Beneficios</span>
-    </a>
-</li>
-<li class="nav-item">
-    <a href="{{ route('donationRequirements.index') }}"
-    class="nav-link {{ Request::is('donationRequirements*') ? 'active' : '' }}">
-        <span>Requerimientos</span>
-    </a>
-</li>
-<li class="nav-item">
-    <a href="{{ route('myths.index') }}"
-    class="nav-link {{ Request::is('myths*') ? 'active' : '' }}">
-        <span>Mitos</span>
-    </a>
-</li>
+@can('ver-beneficios')
+    <li class="nav-item">
+        <a href="{{ route('benefitDonatings.index') }}"
+        class="nav-link {{ Request::is('benefitDonatings*') ? 'active' : '' }}">
+            <span>Beneficios</span>
+        </a>
+    </li>
+@endcan
+
+@can('ver-requerimientos')
+    <li class="nav-item">
+        <a href="{{ route('donationRequirements.index') }}"
+        class="nav-link {{ Request::is('donationRequirements*') ? 'active' : '' }}">
+            <span>Requerimientos</span>
+        </a>
+    </li>
+@endcan
+
+@can('ver-mitos')
+    <li class="nav-item">
+        <a href="{{ route('myths.index') }}"
+        class="nav-link {{ Request::is('myths*') ? 'active' : '' }}">
+            <span>Mitos</span>
+        </a>
+    </li>
+@endcan
+
+
+
+
 
 @can('ver-preguntas')
     <li class="nav-item">
@@ -25,6 +37,7 @@
         </a>
     </li>
 @endcan
+
 
 
 @can('ver-noticias')

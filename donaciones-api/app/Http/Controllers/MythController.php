@@ -17,6 +17,10 @@ class MythController extends AppBaseController
 
     public function __construct(MythRepository $mythRepo)
     {
+        $this->middleware('permission:ver-mitos|crear-mitos|editar-mitos|eliminar-mitos',['only'=>['index']]);
+        $this->middleware('permission:crear-mitos',['only'=>['create','store']]);
+        $this->middleware('permission:editar-mitos',['only'=>['edit','update']]);
+        $this->middleware('permission:eliminar-mitos',['only'=>['destroy']]);
         $this->mythRepository = $mythRepo;
     }
 
