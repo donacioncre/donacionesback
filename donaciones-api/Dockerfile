@@ -43,6 +43,7 @@ COPY . /var/www
 # Copy existing application directory permissions
 COPY --chown=www:www . /var/www
 
+RUN chmod -R 777 storage
 # --------------------------------------------------------------------
 # Add docker custom crontab
 ADD crontab /etc/cron.d/crontab
