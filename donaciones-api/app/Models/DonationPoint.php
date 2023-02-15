@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 //use Laravel\Sanctum\HasApiTokens;
@@ -12,8 +13,10 @@ use Laravel\Passport\HasApiTokens;
 
 class DonationPoint extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable,SoftDeletes;
 
+    
+    protected $dates = ['deleted_at'];
     /**
      * The attributes that are mass assignable.
      *
@@ -30,7 +33,8 @@ class DonationPoint extends Model
         "email",
         "blood",
         "platelet",
-        "reference"
+        "reference",
+        "status"
     ];
 
     /**
@@ -40,7 +44,8 @@ class DonationPoint extends Model
      */
     protected $hidden = [
         "created_at",
-        "updated_at"
+        "updated_at",
+        "deleted_at"
     ];
 
     /**

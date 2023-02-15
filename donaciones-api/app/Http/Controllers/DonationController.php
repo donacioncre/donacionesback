@@ -8,7 +8,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
 use Illuminate\Http\Request;
 use Flash;
-
+use Illuminate\Support\Facades\Auth;
 
 class DonationController extends Controller
 {
@@ -30,10 +30,23 @@ class DonationController extends Controller
     public function index()
     {
         
-            $donations = $this->donation->list();
+        $donations = $this->donation->list();
+        
+
+        $user =Auth::user();
+
+        switch ($user->roles->first()->name) {
+            case 'user':
+                $id=Auth::user()->donationCenter->first()->id;
+                return redirect(route('donation.show',[$id]));
+            case 'admin':
+                return view('donation.index')
+                    ->with('donations', $donations);
+                break;
             
-            return view('donation.index')
-            ->with('donations', $donations);
+        }
+
+       
         
     }
 
@@ -44,7 +57,7 @@ class DonationController extends Controller
      */
     public function create()
     {
-        $cities=$this->donation->create();
+        $cities=$this->donation->createDonationCenter();
         return view('donation.create')->with('cities',$cities);
     }
 
@@ -97,7 +110,7 @@ class DonationController extends Controller
     public function edit($id)
     {
         $donation = $this->donation->show($id);
-        $cities=$this->donation->create();
+        $cities=$this->donation->createDonationCenter();
         if (empty($donation)) {
             Flash::error('Donation not found');
 
@@ -124,6 +137,7 @@ class DonationController extends Controller
             return redirect(route('donation.index'));
         }
 
+        
         $donation = $this->donation->update($request->all(), $id);
 
         Flash::success('Donation updated successfully.');
@@ -139,7 +153,19 @@ class DonationController extends Controller
      */
     public function destroy($id)
     {
-        
+        $donation = $this->donation->find($id);
+
+        if (empty($donation)) {
+            Flash::error('not found');
+
+            return redirect(route('donation.index'));
+        }
+
+        $this->donation->delete($id);
+
+        Flash::success('Deleted successfully.');
+
+        return redirect(route('donation.index'));
     }
 
     

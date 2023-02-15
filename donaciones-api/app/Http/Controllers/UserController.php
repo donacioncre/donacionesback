@@ -156,6 +156,7 @@ class UserController extends AppBaseController
         } else {
             unset($input['password']);
         }
+        $input['status']= isset($input['status']) == null ? false : true;
         $user = $this->userRepository->update($input, $id);
 
         $dataDonationCenter=[

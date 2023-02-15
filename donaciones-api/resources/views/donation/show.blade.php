@@ -7,7 +7,13 @@
                 <div class="col-sm-6">
                     <h1>Punto de Donación</h1>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-3">
+                    <a class="btn btn-primary float-right"
+                       href="{{ route('donation.edit', [$donation->id]) }}">
+                        Editar
+                    </a>
+                </div>
+                <div class="col-sm-3">
                     <a class="btn btn-default float-right"
                        href="{{ route('donation.index') }}">
                         Regresar

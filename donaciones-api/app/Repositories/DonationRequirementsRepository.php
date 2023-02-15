@@ -96,23 +96,14 @@ class DonationRequirementsRepository extends BaseRepository
                 $image[]=[$value->image];
             }
              foreach($data['item'] as $key1=> $item){
-                if ($item['image'] != null) {
-                    RequirementsDetails::create([
-                        'requirement_id' => $requirement->id,
-                        'points' => $item['points'],
-                        'points_details' => $item['points_details'],
-                        'image' => $item['image'],
-                    ]);
-                } else {
-                    RequirementsDetails::create([
-                        'requirement_id' => $requirement->id,
-                        'points' => $item['points'],
-                        'points_details' => $item['points_details'],
-                        'image' => $image[$key1][0],
-                    ]);
-                }
                 
-                
+                RequirementsDetails::create([
+                    'requirement_id' => $requirement->id,
+                    'points' => $item['points'],
+                    'points_details' => $item['points_details'],
+                    'image' =>  $item['image'] != null ?  $item['image'] : $image[$key1][0],
+                ]);
+
             }
 
             DB::commit();

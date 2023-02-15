@@ -5,31 +5,31 @@
 </div>
 
 <!-- Details Field -->
-<div class="form-group col-sm-12 col-lg-12">
+<div class="form-group col-sm-6 col-lg-6">
     {!! Form::label('details', 'Detalles:') !!}
-    {!! Form::textarea('details', null, ['class' => 'form-control']) !!}
+    {!! Form::textarea('details', null, ['class' => 'form-control' , 'rows'=>'3']) !!}
 </div>
 
-<!-- Ask Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('ask', 'Pregunta:') !!}
-    {!! Form::text('ask[]', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Answer Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('answer', 'Respuesta:') !!}
-    {!! Form::text('answer[]', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Image Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('image', 'Imagen:') !!}
-    <div class="input-group">
-        <div class="custom-file">
-            {!! Form::file('image[]', ['class' => 'custom-file-input']) !!}
-            {!! Form::label('image', 'Choose file', ['class' => 'custom-file-label']) !!}
+@foreach ($myths->myth_details as $key=> $item)
+    <div class="form-group col-sm-4">
+        {!! Form::label('points', 'Punto:') !!}
+        {!! Form::textarea('item[' .$key.  '][ask]', $item->ask, ['class' => 'form-control', 'rows'=>'3', ]) !!}
+    </div>
+    <div class="form-group col-sm-6">
+        {!! Form::label('points_details', 'Detalles:') !!}
+        {!! Form::textarea('item[' .$key.   '][answer]', $item->answer, ['class' => 'form-control' , 'rows'=>'3']) !!}
+    </div>
+    <div class="form-group col-sm-2">
+        {!! Form::label('image', 'Imagen:') !!}
+        <div class="input-group">
+            <div class="custom-file">
+                {!! Form::file('item[' .$key.   '][image]' ,['class' => 'custom-file-input']) !!}
+                {!! Form::label('image', 'Elegir Imagen', ['class' => 'custom-file-label']) !!}
+            </div>
         </div>
     </div>
-</div>
+@endforeach
+
+
+
 <div class="clearfix"></div>

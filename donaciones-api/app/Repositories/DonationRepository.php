@@ -12,33 +12,48 @@ use Exception;
 
 use Illuminate\Support\Facades\Auth;
 
-class DonationRepository
+class DonationRepository extends BaseRepository
 {
-    protected $country,$donation_point,$city,$user;
+     /**
+     * @var array
+     */
+    protected $fieldSearchable = [
 
-    public function __construct(City $city, Country $country, DonationPoint $donation_point,User $user)
+    ];
+
+    /**
+     * Return searchable fields
+     *
+     * @return array
+     */
+    public function getFieldsSearchable()
     {
-        $this->country=$country;
-        $this->donation_point=$donation_point;
-        $this->city=$city;
-        $this->user = $user;
+        return $this->fieldSearchable;
+    }
+
+    /**
+     * Configure the Model
+     **/
+    public function model()
+    {
+        return DonationPoint::class;
     }
 
     public function list()
     {
-        return $this->donation_point::with('city')->orderBy("id","asc")->get();
+        return DonationPoint::with('city')->orderBy("id","asc")->get();
     }
 
-    public function create()
+    public function createDonationCenter()
     {
-        return $this->city->get()->pluck('name', 'id');
+        return City::get()->pluck('name', 'id');
     }
 
     public function store($data)
     {
         try {
             DB::beginTransaction();
-            $this->donation_point->create($data);
+            DonationPoint::create($data);
             DB::commit();
             
             return 'ok';
@@ -55,7 +70,8 @@ class DonationRepository
     {
         try {
             DB::beginTransaction();
-            $donation_point=$this->donation_point->find($id);
+            $donation_point=DonationPoint::find($id);
+            $data['status']= isset($data['status']) == null ? false : true;
             $donation_point->update($data);
             DB::commit();
             return 'ok';
@@ -68,7 +84,7 @@ class DonationRepository
 
     public function show($id)
     {
-        return $this->donation_point->find($id);
+        return DonationPoint::find($id);
     }
 
     

@@ -81,11 +81,29 @@ class MythRepository extends BaseRepository
     public function update($data,$id)
     {
         try {
+            $image=[];
             DB::beginTransaction();
-            $data= Myths::find($id);
-            $data->update($data);
+            $myth= Myths::find($id);
+            $myth->update($data);
+
+            $details = MythDetails::where('myths_id',$myth->id)->get();
+            MythDetails::where('myths_id',$myth->id)->delete();
+
+            foreach ($details as $key => $value) {
+                $image[]=[$value->image];
+            }
+
+            foreach($data['item'] as $key1=> $item){
+                MythDetails::create([
+                    'myths_id' => $myth->id,
+                    'ask' => $item['ask'],
+                    'answer' => $item['answer'],
+                    'image' => $item['image'] != null ?  $item['image'] : $image[$key1][0],
+                ]);                
+            }
+
             DB::commit();
-            return 'ok';
+            return 'ok'; 
            
         } catch (Exception $ex) {
             DB::rollBack();

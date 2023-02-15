@@ -3,12 +3,17 @@
 <div class="form-group col-sm-12">
     <div class="col-sm-6">
         {!! Form::label('donation_id', 'Punto de Donación:') !!}
-        <select name="donation_id" id="donation_id" class="form-control "  >
-            <option value="">Seleccionar </option>
-            @foreach ($pointsDonations as $key=>$value)
-                <option  @if($bloodDonationHours->id == $value['id']) selected  @endif  value="{{$value['id']}}">{{$value['name']}}</option>
-            @endforeach
-        </select>
+        @if (Auth::user()->roles->first()->name == 'admin')
+            <select name="donation_id" id="donation_id" class="form-control "  >
+                <option value="">Seleccionar </option>
+                @foreach ($pointsDonations as $key=>$value)
+                    <option  @if($bloodDonationHours->id == $value['id']) selected  @endif  
+                        value="{{$value['id']}}">{{$value['name']}}</option>
+                @endforeach
+            </select>
+        @else
+            <p>{{ $bloodDonationHours->name}}</p>
+        @endif
     </div>
 </div>
 

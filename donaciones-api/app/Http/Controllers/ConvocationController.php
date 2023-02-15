@@ -49,7 +49,7 @@ class ConvocationController extends AppBaseController
      */
     public function create()
     {
-        $donations = $this->callRepository->create();
+        $donations = $this->callRepository->createConvocation();
 
         //$user =$this->callRepository->user();
         

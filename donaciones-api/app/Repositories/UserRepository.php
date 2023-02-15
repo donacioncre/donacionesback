@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\UserDonationCenter;
 use App\Repositories\BaseRepository;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 /**
@@ -46,7 +47,7 @@ class UserRepository extends BaseRepository
 
     public function roles()
     {
-        return  Role::pluck('name','name')->all();
+        return  Role::where("name","!=", "donante")->pluck('name','name')->all();
     }
 
      public function listDonationCenter()
@@ -86,7 +87,23 @@ class UserRepository extends BaseRepository
 
      public function listUserDonors()
      {
-        return   User::whereHas("roles", function($q){ $q->where("name", "donante"); })->get();
+        
+        $user =Auth::user();
+        switch ($user->roles->first()->name) {
+            case 'user':
+                $id=Auth::user()->donationCenter->first()->id;
+
+                
+                return   User::whereHas("roles", function($q){ $q->where("name", "donante"); })
+                                ->whereHas('scheduleDonor', function($q) use($id) { $q->where("donation_id",$id); })->get();
+
+                 
+            case 'admin':
+                return  User::whereHas("roles", function($q){ $q->where("name", "donante"); })->get();
+                break;
+            
+        }
+        
      }
 
      public function listUserRol()

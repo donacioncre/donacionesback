@@ -7,7 +7,13 @@
                 <div class="col-sm-6">
                     <h1>Horario</h1>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-3">
+                    <a class="btn btn-primary float-right"
+                       href="{{ route('plateletDonationHours.edit', [$bloodDonationHours->id]) }}">
+                        Editar
+                    </a>
+                </div>
+                <div class="col-sm-3">
                     <a class="btn btn-default float-right"
                        href="{{ route('plateletDonationHours.index') }}">
                         regresar

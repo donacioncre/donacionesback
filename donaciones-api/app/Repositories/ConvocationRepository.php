@@ -9,21 +9,39 @@ use App\Models\DonationPoint;
 use Illuminate\Support\Facades\DB;
 use Exception;
 
-class ConvocationRepository
+class ConvocationRepository extends BaseRepository
 {
-    protected $convocation,$donation,$city;
+   
 
-    public function __construct(Convocation $convocation, DonationPoint $donation)
+     /**
+     * @var array
+     */
+    protected $fieldSearchable = [
+        
+    ];
+
+    /**
+     * Return searchable fields
+     *
+     * @return array
+     */
+    public function getFieldsSearchable()
     {
-        $this->convocation=$convocation;
-        $this->donation=$donation;
-       
+        return $this->fieldSearchable;
+    }
+
+    /**
+     * Configure the Model
+     **/
+    public function model()
+    {
+        return Convocation::class;
     }
 
     public function list()
     {
         $data=[];
-        $convocation = $this->convocation::with('donation')->orderBy("id","asc")->get();
+        $convocation = Convocation::with('donation')->orderBy("id","asc")->get();
         foreach($convocation as $key=> $value){
             $data[]=[
                 'id' => $value->id,
@@ -37,16 +55,16 @@ class ConvocationRepository
         return  $data;
     }
 
-    public function create()
+    public function createConvocation()
     {
-        return $this->donation->get()->pluck('name', 'id');
+        return DonationPoint::get()->pluck('name', 'id');
     }
 
     public function store($data)
     {
         try {
             DB::beginTransaction();
-            $convocation =  $this->convocation->create($data);
+            $convocation =  Convocation::create($data);
             DB::commit();
             
             return $convocation;
@@ -62,7 +80,7 @@ class ConvocationRepository
     {
         try {
             DB::beginTransaction();
-            $convocation=$this->convocation->find($id);
+            $convocation= Convocation::find($id);
             $convocation->update($data);
             DB::commit();
             return 'ok';
@@ -76,7 +94,7 @@ class ConvocationRepository
     public function show($id)
     {
         $data=[];
-        $convocation = $this->convocation->with('donation')->find($id);
+        $convocation = Convocation::with('donation')->find($id);
         
         if (is_object($convocation)) {
             $data=[

@@ -14,10 +14,10 @@
         @foreach($myths as $myth)
             <tr>
                 <td>{{ $myth->title }}</td>
-            <td>{{ $myth->details }}</td>
-            <td>{{ $myth->ask }}</td>
-            <td>{{ $myth->answer }}</td>
-            <td>{{ $myth->image }}</td>
+                <td>{{ $myth->details }}</td>
+                <td>{{ $myth->ask }}</td>
+                <td>{{ $myth->answer }}</td>
+                <td>{{ $myth->image }}</td>
                 <td width="120">
                     {!! Form::open(['route' => ['myths.destroy', $myth->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>
@@ -29,7 +29,7 @@
                            class='btn btn-default btn-xs'>
                             <i class="far fa-edit"></i>
                         </a>
-                        {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                        {{-- {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!} --}}
                     </div>
                     {!! Form::close() !!}
                 </td>

@@ -123,19 +123,12 @@ class DonationRequirementsController extends Controller
                 $value['image']->move($destinationPath, $filename);
                 $file = $destinationPath . $filename;
 
-                $details_request[]=[
-                    'points' => $value['points'],
-                    'points_details' => $value['points_details'],
-                    'image' => $file,
-                ];
-            }else{
-                $details_request[]=[
-                    'points' => $value['points'],
-                    'points_details' => $value['points_details'],
-                    'image' => $file,
-                ];
             }
-
+            $details_request[]=[
+                'points' => $value['points'],
+                'points_details' => $value['points_details'],
+                'image' => $file,
+            ];
             
 
             $file = null;

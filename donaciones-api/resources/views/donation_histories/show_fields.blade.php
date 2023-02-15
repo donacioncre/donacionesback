@@ -4,6 +4,10 @@
         {{$donationHistory->schedule->user->lastname}}  - Identificación:
     {{$donationHistory->schedule->user->identification}}</p>
 </div>  
+<div class="form-group col-sm-6">   
+    {!! Form::label('donation', 'Centro de Donación:') !!}
+    <p>{{$donationHistory->schedule->donation->name}}</p>
+</div> 
 <!-- Code Field -->
 <div class="col-sm-12">
     {!! Form::label('code', 'Código:') !!}

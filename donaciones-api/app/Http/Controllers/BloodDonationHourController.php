@@ -8,6 +8,7 @@ use App\Repositories\BloodDonationHourRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Facades\Auth;
 use Response;
 
 class BloodDonationHourController extends AppBaseController
@@ -36,9 +37,20 @@ class BloodDonationHourController extends AppBaseController
     {
         $bloodDonationHours = $this->bloodDonationHourRepository->list();
 
+        $user =Auth::user();
+        switch ($user->roles->first()->name) {
+            case 'user':
+                $id=Auth::user()->donationCenter->first()->id;
+                
+                return redirect(route('bloodDonationHours.show',[$id]));
+            case 'admin':
+                return view('blood_donation_hours.index')
+                        ->with('bloodDonationHours', $bloodDonationHours);
+                break;
+            
+        }
       
-        return view('blood_donation_hours.index')
-            ->with('bloodDonationHours', $bloodDonationHours);
+      
     }
 
     /**

@@ -32,7 +32,7 @@ class MythController extends AppBaseController
         $myths = $this->mythRepository->all();
 
         return view('myths.index')
-            ->with('myth', $myths);
+            ->with('myths', $myths);
     }
 
     /**
@@ -115,13 +115,38 @@ class MythController extends AppBaseController
     {
         $myths = $this->mythRepository->find($id);
 
-        if (empty($myths)) {
+        if (empty($myths)) { 
             Flash::error('Myths not found');
 
             return redirect(route('myths.index'));
         }
 
-        $myths = $this->mythRepository->update($request->all(), $id);
+
+        $file = null;
+        $details=[];
+   
+        foreach($request->item as $key => $value){
+            if (isset($value['image'])) {
+                $img = $value['image'];
+                $destinationPath = 'image/donation/';
+                $filename = time() . '-' . $img->getClientOriginalName();
+                $value['image']->move($destinationPath, $filename);
+                $file = $destinationPath . $filename;
+            }
+
+            $details[]=[
+                'ask' => $value['ask'],
+                'answer' => $value['answer'],
+                'image' => $file,
+            ];
+            $file = null;
+        }
+
+        $requestData=$request->all();
+
+        $requestData['item'] = $details;
+
+        $myths = $this->mythRepository->update($requestData, $id);
 
         Flash::success('Myths updated successfully.');
 
