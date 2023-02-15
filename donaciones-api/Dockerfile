@@ -31,9 +31,6 @@ RUN docker-php-ext-install pgsql \
 RUN docker-php-ext-install zip
 # Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-
-
 # Add user for laravel application
 RUN groupadd -g 1000 www 
 RUN useradd -u 1000 -ms /bin/bash -g www www
@@ -65,6 +62,6 @@ EXPOSE 9000
 
 #CMD cron  && tail -f /var/log/cron.log
 #CMD ["php-fpm","cron","-f"]
-#CMD ["php-fpm"]
+CMD ["php-fpm"]
 
-CMD bash -c "cron && php-fpm"
+#CMD bash -c "cron && php-fpm"
