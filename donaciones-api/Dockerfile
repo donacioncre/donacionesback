@@ -56,7 +56,7 @@ RUN touch /var/log/cron.log
 # --------------------------------------------------------------------
 
 # Change current user to www
-#USER www
+USER www
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
 
