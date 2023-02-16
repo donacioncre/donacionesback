@@ -34,6 +34,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Add user for laravel application
 RUN groupadd -g 1000 www 
 RUN useradd -u 1000 -ms /bin/bash -g www www
+
 # Copy existing application directory contents
 COPY . /var/www
 # Copy existing application directory permissions   
@@ -42,27 +43,30 @@ COPY --chown=www:www . /var/www
 # --------------------------------------------------------------------
     #RUN chmod -R 755 /var/www/storage/logs/laravel.log
 # Add docker custom crontab
-ADD crontab /etc/cron.d/crontab
+#ADD crontab /etc/cron.d/crontab
 
 # Give execution rights on the cron job
-RUN chmod 0644  /etc/cron.d/crontab
+#RUN chmod 0644  /etc/cron.d/crontab
 
 # Specify crontab file for running
-RUN crontab /etc/cron.d/crontab
+#RUN crontab /etc/cron.d/crontab
 
-RUN echo "* * * * * www php /var/www/artisan schedule:run >> /var/log/cron.log 2>&1" >> /etc/crontab
+RUN echo "* * * * * root php /var/www/artisan schedule:run >> /var/log/cron.log 2>&1" >> /etc/crontab \
+    && crontab -u www /etc/crontab \
+    && chmod u+s /usr/sbin/cron
 
-RUN touch /var/log/cron.log
+
+#RUN touch /var/log/cron.log
 #ENTRYPOINT ["cron", "-f"]
 # --------------------------------------------------------------------
-
 # Change current user to www
 USER www
+
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
 
 #CMD cron  && tail -f /var/log/cron.log
 #CMD ["php-fpm","cron","-f"]
-CMD ["php-fpm"]
-
-#CMD bash -c "cron && php-fpm"
+#CMD ["php-fpm"]
+#CMD cron
+CMD bash -c "cron && php-fpm"

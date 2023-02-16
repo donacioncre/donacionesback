@@ -44,8 +44,8 @@ class NotificationTask extends Command
      */
     public function handle()
     {
-        //$texto ="[". date("Y-m-d H:i:s"). "]: Hola mm";
-        //Storage::append("archivo.txt",$texto);
+        $texto ="[". date("Y-m-d H:i:s"). "]: Hola mm111";
+        Storage::append("archivo.txt",$texto);
 
         $this->notification->NotificationBirthday();
         $this->notification->NotificationSchedule();
