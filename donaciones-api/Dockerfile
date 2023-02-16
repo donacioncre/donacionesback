@@ -41,8 +41,7 @@ COPY --chown=www:www . /var/www
 
 # --------------------------------------------------------------------
 
-RUN chown -R www:www-data /var/www/storage
-RUN chmod -R ug+w /var/www/storage
+RUN chown www:www /var/www -R
 
 # Add docker custom crontab
 ADD crontab /etc/cron.d/crontab
@@ -60,7 +59,7 @@ RUN touch /var/log/cron.log
 # --------------------------------------------------------------------
 
 # Change current user to www
-#USER www
+USER www
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
 
