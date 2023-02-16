@@ -40,7 +40,7 @@ COPY . /var/www
 COPY --chown=www:www . /var/www
 
 # --------------------------------------------------------------------
-RUN chmod -R 755 /storage
+RUN chmod -R 755 /var/www/storage
 # Add docker custom crontab
 ADD crontab /etc/cron.d/crontab
 
