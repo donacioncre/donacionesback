@@ -40,7 +40,7 @@ COPY . /var/www
 COPY --chown=www:www . /var/www
 
 # --------------------------------------------------------------------
-RUN chmod -R 755 /var/www/storage
+RUN chmod -R 755 /var/www/storage/logs/laravel.log
 # Add docker custom crontab
 ADD crontab /etc/cron.d/crontab
 
