@@ -63,6 +63,6 @@ EXPOSE 9000
 
 #CMD cron  && tail -f /var/log/cron.log
 #CMD ["php-fpm","cron","-f"]
-#CMD ["php-fpm"]
+CMD ["php-fpm"]
 
-CMD bash -c "cron && php-fpm"
+#CMD bash -c "cron && php-fpm"
