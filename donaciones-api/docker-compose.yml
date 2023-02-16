@@ -20,7 +20,7 @@ services:
       - ./:/var/www
       - ./nginx:/etc/nginx/conf.d/
     ports:
-        - 8288:80
+        - 8282:80
     depends_on:
       - donacion
     networks:
