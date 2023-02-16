@@ -40,6 +40,10 @@ COPY . /var/www
 COPY --chown=www:www . /var/www
 
 # --------------------------------------------------------------------
+
+RUN chown -R www:www-data /var/www/storage
+RUN chmod -R ug+w /var/www/storage
+
 # Add docker custom crontab
 ADD crontab /etc/cron.d/crontab
 
