@@ -9,7 +9,7 @@ use App\Http\Controllers\Api\MythController;
 use App\Http\Controllers\Api\NewCallAPIController;
 use App\Http\Controllers\Api\QuestionsAPIController;
 use App\Http\Controllers\Api\ScheduleController;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\DonationHistoryController;
 use App\Http\Controllers\OrganizationController;
 
@@ -34,7 +34,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group([ 'prefix' => 'auth'], function () {
     Route::post('login', [AuthController::class,'login']);
     Route::post('signup',  [AuthController::class,'signup']);
+    Route::post('forgotPassword', [AuthController::class,'forgotPassword']);
+    Route::post('resetPassword', [AuthController::class,'resetPassword']);
    // Route::get('/home', 'HomeController@index')->name('home');
+
+   
 
     Route::group(['middleware' => 'auth:api'], function() {
         Route::post('logout', [AuthController::class,'logout']);
@@ -42,10 +46,10 @@ Route::group([ 'prefix' => 'auth'], function () {
         Route::get('userList', [AuthController::class,'userList'] );
         Route::post('userUpdate', [AuthController::class,'userUpdate'] );
 
-    /* Route::prefix('organization')->group(function () {
-            //Route::get('/', 'App\Http\Controllers\Api\IngresoVisitaController@index');
-            //Route::post('/updateDate/{id}', 'App\Http\Controllers\Api\IngresoVisitaController@updateDate');
-            //Route::get('/getListMiembro/{id}', 'App\Http\Controllers\Api\IngresoVisitaController@getListMiembro');
+        /* Route::prefix('organization')->group(function () {
+                //Route::get('/', 'App\Http\Controllers\Api\IngresoVisitaController@index');
+                //Route::post('/updateDate/{id}', 'App\Http\Controllers\Api\IngresoVisitaController@updateDate');
+                //Route::get('/getListMiembro/{id}', 'App\Http\Controllers\Api\IngresoVisitaController@getListMiembro');
 
         });*/
     });

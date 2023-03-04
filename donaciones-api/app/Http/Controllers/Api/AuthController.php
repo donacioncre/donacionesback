@@ -1,14 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Api;
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
@@ -127,6 +131,72 @@ class AuthController extends Controller
             'status' => true,
             'message' => 'Successfully logged out'
         ]);
+    }
+
+
+    public function forgotPassword(Request $request)
+    {
+        $request->validate([
+            'email'=>'required|email'
+        ]);
+
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+
+      
+        $select = DB::table('password_resets')
+        ->where('email',  $request->only('email'))->first();
+
+        if ($status == Password::RESET_LINK_SENT) {
+            return [
+                'status' => 'mail exists',
+                'token' => $select->token
+            ];
+        }else{
+            return [
+                'status' => 'mail not exists', 
+            ];
+        }
+
+        throw ValidationException::withMessages([
+            'email' => [trans($status)],
+        ]);
+
+    }
+
+
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => ['required', 'confirmed'],
+        ]);
+
+        $check = DB::table('password_resets')->where([
+            ['email', $request->all()['email']],
+            ['token', $request->all()['token']],
+        ]);
+
+        if ($check->exists()) {
+            DB::table('users')->where([
+                ['email', $request->all()['email']],
+            ])->update([
+                'password' => Hash::make($request->password),
+               
+            ]);
+
+            return response([
+                'message'=> 'Password reset successfully'
+            ]);
+        }
+
+        return response([
+            'message'=> 'Invalid token o email'
+        ]);
+
+      
     }
 
     public function user(Request $request)
