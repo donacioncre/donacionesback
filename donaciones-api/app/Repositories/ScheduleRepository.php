@@ -40,7 +40,7 @@ class ScheduleRepository extends BaseRepository
     protected $schedule,$donation,$user,$city,$bloodDonationHour, $plateletDonationHour;
 
     //public $email_user='estevez.desarrollo@gmail.com';
-    public $email_user='mkc.r14l93@gmail.com';
+    public $email_user='info@quealhaja.com';
 
     public function __construct(Schedule $schedule, DonationPoint $donation, City $city, 
                                     BloodDonationHour $bloodDonationHour, User $user, PlateletDonationHour $plateletDonationHour  ) {
