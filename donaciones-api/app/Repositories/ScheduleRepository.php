@@ -40,9 +40,10 @@ class ScheduleRepository extends BaseRepository
     protected $schedule,$donation,$user,$city,$bloodDonationHour, $plateletDonationHour;
 
     //public $email_user='estevez.desarrollo@gmail.com';
-    public $email_user='info@quealhaja.com';
+    //public $email_user='info@quealhaja.com';
+    public $email_user='mkc.r14l93@gmail.com';
 
-    public function __construct(Schedule $schedule, DonationPoint $donation, City $city, 
+    public function __construct(Schedule $schedule, DonationPoint $donation, City $city,
                                     BloodDonationHour $bloodDonationHour, User $user, PlateletDonationHour $plateletDonationHour  ) {
         $this->schedule = $schedule;
         $this->donation = $donation;
@@ -80,12 +81,12 @@ class ScheduleRepository extends BaseRepository
             return $this->donation->whereHas('userDonationCenter', function($q) use($user_id)
             {
                 $q->where('user_id','=', $user_id);
-            
+
             })->get();
         }
-        
 
-       
+
+
     }
 
     public function listCities($id)
@@ -100,7 +101,7 @@ class ScheduleRepository extends BaseRepository
 
         $data= $this->donation::where('city_id',$id)->get();
 
-      
+
 
         return $data;
     }
@@ -124,18 +125,18 @@ class ScheduleRepository extends BaseRepository
 
                 $dataSchedule=$this->schedule->where('donation_date',$date)
                         ->where('donation_time',$value->time)->get();
-    
+
                 if (count($dataSchedule)  < $value->amount) {
                     $date_time[]= $value->time;
                 }
-              
+
             }
 
         }
         if ($data['donation_type']== "sangre"){
             $donationHour = $this->bloodDonationHour->with('bloodDonorAppointment')
                         ->where('donation_id',$id)->where('days',$numDay)->first();
-            
+
             if (!is_object($donationHour)){
                 return "Sin Horario";
             }
@@ -143,16 +144,16 @@ class ScheduleRepository extends BaseRepository
 
                 $dataSchedule=$this->schedule->where('donation_date',$date)
                         ->where('donation_time',$value->time)->get();
-    
+
                 if (count($dataSchedule)  < $value->amount) {
                     $date_time[]= $value->time;
                 }
-                
+
             }
         }
-        
+
         return  $date_time;
-       
+
     }
 
 
@@ -162,7 +163,7 @@ class ScheduleRepository extends BaseRepository
             DB::beginTransaction();
             $schedule=$this->schedule->create($data);
             DB::commit();
-            
+
             $email=[
                 'name' => $schedule->user->firstname,
                 'lastname' => $schedule->user->lastname,
@@ -247,7 +248,7 @@ class ScheduleRepository extends BaseRepository
                 'date_birth' => Carbon::parse($schedule->user->date_birth)->format('d/m/Y'),
                 'country' => $schedule->user->country,
                 'city' => $schedule->user->city,
-    
+
                 //hemocentro
                 'donation_center' => $schedule->donation->name,
                 'address' => $schedule->donation->address,
@@ -257,7 +258,7 @@ class ScheduleRepository extends BaseRepository
                 'donation_date' => Carbon::parse($schedule->donation_date)->format('d/m/Y'),
                 'donation_time' => $schedule->donation_time,
             ];
-    
+
             $dataEmail=new AppointmentReschedule($email);
             //$response = Mail::to($schedule->user->email)->send($dataEmail);
             $response=Mail::to($this->email_user)->send($dataEmail);
