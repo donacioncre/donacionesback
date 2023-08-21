@@ -45,8 +45,7 @@ class CreateDonationPointsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('donation_points');
         Schema::dropIfExists('convocations');
-        
+        Schema::dropIfExists('donation_points');
     }
 }
