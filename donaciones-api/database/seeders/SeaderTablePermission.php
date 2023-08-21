@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
-
+use App\Models\User;
 class SeaderTablePermission extends Seeder
 {
     /**
@@ -100,5 +100,21 @@ class SeaderTablePermission extends Seeder
          foreach($roles as $rol){
              Role::create(['name'=>$rol]);
          }
+
+         $user = new User([
+            'name' => 'Mauro',
+            'email' => 'admin@admin.com',
+            'password' => bcrypt('1234'),
+            'firstname' => 'admin',
+            'lastname' => 'admin',
+            'identification' =>'12345',
+            'phone_number' =>'12345',
+            'date_birth' => '1992-07-18',
+            'blood_type' => 'o',
+            'profile_picture' =>'N/A',
+        ]);
+
+        $user->assignRole('admin');
+        $user->save();
     }
 }

@@ -31,7 +31,6 @@ class HomeController extends Controller
     {
         $donors = $this->userRepo->listUserDonors()->count();
         $donationCenter  = $this->donationRepo->list()->count();
-        
         return view('home',compact('donors','donationCenter'));
     }
 }

@@ -26,7 +26,7 @@ class UserRepository extends BaseRepository
         'password'
     ];
 
-   
+
     /**
      * Return searchable fields
      *
@@ -62,13 +62,13 @@ class UserRepository extends BaseRepository
             $user= UserDonationCenter::create($data);
             DB::commit();
             return $user;
-            
+
         } catch (Exception $ex) {
             DB::rollBack();
             return 'Register Failed ' .$ex->getMessage();
         }
 
-       
+
      }
 
      public function updateDonationCenter($data)
@@ -87,23 +87,21 @@ class UserRepository extends BaseRepository
 
      public function listUserDonors()
      {
-        
+
         $user =Auth::user();
         switch ($user->roles->first()->name) {
             case 'user':
                 $id=Auth::user()->donationCenter->first()->id;
-
-                
                 return   User::whereHas("roles", function($q){ $q->where("name", "donante"); })
                                 ->whereHas('scheduleDonor', function($q) use($id) { $q->where("donation_id",$id); })->get();
 
-                 
+
             case 'admin':
                 return  User::whereHas("roles", function($q){ $q->where("name", "donante"); })->get();
                 break;
-            
+
         }
-        
+
      }
 
      public function listUserRol()

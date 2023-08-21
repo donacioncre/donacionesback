@@ -52,8 +52,5 @@ class AddColumsDeleteActiveTables extends Migration
             $table->dropColumn('status');
 
         });
-        Schema::dropIfExists('donation_points');
-        Schema::dropIfExists('cities');
-        Schema::dropIfExists('country');
     }
 }
