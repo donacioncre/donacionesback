@@ -13,23 +13,23 @@ class AddColumsDeleteActiveTables extends Migration
      */
     public function up()
     {
-        
+
         Schema::table('convocations', function (Blueprint $table) {
-          
+
             $table->softDeletes();
-           
+
         });
         Schema::table('donation_points', function (Blueprint $table) {
-          
+
             $table->boolean('status')->default(true);
             $table->softDeletes();
         });
 
         Schema::table('users', function (Blueprint $table) {
-          
+
             $table->boolean('status')->default(true);
             $table->softDeletes();
-           
+
         });
 
 
@@ -45,12 +45,13 @@ class AddColumsDeleteActiveTables extends Migration
     {
         Schema::table('donation_points', function($table) {
             $table->dropColumn('status');
-           
+
         });
 
         Schema::table('users', function($table) {
             $table->dropColumn('status');
-           
+
         });
+        Schema::dropIfExists('donation_points');
     }
 }
