@@ -85,20 +85,20 @@ class SeaderTablePermission extends Seeder
             'crear-mitos',
             'editar-mitos',
             'eliminar-mitos',
-        ]; 
+        ];
 
         foreach($permissions as $permission){
             Permission::create(['name'=>$permission]);
         }
 
-        // $roles=[
-        //     'admin',
-        //     'user',
-        //     'donante'
-        // ];
+        $roles=[
+             'admin',
+             'user',
+             'donante'
+        ];
 
-        // foreach($roles as $rol){
-        //     Role::create(['name'=>$rol]);
-        // }
+         foreach($roles as $rol){
+             Role::create(['name'=>$rol]);
+         }
     }
 }
