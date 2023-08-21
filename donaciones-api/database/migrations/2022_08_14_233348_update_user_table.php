@@ -61,13 +61,13 @@ class UpdateUserTable extends Migration
             $table->dropColumn('firstname');
             $table->dropColumn('lastname');
             $table->dropColumn('date_birth');
-            $table->dropColumn('address');
-            $table->dropColumn('country');
-            $table->dropColumn('city');
-            $table->dropColumn('phone');
-            $table->dropColumn('profile_picture');
+            //$table->dropColumn('address');
+            //$table->dropColumn('country');
+            //$table->dropColumn('city');
+            //$table->dropColumn('phone');
+            //$table->dropColumn('profile_picture');
 
-            $table->dropColumn('overview');
+            //$table->dropColumn('overview');
         });
 
         Schema::dropIfExists('rol_user');
