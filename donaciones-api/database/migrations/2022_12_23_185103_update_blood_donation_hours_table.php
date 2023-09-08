@@ -32,8 +32,8 @@ class UpdateBloodDonationHoursTable extends Migration
     public function down()
     {
         Schema::table('blood_donation_hours', function($table) {
-            //$table->dropColumn('start_time_1');
-            //$table->dropColumn('end_time_1');
+            $table->dropColumn('start_time_1');
+            $table->dropColumn('end_time_1');
         });
     }
 }

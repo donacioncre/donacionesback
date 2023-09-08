@@ -102,7 +102,7 @@ class SeaderTablePermission extends Seeder
          }
 
          $user = new User([
-            'name' => 'Mauro',
+            'name' => 'admin',
             'email' => 'admin@admin.com',
             'password' => bcrypt('1234'),
             'firstname' => 'admin',
