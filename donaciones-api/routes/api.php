@@ -38,7 +38,7 @@ Route::group([ 'prefix' => 'auth'], function () {
     Route::post('resetPassword', [AuthController::class,'resetPassword']);
    // Route::get('/home', 'HomeController@index')->name('home');
 
-   
+
 
     Route::group(['middleware' => 'auth:api'], function() {
         Route::post('logout', [AuthController::class,'logout']);
@@ -57,7 +57,7 @@ Route::group([ 'prefix' => 'auth'], function () {
 
 Route::group(['middleware' => 'auth:api'], function() {
     Route::get('/digitalDonationCard/{data}',  [DonationHistoryAPIController::class,'digitalDonationCard']);
-    
+
     Route::resource('/convocations', ConvocationController::class);
 
     Route::prefix('schedule')->group(function () {
@@ -70,10 +70,11 @@ Route::group(['middleware' => 'auth:api'], function() {
         Route::post('store',[ScheduleController::class,'store']);
         Route::get('show/{id}',[ScheduleController::class,'show']);
         Route::post('update/{id}',[ScheduleController::class,'update']);
-        
+
 
         Route::get('userListSchedule', [ScheduleController::class,'listScheduleDonation']);
 
+        Route::get('lastScheduleDonation', [ScheduleController::class,'lastScheduleDonation']);
         Route::post('cancelScheduleDonation/{id}',[ScheduleController::class,'cancelScheduleDonation']);
         //Route::post('/updateDate/{id}', 'App\Http\Controllers\Api\IngresoVisitaController@updateDate');
         //Route::get('/getListMiembro/{id}', 'App\Http\Controllers\Api\IngresoVisitaController@getListMiembro');
@@ -82,7 +83,7 @@ Route::group(['middleware' => 'auth:api'], function() {
 
     Route::prefix('donationHistories')->group(function () {
         Route::get('list', [DonationHistoryAPIController::class,'index']);
-       
+
         //Route::post('/updateDate/{id}', 'App\Http\Controllers\Api\IngresoVisitaController@updateDate');
         //Route::get('/getListMiembro/{id}', 'App\Http\Controllers\Api\IngresoVisitaController@getListMiembro');
 

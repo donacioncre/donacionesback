@@ -38,7 +38,8 @@ class User extends Authenticatable
         "device_token",
         "country",
         "city",
-        "status"
+        "status",
+        "gender"
 
     ];
 

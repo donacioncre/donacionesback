@@ -75,7 +75,7 @@ class ScheduleController extends Controller
     {
         try {
 
-            
+
 
             $data = $this->schedule->listDonationCenter($id);
             return response()->json(['status' => true, 'data' => $data]);
@@ -136,6 +136,22 @@ class ScheduleController extends Controller
         }
     }
 
+    public function lastScheduleDonation()
+    {
+        try {
+
+            $data = $this->schedule->lastScheduleDonationUser();
+            return response()->json(['status' => true, 'data' => $data]);
+        } catch (Exception $ex) {
+            dd($ex);
+            return response()->json([
+                'status' => false,
+                'error' => 'Algo a sucedido por favor intente después de unos minutos',
+                'message' => $ex->getMessage()
+            ], $this->errorStatus);
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -179,7 +195,7 @@ class ScheduleController extends Controller
 
         if ($data[0]=='ok') {
 
-           
+
              return response()->json([
                  'status' =>  $this->successStatus,
                  'message' => 'Successfully',

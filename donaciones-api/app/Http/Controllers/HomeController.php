@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Repositories\DonationRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -29,8 +30,17 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if (Auth::user()->roles->first()->name == 'donante') {
+            $this->guard()->logout();
+            return redirect('/');
+        }
         $donors = $this->userRepo->listUserDonors()->count();
         $donationCenter  = $this->donationRepo->list()->count();
         return view('home',compact('donors','donationCenter'));
+    }
+
+    protected function guard()
+    {
+        return Auth::guard();
     }
 }

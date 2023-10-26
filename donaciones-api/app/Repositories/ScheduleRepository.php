@@ -41,8 +41,8 @@ class ScheduleRepository extends BaseRepository
 
     //public $email_user='estevez.desarrollo@gmail.com';
     //public $email_user='info@quealhaja.com';
-    //public $email_user='idsanchezch@gmail.com';
-    public $email_user='mkc.r14l93@gmail.com';
+    public $email_user='idsanchezch@gmail.com';
+    //public $email_user='mkc.r14l93@gmail.com';
 
 
     public function __construct(Schedule $schedule, DonationPoint $donation, City $city,
@@ -349,6 +349,17 @@ class ScheduleRepository extends BaseRepository
         }
 
         return $scheduel_data;
+    }
+
+    public function lastScheduleDonationUser()
+    {
+        $scheduel_data=[];
+        $user_id=Auth()->user()->id;
+        $donation=$this->schedule->with('donation')->with('user')
+                    ->where('user_id',$user_id)->where('status',true)->orderBy('donation_date','desc')->first();
+
+
+        return $donation;
     }
 
     public function cancelScheduleDonationUser($id)

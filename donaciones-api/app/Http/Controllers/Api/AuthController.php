@@ -39,7 +39,7 @@ class AuthController extends Controller
             $validation_user= User::where('name',$request->identification)->first();
 
             if (!is_object($validation_user)) {
-               
+
                 $user = new User([
                     'name' => $request->identification,
                     'email' => $request->email,
@@ -54,9 +54,10 @@ class AuthController extends Controller
                     'profile_picture' =>'N/A',
                     'country' => $request->country,
                     'city'=>$request->city,
-                    'device_token' =>$request->device_token
+                    'device_token' =>$request->device_token,
+                    'gender' => $request->gender
                 ]);
-                
+
                 $user->assignRole('donante');
                 $user->save();
 
@@ -77,7 +78,7 @@ class AuthController extends Controller
 
 
     }
- 
+
     public function login(Request $request)
     {
 
@@ -112,7 +113,7 @@ class AuthController extends Controller
 
         $user->device_token = $request->device_token;
         $user->save();
-       
+
         return response()->json([
             'status' => true,
             'token' =>[
@@ -144,7 +145,6 @@ class AuthController extends Controller
             $request->only('email')
         );
 
-      
         $select = DB::table('password_resets')
         ->where('email',  $request->only('email'))->first();
 
@@ -155,13 +155,11 @@ class AuthController extends Controller
             ];
         }else{
             return [
-                'status' => 'mail not exists', 
+                'status' => 'mail not exists',
             ];
         }
 
-        throw ValidationException::withMessages([
-            'email' => [trans($status)],
-        ]);
+
 
     }
 
@@ -184,7 +182,7 @@ class AuthController extends Controller
                 ['email', $request->all()['email']],
             ])->update([
                 'password' => Hash::make($request->password),
-               
+
             ]);
 
             return response([
@@ -196,7 +194,7 @@ class AuthController extends Controller
             'message'=> 'Invalid token o email'
         ]);
 
-      
+
     }
 
     public function user(Request $request)
@@ -239,6 +237,7 @@ class AuthController extends Controller
                 'date_birth' => $request->date_birth,
                 'blood_type' => $request->blood_type,
                 'profile_picture' =>$file,
+                'gender' => $request->gender
             ];
         }else{
             $user_data=[
@@ -253,6 +252,7 @@ class AuthController extends Controller
                 'date_birth' => $request->date_birth,
                 'blood_type' => $request->blood_type,
                 'profile_picture' =>$file,
+                'gender' => $request->gender
             ];
         }
 
