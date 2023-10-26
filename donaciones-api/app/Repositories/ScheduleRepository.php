@@ -44,6 +44,7 @@ class ScheduleRepository extends BaseRepository
     public $email_user='idsanchezch@gmail.com';
     //public $email_user='mkc.r14l93@gmail.com';
 
+
     public function __construct(Schedule $schedule, DonationPoint $donation, City $city,
                                     BloodDonationHour $bloodDonationHour, User $user, PlateletDonationHour $plateletDonationHour  ) {
         $this->schedule = $schedule;
