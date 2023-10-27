@@ -341,10 +341,10 @@ class ScheduleRepository extends BaseRepository
 
             $scheduel_data[]=[
                 'id'=> $value->id,
-                'place' => $value->donation->name,
-                'address'=> $value->donation->address,
-                'donation_date'=>$value->donation_date,
-                'donation_time' =>$value->donation_time,
+                'place' => isset($value->donation)? $value->donation->name:'N/A',
+                'address'=>isset($value->donation)? $value->donation->address:'N/A',
+                'donation_date'=>isset($value->donation)? $value->donation_date:'N/A',
+                'donation_time' => isset($value->donation)? $value->donation_time:'N/A',
             ];
         }
 
