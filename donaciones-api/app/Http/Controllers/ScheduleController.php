@@ -38,7 +38,7 @@ class ScheduleController extends AppBaseController
     public function index(Request $request)
     {
         $donations = $this->scheduleRepository->listDonationPoint();
-       
+
         return view('schedule.index')
             ->with('donations', $donations);
     }
@@ -86,27 +86,30 @@ class ScheduleController extends AppBaseController
         $donation = $this->scheduleRepository->showScheduleDonation($id);
 
         foreach($donation->schedule as $value){
-            $data[]=[
-                'schedule_id'=>$value->id,
-                'title'=>$value->user->firstname .' '. $value->user->lastname,
-                'start'=>$value->donation_date .' '.$value->donation_time,
-                'end' => $value->donation_date .' '.date('H:i:s', strtotime($value->donation_time. ' +30 minutes')  ),
-                'name' => $value->user->firstname,
-                'lastname' => $value->user->lastname,
-                'blood_type' => $value->user->blood_type,
-                'phone_number'=>$value->user->phone_number,
-                'email' => $value->user->email,
-                'date_birth' => $value->user->date_birth,
-                'country' => $donation->city->country->name,
-                'city' => $donation->city->name,
-                'donation_center' => $donation->name,
-                'address' => $donation->address,
-                'phone_center' => $donation-> phone,
-                'email_center' => $donation->email,
-                'donation_date'=>$value->donation_date,
-                'donation_time' => $value->donation_time,
-                'donation_type' => $value->type_donation,
-            ];
+            if ($value->status == true) {
+                $data[]=[
+                    'schedule_id'=>$value->id,
+                    'title'=>$value->user->firstname .' '. $value->user->lastname,
+                    'start'=>$value->donation_date .' '.$value->donation_time,
+                    'end' => $value->donation_date .' '.date('H:i:s', strtotime($value->donation_time. ' +30 minutes')  ),
+                    'name' => $value->user->firstname,
+                    'lastname' => $value->user->lastname,
+                    'blood_type' => $value->user->blood_type,
+                    'phone_number'=>$value->user->phone_number,
+                    'email' => $value->user->email,
+                    'date_birth' => $value->user->date_birth,
+                    'country' => $donation->city->country->name,
+                    'city' => $donation->city->name,
+                    'donation_center' => $donation->name,
+                    'address' => $donation->address,
+                    'phone_center' => $donation-> phone,
+                    'email_center' => $donation->email,
+                    'donation_date'=>$value->donation_date,
+                    'donation_time' => $value->donation_time,
+                    'donation_type' => $value->type_donation,
+                ];
+            }
+
         }
         foreach($donation->donationHour as $value){
 
@@ -121,18 +124,18 @@ class ScheduleController extends AppBaseController
                 'start_time'=>$value->start_time,
                 'end_time'=>$value->end_time,
             ];
-        } 
-        
+        }
+
         $daysWithoutSchedules=$days;
         $user= $this->scheduleRepository->getNameUser();
-        
+
        /* if (empty($schedule)) {
             Flash::error('Schedule not found');
 
             return redirect(route('schedule.index'));
         }*/
 
-       
+
 
         return view('schedule.show')->with('donation', $donation)->with('dataschedule',$data)->with('daysWithoutSchedules',$daysWithoutSchedules);
     }
@@ -174,12 +177,12 @@ class ScheduleController extends AppBaseController
      * @param UpdateScheduleRequest $request
      *
      * @return Response
-     */ 
+     */
     public function update($id, Request $request)
     {
-       
+
         $input = request()->except(['_token','method']);
-       
+
         $schedule = $this->scheduleRepository->update($input,$id);
 
         $notification = "Fecha u Hora modificada para realizar la Donación";

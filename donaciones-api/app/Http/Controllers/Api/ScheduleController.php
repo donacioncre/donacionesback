@@ -127,7 +127,6 @@ class ScheduleController extends Controller
             $data = $this->schedule->cancelScheduleDonationUser($id);
             return response()->json(['status' => true, 'data' => $data]);
         } catch (Exception $ex) {
-            dd($ex);
             return response()->json([
                 'status' => false,
                 'error' => 'Algo a sucedido por favor intente después de unos minutos',
