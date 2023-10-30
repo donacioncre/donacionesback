@@ -164,7 +164,7 @@ class ScheduleRepository extends BaseRepository
         try {
             DB::beginTransaction();
 
-            $validate = $this->schedule->where('donation_date',$data['donation_date'])->get();
+            $validate = $this->schedule->where('donation_date',$data['donation_date'])->where('user_id',$data['user_id'])->get();
 
             if (count($validate) == 0) {
                 $schedule=$this->schedule->create($data);
