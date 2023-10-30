@@ -35,6 +35,9 @@ class MythController extends AppBaseController
     {
         $myths = $this->mythRepository->all();
 
+        if (count($myths)==0) {
+            return view('myths.create');
+        }
         return view('myths.index')
             ->with('myths', $myths);
     }
@@ -59,12 +62,24 @@ class MythController extends AppBaseController
     public function store(Request $request)
     {
         $input = $request->all();
+        $file = 'img_myth';
+        $details_request=[];
+        for ($i = 1; $i <=$input['num'] ; $i++) {
 
-        $myths = $this->mythRepository->create($input);
+            $details_request[]=[
+                'ask' => 'pregunta'.$i,
+                'answer' => 'respuesta'.$i,
+                'image' => $file,
+            ];
 
-        Flash::success('Myth saved successfully.');
+        }
 
-        return redirect(route('myths.index'));
+        $input ['details_myth'] = $details_request;
+        $data= $this->mythRepository->store($input);
+        $myths = $this->mythRepository->find($data);
+
+        return view('myths.edit')->with('myths', $myths);
+
     }
 
     /**
@@ -119,7 +134,7 @@ class MythController extends AppBaseController
     {
         $myths = $this->mythRepository->find($id);
 
-        if (empty($myths)) { 
+        if (empty($myths)) {
             Flash::error('Myths not found');
 
             return redirect(route('myths.index'));
@@ -128,7 +143,7 @@ class MythController extends AppBaseController
 
         $file = null;
         $details=[];
-   
+
         foreach($request->item as $key => $value){
             if (isset($value['image'])) {
                 $img = $value['image'];

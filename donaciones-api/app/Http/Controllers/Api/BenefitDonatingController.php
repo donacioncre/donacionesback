@@ -6,12 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Repositories\BenefitDonatingRepository;
 use Exception;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Validator;
 
 class BenefitDonatingController extends Controller
 {
-    
-    
+
+
     private $successStatus = 200;
     private $errorStatus = 500;
     protected $donation;
@@ -23,7 +23,7 @@ class BenefitDonatingController extends Controller
 
     public function index()
     {
-        
+
     }
 
     /**
@@ -45,7 +45,41 @@ class BenefitDonatingController extends Controller
     public function store(Request $request)
     {
 
-      
+        $validator = Validator::make(
+            $request->all(),
+            [
+                //'entity_1' => 'required',
+                //'entity_2' => 'required',
+            ]
+        );
+
+
+        if ($validator->fails()) {
+           return response()->json(['status' => false, 'error' => $validator->errors()], 500);
+        }
+
+        $details_request=[];
+        foreach($request->details_benefit as $key => $value){
+
+            array_push($details_request, $value['points']);
+        }
+
+        $requestData=$request->all();
+
+        $requestData['points'] = $details_request;
+        $data= $this->donation->store($requestData);
+
+        if ($data=='ok') {
+             return response()->json([
+                 'status' =>  $this->successStatus,
+                 'message' => 'Successfully'
+             ], 200);
+        } else {
+             return response()->json([
+                 'status' =>  $this->errorStatus,
+                 'message' => $data
+             ], 500);
+        }
     }
 
 

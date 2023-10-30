@@ -1,10 +1,9 @@
 <aside class="main-sidebar  elevation-4" style="background-color:#d34836 ">
-    <a href="{{ url('/home') }}" class="brand-link">
-        <img src=" {{ asset('icon/icon_cruzroja.png') }}"
-           
+    <a href="{{ url('/home') }}" >
+        <img src=" {{ asset('icon/cruzroja.png') }}" style="width: 100%"
+
              alt="{{ config('app.name') }} Logo"
-             class="brand-image img-circle elevation-3">
-        <span class="brand-text font-weight-light text-logo"  >Cruz Roja Ecuatorian</span>
+             class="brand-image  ">
     </a>
     <div class="sidebar">
         <nav class="mt-2" >

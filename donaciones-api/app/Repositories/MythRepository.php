@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
  * @package App\Repositories
  * @version November 16, 2022, 10:16 pm UTC
 */
- 
+
 class MythRepository extends BaseRepository
 {
      /**
@@ -48,10 +48,10 @@ class MythRepository extends BaseRepository
         return Myths::with('myth_details')->get();
     }
 
-   
+
     public function store($data)
     {
-        
+
         try {
             DB::beginTransaction();
             $myth = Myths::create($data);
@@ -67,15 +67,15 @@ class MythRepository extends BaseRepository
             }
 
             DB::commit();
-            
-            return 'ok';
+
+            return $myth->id;
         } catch (Exception $ex) {
             DB::rollBack();
             return 'Register Failed ' .$ex->getMessage();
         }
- 
 
-       
+
+
     }
 
     public function update($data,$id)
@@ -99,12 +99,12 @@ class MythRepository extends BaseRepository
                     'ask' => $item['ask'],
                     'answer' => $item['answer'],
                     'image' => $item['image'] != null ?  $item['image'] : $image[$key1][0],
-                ]);                
+                ]);
             }
 
             DB::commit();
-            return 'ok'; 
-           
+            return 'ok';
+
         } catch (Exception $ex) {
             DB::rollBack();
             return 'Register Failed ' .$ex->getMessage();

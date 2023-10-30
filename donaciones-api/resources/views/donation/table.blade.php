@@ -5,7 +5,7 @@
             <th>Nombre</th>
             <th>Referencia</th>
             <th>Ciudad</th>
-           
+
             <th>Dirección</th>
             <th>Teléfono</th>
             <th>Correo</th>
@@ -18,7 +18,7 @@
                 <td>{{ $donation->name }}</td>
                 <td>{{$donation->reference}}</td>
                 <td>{{ $donation->city->name }}</td>
-               
+
                 <td>{{$donation->address}}</td>
                 <td>{{$donation->phone}}</td>
                 <td>{{$donation->email}}</td>
@@ -34,8 +34,8 @@
                            class='btn btn-default btn-xs'>
                             <i class="far fa-edit"></i>
                         </a>
-                        
-                        {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('¿Esta seguro que quiere eliminar este registro?')"]) !!}
+
+
                     </div>
                     {!! Form::close() !!}
                 </td>
@@ -47,13 +47,13 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        
+
         $('#dataTable').DataTable({
                     dom: "Blfrtip",
                     language: {
                         url: 'https://cdn.datatables.net/plug-ins/1.13.1/i18n/es-MX.json'
-                    },    
-                    buttons: [  ]                
+                    },
+                    buttons: [  ]
         });
 
     });

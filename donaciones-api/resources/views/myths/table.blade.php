@@ -4,9 +4,7 @@
         <tr>
             <th>Titulo</th>
             <th>Detalles</th>
-            <th>Pregunta</th>
-            <th>Respuesta</th>
-            <th>Imagen</th>
+
             <th colspan="3">Acción</th>
         </tr>
         </thead>
@@ -15,9 +13,7 @@
             <tr>
                 <td>{{ $myth->title }}</td>
                 <td>{{ $myth->details }}</td>
-                <td>{{ $myth->ask }}</td>
-                <td>{{ $myth->answer }}</td>
-                <td>{{ $myth->image }}</td>
+
                 <td width="120">
                     {!! Form::open(['route' => ['myths.destroy', $myth->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>

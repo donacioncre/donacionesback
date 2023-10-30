@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
  * @package App\Repositories
  * @version November 16, 2022, 10:16 pm UTC
 */
- 
+
 class BenefitDonatingRepository  extends BaseRepository
 {
      /**
@@ -47,7 +47,7 @@ class BenefitDonatingRepository  extends BaseRepository
         return BenefitDonating::with('donation_details')->get();
     }
 
-   
+
 
     public function store($data)
     {
@@ -56,7 +56,6 @@ class BenefitDonatingRepository  extends BaseRepository
             $benefit = BenefitDonating::create($data);
 
             foreach($data['points'] as $key=> $value){
-
                 BenefitDetails::create([
                     'benefit_id' => $benefit->id,
                     'points' => $value
@@ -64,14 +63,14 @@ class BenefitDonatingRepository  extends BaseRepository
             }
 
             DB::commit();
-            
+
             return 'ok';
         } catch (Exception $ex) {
             DB::rollBack();
             return 'Register Failed ' .$ex->getMessage();
         }
 
-       
+
     }
 
     public function update($data,$id)
@@ -90,10 +89,10 @@ class BenefitDonatingRepository  extends BaseRepository
                     'points' => $value
                 ]);
             }
-            
+
             DB::commit();
             return 'ok';
-           
+
         } catch (Exception $ex) {
             DB::rollBack();
             return 'Register Failed ' .$ex->getMessage();

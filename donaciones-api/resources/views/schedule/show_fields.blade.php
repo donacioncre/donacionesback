@@ -12,7 +12,7 @@
         </div>
         <div class="modal-body">
           <div class="row">
-           
+
             <div class="form-group col-sm-6">
                 <label for="name">Nombres:</label>
                 <label for="" id="name" class="labelDonation"></label>
@@ -58,7 +58,7 @@
                 <label for="donation_type">Tipo Donación: </label>
                 <label for="" id="donation_type" class="labelDonation"></label>
             </div>
-            
+
             <div class="form-group col-sm-6">
                 <label for="donation_date">Fecha Donación: </label>
                 <input type="date" name="" id="donation_date">
@@ -66,7 +66,7 @@
             <div class="form-group col-sm-6">
                 <label for="donation_time">Hora Donación: </label>
                 <input type="time" name="" id="donation_time">
-               
+
             </div>
           </div>
         </div>
@@ -91,16 +91,16 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-    
+
         let  days= Object.values ( @json($daysWithoutSchedules));
-       
+
         var calendarEl = document.getElementById('calendar');
         var initialLocaleCode = 'es';
         var calendar = new FullCalendar.Calendar(calendarEl, {
             plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],
 
             editable:true,
-            eventLimit: true, 
+            eventLimit: true,
             header:{
                 left:'prev,next today',
                 center:'title',
@@ -128,7 +128,7 @@
             },
             minTime: "07:00:00",
             maxTime: "20:00:00",
-        
+
             /*dateClick:function(info){
                 console.log(info);
             },*/
@@ -136,8 +136,8 @@
                 //var modalToggle = document.getElementById('schedule_modal')
 
                 var info=info.event.extendedProps;
-               
-                $('#schedule_modal').modal('show');  
+
+                $('#schedule_modal').modal('show');
                 $('#schedule_id').val(info.schedule_id);
                 $('#name').text(info.name);
                 $('#lastname').text(info.lastname);
@@ -157,9 +157,9 @@
             select:function(start, end, allDay)
             {
                 console.log(start);
-               
+
             },
-        
+
             eventResize: function(event, delta)
             {
                 var start = $.fullCalendar.formatDate(event.start, 'Y-MM-DD HH:mm:ss');
@@ -185,19 +185,20 @@
             },
             eventDrop: function(event, delta)
             {
-               
+
             },
 
-           
+
         });
 
-       
+
         calendar.render();
 
         $('#btnUpdate').click( function(){
 
             objEvent = storeData("PATCH");
-        
+            $('#btnUpdate').prop('disabled', true);
+
             sendData('/'+ $('#schedule_id').val() ,objEvent);
 
         });
@@ -225,9 +226,10 @@
                     data:objEvent,
                     success :function(msg){
                         console.log(msg);
-
+                        location. reload()
                         $('#schedule_modal').modal('toggle');
                         //calendarEl.refetchEvents();
+
                     },
                     error:function(){
                         alert('Error')

@@ -42,7 +42,7 @@ class ScheduleRepository extends BaseRepository
     //public $email_user='estevez.desarrollo@gmail.com';
     //public $email_user='info@quealhaja.com';
     public $email_user='idsanchezch@gmail.com';
-    //public $email_user='mkc.r14l93@gmail.com';
+
 
 
     public function __construct(Schedule $schedule, DonationPoint $donation, City $city,
@@ -101,7 +101,7 @@ class ScheduleRepository extends BaseRepository
     public function listDonationCenter($id)
     {
 
-        $data= $this->donation::where('city_id',$id)->get();
+        $data= $this->donation::where('city_id',$id)->where('status',true)->get();
 
 
 
@@ -163,40 +163,45 @@ class ScheduleRepository extends BaseRepository
     {
         try {
             DB::beginTransaction();
-            $schedule=$this->schedule->create($data);
-            DB::commit();
 
-            $email=[
-                'name' => $schedule->user->firstname,
-                'lastname' => $schedule->user->lastname,
-                'blood_type' => $schedule->user->blood_type,
-                'phone_number' => $schedule->user->phone_number,
-                'user_email' => $schedule->user->email,
-                'date_birth' => Carbon::parse($schedule->user->date_birth)->format('d/m/Y'),
-                'country' => $schedule->user->country,
-                'city' => $schedule->user->city,
+            $validate = $this->schedule->where('donation_date',$data['donation_date'])->get();
 
-                //hemocentro
-                'donation_center' => $schedule->donation->name,
-                'address' => $schedule->donation->address,
-                'donation_type' =>$schedule->type_donation ,
-                'phone' => $schedule->donation->phone,
-                'donation_email' => $schedule->donation->email,
-                'donation_date' => Carbon::parse($schedule->donation_date)->format('d/m/Y'),
-                'donation_time' => $schedule->donation_time,
-            ];
+            if (count($validate) == 0) {
+                $schedule=$this->schedule->create($data);
+                DB::commit();
+                $email=[
+                    'name' => $schedule->user->firstname,
+                    'lastname' => $schedule->user->lastname,
+                    'blood_type' => $schedule->user->blood_type,
+                    'phone_number' => $schedule->user->phone_number,
+                    'user_email' => $schedule->user->email,
+                    'date_birth' => Carbon::parse($schedule->user->date_birth)->format('d/m/Y'),
+                    'country' => $schedule->user->country,
+                    'city' => $schedule->user->city,
+                    'donation_center' => $schedule->donation->name,
+                    'address' => $schedule->donation->address,
+                    'donation_type' =>$schedule->type_donation ,
+                    'phone' => $schedule->donation->phone,
+                    'donation_email' => $schedule->donation->email,
+                    'donation_date' => Carbon::parse($schedule->donation_date)->format('d/m/Y'),
+                    'donation_time' => $schedule->donation_time,
+                ];
 
-            //user donation
-            $dataEmail=new AppointmentConfirmation($email);
-            //$response = Mail::to($schedule->user->email)->send($dataEmail);
-            $response=Mail::to($this->email_user)->send($dataEmail);
-            //donation center
-            $dataEmail=new AppointmentDonationCenter($email);
-            //$response = Mail::to($schedule->donation->email)->send($dataEmail);
-            $response=Mail::to($this->email_user)->send($dataEmail);
+                //user donation
+                $dataEmail=new AppointmentConfirmation($email);
+                $response = Mail::to($schedule->user->email)->send($dataEmail);
+                //$response=Mail::to($this->email_user)->send($dataEmail);
+                //donation center
+                $dataEmail=new AppointmentDonationCenter($email);
+                $response = Mail::to($schedule->donation->email)->send($dataEmail);
+                //$response=Mail::to($this->email_user)->send($dataEmail);
 
 
-            return ['ok',$schedule->id];
+                return ['ok',$schedule->id];
+            }else{
+                return 'ya tiene una cita asignada';
+            }
+
         } catch (Exception $ex) {
             DB::rollBack();
             return 'Register Failed ' .$ex->getMessage();
@@ -262,12 +267,12 @@ class ScheduleRepository extends BaseRepository
             ];
 
             $dataEmail=new AppointmentReschedule($email);
-            //$response = Mail::to($schedule->user->email)->send($dataEmail);
-            $response=Mail::to($this->email_user)->send($dataEmail);
+            $response = Mail::to($schedule->user->email)->send($dataEmail);
+            //$response=Mail::to($this->email_user)->send($dataEmail);
             //donation center
             $dataEmail=new AppointmentRescheduleDonationCenter($email);
-            //$response = Mail::to($schedule->donation->email)->send($dataEmail);
-            $response=Mail::to($this->email_user)->send($dataEmail);
+            $response = Mail::to($schedule->donation->email)->send($dataEmail);
+            //$response=Mail::to($this->email_user)->send($dataEmail);
 
             return ['ok',$schedule->id,$schedule->user->id];
         } catch (Exception $ex) {
