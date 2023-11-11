@@ -62,14 +62,13 @@ class MythController extends AppBaseController
     public function store(Request $request)
     {
         $input = $request->all();
-        $file = 'img_myth';
         $details_request=[];
         for ($i = 1; $i <=$input['num'] ; $i++) {
 
             $details_request[]=[
                 'ask' => 'pregunta'.$i,
                 'answer' => 'respuesta'.$i,
-                'image' => $file,
+                'image' => 'img',
             ];
 
         }
@@ -79,6 +78,27 @@ class MythController extends AppBaseController
         $myths = $this->mythRepository->find($data);
 
         return view('myths.edit')->with('myths', $myths);
+
+    }
+
+    public function addPoint($id,Request $request)
+    {
+
+        $details=[];
+        $input = $request->all();
+        for ($i = 1; $i <=$input['num'] ; $i++) {
+            $details[]=[
+                'ask' => 'pregunta',
+                'answer' => 'respuesta',
+                'image' => 'img_myth',
+            ];
+
+        }
+
+        $input['item'] = $details;
+        $myths = $this->mythRepository->addPoints($input, $id);
+
+        return redirect(route('myths.edit',$id))->with('myths', $myths);
 
     }
 
@@ -112,6 +132,8 @@ class MythController extends AppBaseController
     public function edit($id)
     {
         $myths = $this->mythRepository->find($id);
+
+
 
         if (empty($myths)) {
             Flash::error('Myth not found');
@@ -183,7 +205,9 @@ class MythController extends AppBaseController
      */
     public function destroy($id)
     {
-        $myths = $this->mythRepository->find($id);
+        $response = $this->mythRepository->deleteDetails($id);
+
+        $myths = $this->mythRepository->find($response);
 
         if (empty($myths)) {
             Flash::error('Myth not found');
@@ -191,10 +215,6 @@ class MythController extends AppBaseController
             return redirect(route('myths.index'));
         }
 
-        $this->mythRepository->delete($id);
-
-        Flash::success('Myth deleted successfully.');
-
-        return redirect(route('myths.index'));
+        return view('myths.edit')->with('myths', $myths);
     }
 }

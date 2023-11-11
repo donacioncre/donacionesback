@@ -30,7 +30,7 @@ class NotificationRepository
     {
         $firebaseToken = $this->user::find($userNotificate);
 
-       
+
         $data = [
             "registration_ids" =>$firebaseToken->device_token,
             "notification" => [
@@ -47,7 +47,7 @@ class NotificationRepository
     {
         $firebaseToken = $this->user::whereNotNull('device_token')->pluck('device_token')->all();
 
-       
+
         $data = [
             "registration_ids" =>$firebaseToken,
             "notification" => [
@@ -65,11 +65,11 @@ class NotificationRepository
         $firebaseToken = $this->user::whereNotNull('device_token')->where('country',$country)
             ->pluck('device_token')->all();
 
-       
+
         $data = [
             "registration_ids" =>$firebaseToken,
             "notification" => [
-                "title" => "SiDono",
+                "title" => "Convocatoria para donar sangre",
                 "body" => $notification,
                 "content_available" => true,
                 "priority" => "high",
@@ -86,7 +86,7 @@ class NotificationRepository
                 ->whereDay('date_birth',Carbon::now()->format('d'))
                 ->pluck('device_token')->all();
 
-       
+
         $data = [
             "registration_ids" =>$firebaseToken,
             "notification" => [
@@ -103,12 +103,12 @@ class NotificationRepository
     public function NotificationSchedule()
     {
         $firebaseToken = $this->user::whereNotNull('device_token')
-                ->whereHas('scheduleDonor', function($q)  { 
-                    $q->where("donation_date",Carbon::now()->subDay(3)->format('Y-m-d'))->where('status',true); 
+                ->whereHas('scheduleDonor', function($q)  {
+                    $q->where("donation_date",Carbon::now()->subDay(3)->format('Y-m-d'))->where('status',true);
                 })
                 ->pluck('device_token')->all();
 
-       
+
         $data = [
             "registration_ids" =>$firebaseToken,
             "notification" => [
@@ -122,7 +122,7 @@ class NotificationRepository
         $this->notificacion($data);
     }
 
-    
+
 
     public function notificacion($data)
     {
@@ -150,7 +150,7 @@ class NotificationRepository
         // Execute post
         $result = curl_exec($ch);
 
-      
+
 
         if ($result === FALSE) {
             die('Curl failed: ' . curl_error($ch));
@@ -159,10 +159,10 @@ class NotificationRepository
         curl_close($ch);
     }
 
-   
+
     public function show($id)
     {
-       
+
     }
 
 }

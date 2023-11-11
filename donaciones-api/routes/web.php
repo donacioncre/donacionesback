@@ -50,8 +50,14 @@ Route::group(['middleware'=>['auth']], function(){
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     Route::resource('benefitDonatings', App\Http\Controllers\BenefitDonatingController::class);
+    Route::put('benefitDonatings/addPoint/{id}',[App\Http\Controllers\BenefitDonatingController::class,'addPoint'])->name('benefitDonatings.addPoint');
+
     Route::resource('donationRequirements', App\Http\Controllers\DonationRequirementsController::class);
+    Route::put('donationRequirements/addPoint/{id}',[App\Http\Controllers\DonationRequirementsController::class,'addPoint'])->name('donationRequirements.addPoint');
+
+
     Route::resource('myths', App\Http\Controllers\MythController::class);
+    Route::put('myths/addPoint/{id}',[App\Http\Controllers\MythController::class,'addPoint'])->name('myths.addPoint');
 
     Route::resource('questions', App\Http\Controllers\QuestionsController::class);
 
@@ -88,7 +94,7 @@ Route::group(['middleware'=>['auth']], function(){
     Route::post('storeAppointmentPlatelet', [\App\Http\Controllers\PlateletDonationHourController::class,
         'storeAppointment'])->name('storeAppointmentPlatelet');
 
-    
+
 
     Route::resource('histories',\App\Http\Controllers\DonationHistoryController::class);
 

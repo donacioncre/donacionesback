@@ -22,7 +22,7 @@
             <div class="card-body">
 
                 <div class="row">
-                    @include('donation_requirements.fields')
+                    @include('donation_requirements.new_fields')
                 </div>
 
             </div>

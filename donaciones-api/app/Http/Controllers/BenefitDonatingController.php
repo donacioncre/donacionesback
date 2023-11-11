@@ -35,6 +35,9 @@ class BenefitDonatingController extends AppBaseController
     {
         $benefitDonatings = $this->benefitDonatingRepository->all();
 
+        if (count($benefitDonatings)==0) {
+            return view('benefit_donatings.create');
+        }
         return view('benefit_donatings.index')
             ->with('benefitDonatings', $benefitDonatings);
     }
@@ -60,11 +63,17 @@ class BenefitDonatingController extends AppBaseController
     {
         $input = $request->all();
 
-        $benefitDonating = $this->benefitDonatingRepository->store($input);
+        $details=[];
+        for ($i = 1; $i <=$input['num'] ; $i++) {
 
-        Flash::success('Benefit Donating saved successfully.');
+            array_push($details,'punto');
+        }
 
-        return redirect(route('benefitDonatings.index'));
+        $input ['points'] = $details;
+
+        $data = $this->benefitDonatingRepository->store($input);
+        $benefitDonating = $this->benefitDonatingRepository->find($data);
+        return view('benefit_donatings.edit')->with('benefitDonating', $benefitDonating);
     }
 
     /**
@@ -132,6 +141,21 @@ class BenefitDonatingController extends AppBaseController
         return redirect(route('benefitDonatings.index'));
     }
 
+    public function addPoint($id,Request $request)
+    {
+
+        $details=[];
+        $input = $request->all();
+        for ($i = 1; $i <=$input['num'] ; $i++) {
+            array_push($details,'punto');
+
+        }
+        $input ['points'] = $details;
+        $benefitDonating = $this->benefitDonatingRepository->addPoints($input, $id);
+
+        return redirect(route('benefitDonatings.edit', $id))->with('benefitDonating', $benefitDonating);
+
+    }
     /**
      * Remove the specified BenefitDonating from storage.
      *

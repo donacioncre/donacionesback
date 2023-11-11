@@ -4,8 +4,16 @@
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-12">
+                <div class="col-sm-6">
                     <h1>Editar Requerimientos para donar sangre</h1>
+                </div>
+                <div class="col-sm-3">
+                    {!! Form::open( ['route' => ['donationRequirements.addPoint', $donation->id], 'method' => 'PUT']) !!}
+                    <div class="input-group mb-3">
+                        <input type="number" class="form-control" name="num" placeholder="añadir requerimientos" aria-label="añadir requerimientos" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Agregar</button>
+                    </div>
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>

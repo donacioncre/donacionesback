@@ -4,8 +4,16 @@
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-12">
+                <div class="col-sm-6">
                     <h1>Editar Beneficio</h1>
+                </div>
+                <div class="col-sm-3">
+                    {!! Form::model($benefitDonating, ['route' => ['benefitDonatings.addPoint', $benefitDonating->id], 'method' => 'PUT', 'files' => true]) !!}
+                    <div class="input-group mb-3">
+                        <input type="number" class="form-control" name="num" placeholder="añadir puntos" aria-label="añadir puntos" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Agregar</button>
+                    </div>
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>
@@ -34,7 +42,7 @@
                             {!! Form::label('details', 'Detalles:') !!}
                             {!! Form::textarea('details', null, ['class' => 'form-control']) !!}
                         </div>
-                        
+
                         @foreach ($benefitDonating->donation_details as $item)
                              <!-- Points Field -->
                             <div class="form-group col-sm-6">
@@ -42,7 +50,7 @@
                                 {!! Form::text('points[]', $item->points, ['class' => 'form-control']) !!}
                             </div>
                         @endforeach
-                       
+
 
                 </div>
             </div>

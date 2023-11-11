@@ -4,10 +4,19 @@
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-12">
+                <div class="col-sm-6">
                     <h1>Editar Mito</h1>
                 </div>
+                <div class="col-sm-3">
+                    {!! Form::model($myths, ['route' => ['myths.addPoint', $myths->id], 'method' => 'PUT', 'files' => true]) !!}
+                    <div class="input-group mb-3">
+                        <input type="number" class="form-control" name="num" placeholder="añadir mitos" aria-label="añadir mitos" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Agregar</button>
+                    </div>
+                    {!! Form::close() !!}
+                </div>
             </div>
+
         </div>
     </section>
 

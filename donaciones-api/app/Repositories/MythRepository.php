@@ -94,16 +94,62 @@ class MythRepository extends BaseRepository
             }
 
             foreach($data['item'] as $key1=> $item){
-                MythDetails::create([
-                    'myths_id' => $myth->id,
-                    'ask' => $item['ask'],
-                    'answer' => $item['answer'],
-                    'image' => $item['image'] != null ?  $item['image'] : $image[$key1][0],
-                ]);
+                if ($item['ask'] !== null && $item['answer'] !== null   ) {
+                    MythDetails::create([
+                        'myths_id' => $myth->id,
+                        'ask' => $item['ask'],
+                        'answer' => $item['answer'],
+                        'image' => $item['image'] != null ?  $item['image'] : $image[$key1][0],
+                    ]);
+                }
+
             }
 
             DB::commit();
             return 'ok';
+
+        } catch (Exception $ex) {
+            DB::rollBack();
+            return 'Register Failed ' .$ex->getMessage();
+        }
+    }
+
+    public function addPoints($data,$id)
+    {
+        try {
+            DB::beginTransaction();
+            $myth= Myths::find($id);
+            foreach($data['item'] as $key1=> $item){
+                if ($item['ask'] !== null && $item['answer'] !== null   ) {
+                    MythDetails::create([
+                        'myths_id' => $id,
+                        'ask' => $item['ask'],
+                        'answer' => $item['answer'],
+                        'image' => $item['image'],
+                    ]);
+                }
+
+            }
+
+
+            DB::commit();
+            return $myth;
+
+        } catch (Exception $ex) {
+            DB::rollBack();
+            return 'Register Failed ' .$ex->getMessage();
+        }
+    }
+
+    public function deleteDetails($id)
+    {
+        try {
+            DB::beginTransaction();
+           $details =  MythDetails::find($id);
+           $data = $details->myths_id;
+           $details->delete();
+            DB::commit();
+            return $data;
 
         } catch (Exception $ex) {
             DB::rollBack();

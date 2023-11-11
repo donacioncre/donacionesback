@@ -37,7 +37,7 @@ class ConvocationController extends AppBaseController
     public function index(Request $request)
     {
         $calls = $this->callRepository->list();
-      
+
         return view('calls.index')
             ->with('calls', $calls);
     }
@@ -52,7 +52,7 @@ class ConvocationController extends AppBaseController
         $donations = $this->callRepository->createConvocation();
 
         //$user =$this->callRepository->user();
-        
+
         return view('calls.create',compact('donations'));
     }
 
@@ -65,21 +65,20 @@ class ConvocationController extends AppBaseController
      */
     public function store(Request $request)
     {
-        
-        $input = $request->all();
 
+        $input = $request->all();
 
         $call = $this->callRepository->store($input);
 
         $country =  $call->donation->city->country->name;
 
-        $notification = "Nueva convocatoria";
+        $notification = $call->title . ' ' .$call->blood_type;
 
         if ($request->send_notification) {
-            
+
             $this->notificationRepo->CreateNotificationCountry($notification,$country);
         }else{
-            
+
             $this->notificationRepo->CreateNotificationAllUser($notification);
         }
 
@@ -120,8 +119,8 @@ class ConvocationController extends AppBaseController
         $call = $this->callRepository->show($id);
 
         $donations = $this->callRepository->create();
-       
-      
+
+
 
         if (empty($call)) {
             Flash::error('New Call not found');
@@ -144,10 +143,10 @@ class ConvocationController extends AppBaseController
     {
         $call = $this->callRepository->show($id);
 
-       
+
         $input = $request->all();
-         
-        
+
+
         if (empty($call)) {
             Flash::error('New Call not found');
 

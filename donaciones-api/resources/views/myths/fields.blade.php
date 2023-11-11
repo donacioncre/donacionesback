@@ -15,7 +15,7 @@
         {!! Form::label('points', 'Punto:') !!}
         {!! Form::textarea('item[' .$key.  '][ask]', $item->ask, ['class' => 'form-control', 'rows'=>'3', ]) !!}
     </div>
-    <div class="form-group col-sm-6">
+    <div class="form-group col-sm-4">
         {!! Form::label('points_details', 'Detalles:') !!}
         {!! Form::textarea('item[' .$key.   '][answer]', $item->answer, ['class' => 'form-control' , 'rows'=>'3']) !!}
     </div>
@@ -28,6 +28,7 @@
             </div>
         </div>
     </div>
+
 @endforeach
 
 

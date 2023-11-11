@@ -12,7 +12,7 @@ use Flash;
 
 class DonationRequirementsController extends Controller
 {
-    
+
     protected $donation;
 
     public function __construct(DonationRequirementsRepository $donation)
@@ -26,12 +26,15 @@ class DonationRequirementsController extends Controller
 
     public function index()
     {
-        
+
         $data = $this->donation->list();
-            
+
+        if (count($data)==0) {
+            return view('donation_requirements.create');
+        }
         return view('donation_requirements.index')
         ->with('donation', $data);
-       
+
     }
 
     /**
@@ -53,12 +56,22 @@ class DonationRequirementsController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
+        $details_request=[];
 
-        $donation = $this->donation->create($input);
+        for ($i = 1; $i <=$input['num'] ; $i++) {
+            $details_request[]=[
+                'points' => 'punto',
+                'points_details' => 'detalles',
+                'image' => 'img',
+            ];
+        }
 
-        Flash::success('Questions saved successfully.');
 
-        return redirect(route('donationRequirements.index'));
+        $input['details_requirem'] = $details_request;
+        $id= $this->donation->store($input);
+        $donation= $this->donation->find($id);
+
+        return redirect(route('donationRequirements.edit',$id))->with('donation', $donation);;
     }
 
     /**
@@ -99,6 +112,27 @@ class DonationRequirementsController extends Controller
         return view('donation_requirements.edit')->with('donation', $donation);
     }
 
+    public function addPoint($id,Request $request)
+    {
+
+        $details=[];
+        $input = $request->all();
+        for ($i = 1; $i <=$input['num'] ; $i++) {
+            $details[]=[
+                'points' => 'punto 1',
+                'points_details' => 'detalles',
+                'image' => 'img_req',
+            ];
+
+        }
+
+        $input['item'] = $details;
+        $donation = $this->donation->addPoints($input, $id);
+
+        return redirect(route('donationRequirements.edit',$id))->with('donation', $donation);
+
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -118,7 +152,7 @@ class DonationRequirementsController extends Controller
 
         $file = null;
         $details_request=[];
-   
+
         foreach($request->item as $key => $value){
             if (isset($value['image'])) {
                 $img = $value['image'];
@@ -133,7 +167,7 @@ class DonationRequirementsController extends Controller
                 'points_details' => $value['points_details'],
                 'image' => $file,
             ];
-            
+
 
             $file = null;
         }
@@ -141,7 +175,7 @@ class DonationRequirementsController extends Controller
         $requestData=$request->all();
 
         $requestData['item'] = $details_request;
-        
+
         $donation = $this->donation->update($requestData, $id);
 
         Flash::success('Donation Requirements updated successfully.');

@@ -64,7 +64,7 @@ class BenefitDonatingRepository  extends BaseRepository
 
             DB::commit();
 
-            return 'ok';
+            return $benefit->id;
         } catch (Exception $ex) {
             DB::rollBack();
             return 'Register Failed ' .$ex->getMessage();
@@ -84,10 +84,13 @@ class BenefitDonatingRepository  extends BaseRepository
 
             foreach($data['points'] as $key=> $value){
 
-                BenefitDetails::create([
-                    'benefit_id' => $benefit->id,
-                    'points' => $value
-                ]);
+                if ($value!== null) {
+                    BenefitDetails::create([
+                        'benefit_id' => $benefit->id,
+                        'points' => $value
+                    ]);
+                }
+
             }
 
             DB::commit();
@@ -98,6 +101,34 @@ class BenefitDonatingRepository  extends BaseRepository
             return 'Register Failed ' .$ex->getMessage();
         }
     }
+
+
+    public function addPoints($data,$id)
+    {
+        try {
+            DB::beginTransaction();
+            $benefit= BenefitDonating::find($id);
+            foreach($data['points'] as $key=> $value){
+
+                if ($value!== null) {
+                    BenefitDetails::create([
+                        'benefit_id' => $benefit->id,
+                        'points' => $value
+                    ]);
+                }
+
+            }
+
+
+            DB::commit();
+            return $benefit;
+
+        } catch (Exception $ex) {
+            DB::rollBack();
+            return 'Register Failed ' .$ex->getMessage();
+        }
+    }
+
 
     public function show($id)
     {
