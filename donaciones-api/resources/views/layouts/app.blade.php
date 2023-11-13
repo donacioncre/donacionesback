@@ -116,7 +116,7 @@
 @include('layouts.sidebar')
 
 <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper" style="height:790px !important">
+    <div class="content-wrapper" style="height:900px !important">
         <section class="content">
             @yield('content')
         </section>
