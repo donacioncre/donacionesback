@@ -11,19 +11,23 @@
         </div>
     </section>
 
-    <div class="content px-3">
+    <div class="content px-3"  >
 
         @include('adminlte-templates::common.errors')
 
-        <div class="card">
+        <div class="card" >
 
             {!! Form::open(['route' => 'storeAppointment']) !!}
 
             <div class="card-body">
-
                 <div class="row">
+                    <div  class="col-sm-12" style="text-align: end">
+                        {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
+                    </div>
+                </div>
+                <div class="row" >
                    <!-- Donation Id Field -->
-                  
+
                    <input type="text" hidden name="donation_id" value="{{$id}}">
                     @foreach ($bloodDonationHours->donationHour as $key=> $itemDay)
                         <!-- days -->
@@ -37,8 +41,8 @@
                                     </div>
                                 @endforeach
                             </div>
-                       
-                       
+
+
                         <!------------------------------------------------------------------->
                     @endforeach
 
@@ -78,7 +82,7 @@
 
     var disabled = [];
     var disableOptions = function () {
-    
+
         $('option').prop('disabled', false);
         $.each(disabled, function(key, val){
             $('option[value="' + val + '"]').prop('disabled', true);
@@ -95,5 +99,5 @@
         });
         disableOptions();
     });
-    
+
 </script>

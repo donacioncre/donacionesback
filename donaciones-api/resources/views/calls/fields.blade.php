@@ -23,24 +23,27 @@
 <div class="form-group col-sm-6">
     {!! Form::label('donation_id', 'Centro de Donación:') !!}
     {!! Form::select('donation_id', $donations,null, ['class' => 'form-control']) !!}
-  
+
 </div>
 
 <div class="form-group col-md-4 col-sm-4">
-    <label for="Paternidad">Enviar notificación a todos los  usuarios, seleccionar (No) </label>
-    <label for="">Enviar notificación a los usuarios que viven en la misma provincia que del centro de donación (SI)</label>
-    <div class="onoffswitch3">
-        <input type="checkbox" name="send_notification" class="onoffswitch3-checkbox" id="notification"  >
-        <label class="onoffswitch3-label" for="notification">
-            <span class="onoffswitch3-inner"></span>
-            <span class="onoffswitch3-switch"></span>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="notification" id="flexRadioDefault1" value="user" checked>
+        <label class="form-check-label" for="flexRadioDefault1">
+            Enviar la notificación push a todos los usuarios registrados en la APP SIDONO
         </label>
-    </div>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="notification" id="flexRadioDefault2"  value="province">
+        <label class="form-check-label" for="flexRadioDefault2">
+            Enviar la notificación push a los usuarios registrados en la provincia del centro de donación
+        </label>
+      </div>
 </div>
 
 
 <style>
-    
+
     .onoffswitch3 {
         position: relative;
         width: 90px;

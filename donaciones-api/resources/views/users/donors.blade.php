@@ -1,5 +1,5 @@
 @extends('layouts.app')
- 
+
 @section('content')
     <section class="content-header">
         <div class="container-fluid">
@@ -8,7 +8,7 @@
                     <h1>Donantes</h1>
                 </div>
                 <div class="col-sm-6">
-                  
+
                 </div>
             </div>
         </div>
@@ -26,7 +26,7 @@
                     <table class="table table-striped table-bordered" id="dataTable"  data-order='[[ 0, "asc" ]]'>
                         <thead>
                             <tr>
-                                
+
                                 <th>Nombre</th>
                                 <th>Apellido</th>
                                 <th>Cédula</th>
@@ -34,13 +34,15 @@
                                 <th>Email</th>
                                 <th>Tipo de sangre</th>
                                 <th>Fecha de Nacimiento</th>
-                            
+                                <th>Ciudad</th>
+                                <th>Provincia</th>
+
                             </tr>
                         </thead>
                         <tbody>
                         @foreach($users as $user)
                             <tr>
-                               
+
                                 <td>{!! $user->firstname !!}</td>
                                 <td>{!! $user->lastname !!}</td>
                                 <td>{!! $user->identification !!}</td>
@@ -48,8 +50,10 @@
                                 <td>{!! $user->email !!}</td>
                                 <td>{!! $user->blood_type  !!}</td>
                                 <td>{!! $user->date_birth!!}</td>
-                              
-                              
+                                <td>{!! $user->city!!}</td>
+                                <td>{!! $user->country!!}</td>
+
+
                         @endforeach
                         </tbody>
                     </table>
@@ -57,7 +61,7 @@
                         {{-- {{$users->links()}} --}}
                     </div>
                 </div>
-                
+
 
                 <div class="card-footer clearfix">
                     <div class="float-right">
@@ -83,10 +87,10 @@
 </style>
 
 <script>
-  
+
     document.addEventListener('DOMContentLoaded', function () {
-        
-       
+
+
         let imageBase64 ='';
 
         var flagsUrl = '{{ URL::asset('icon/logotipo_cre.png') }}';
@@ -102,7 +106,7 @@
                     language: {
                         url: 'https://cdn.datatables.net/plug-ins/1.13.1/i18n/es-MX.json'
                     },
-                    
+
                     buttons: [
                         {
                             extend: 'excelHtml5',
@@ -110,7 +114,7 @@
                             sheetName: 'Exported data',
                             title: 'Cruz Roja Ecuatoriana',
                             messageTop: 'Lista de Donantes',
-                        }, 
+                        },
                         {
                             extend: 'pdfHtml5',
                             title: '.',
@@ -131,12 +135,12 @@
                         ,
                     ]
 
-                
+
         });
 
       });
-                  
-  
+
+
       function toDataUrl(url, callback) {
             var xhr = new XMLHttpRequest();
             xhr.onload = function() {
@@ -150,5 +154,5 @@
             xhr.responseType = 'blob';
             xhr.send();
         }
-  
+
 </script>

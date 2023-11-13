@@ -74,10 +74,11 @@ class ConvocationController extends AppBaseController
 
         $notification = $call->title . ' ' .$call->blood_type;
 
-        if ($request->send_notification) {
+        if ($request->send_notification=='province') {
 
             $this->notificationRepo->CreateNotificationCountry($notification,$country);
-        }else{
+        }
+        if($request->send_notification=='user'){
 
             $this->notificationRepo->CreateNotificationAllUser($notification);
         }
@@ -116,11 +117,8 @@ class ConvocationController extends AppBaseController
      */
     public function edit($id)
     {
-        $call = $this->callRepository->show($id);
-
-        $donations = $this->callRepository->create();
-
-
+        $call = $this->callRepository->find($id);
+        $donations = $this->callRepository->createConvocation();
 
         if (empty($call)) {
             Flash::error('New Call not found');

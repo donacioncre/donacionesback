@@ -23,7 +23,7 @@
                            class='btn btn-default btn-xs'>
                             <i class="far fa-edit"></i>
                         </a>
-                        {{-- {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Esta seguro que quiere eliminar el registro?')"]) !!} --}}
+                        {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Esta seguro que quiere eliminar el registro?')"]) !!}
                     </div>
                     {!! Form::close() !!}
                 </td>
@@ -34,7 +34,7 @@
 </div>
 
 <style>
-    
+
 
     div.dataTables_wrapper div.dataTables_length select {
         width: 40%;
@@ -44,15 +44,15 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        
-       
+
+
 
         $('#dataTable').DataTable({
                     dom: "Blfrtip",
                     language: {
                         url: 'https://cdn.datatables.net/plug-ins/1.13.1/i18n/es-MX.json'
-                    },    
-                    buttons: [  ]                
+                    },
+                    buttons: [  ]
         });
 
     });

@@ -19,15 +19,21 @@
 
             {!! Form::open(['route' => 'storeAppointment']) !!}
 
+
             <div class="card-body">
+                <div class="row">
+                    <div  class="col-sm-12" style="text-align: end">
+                        {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
+                    </div>
+                </div>
 
                 <div class="row">
                    <!-- Donation Id Field -->
-                  
+
                    <input type="text" hidden name="donation_id" value="{{$id}}">
                     @foreach ($donation_hours as $key=> $itemHours)
                         <!-- days -->
-                       
+
                         @foreach ($itemHours as $keyItem => $item)
 
                             <div  class="col-sm-2">
@@ -41,7 +47,7 @@
                                 @endforeach
                             </div>
                         @endforeach
-                       
+
                         <!------------------------------------------------------------------->
                     @endforeach
 
@@ -81,7 +87,7 @@
 
     var disabled = [];
     var disableOptions = function () {
-    
+
         $('option').prop('disabled', false);
         $.each(disabled, function(key, val){
             $('option[value="' + val + '"]').prop('disabled', true);
@@ -98,5 +104,5 @@
         });
         disableOptions();
     });
-    
+
 </script>

@@ -236,7 +236,7 @@ class AuthController extends Controller
                 'conventional_number' => $request->conventional_number == null ? 'N/A': $request->conventional_number,
                 'date_birth' => $request->date_birth,
                 'blood_type' => $request->blood_type,
-                'profile_picture' =>$file,
+                'profile_picture' =>$file == 'N/A'  ? $user-> profile_picture : $file,
                 'gender' => $request->gender
             ];
         }else{
@@ -251,7 +251,7 @@ class AuthController extends Controller
                 'conventional_number' => $request->conventional_number == null ? 'N/A': $request->conventional_number,
                 'date_birth' => $request->date_birth,
                 'blood_type' => $request->blood_type,
-                'profile_picture' =>$file,
+                'profile_picture' =>$file == 'N/A'  ? $user-> profile_picture : $file,
                 'gender' => $request->gender
             ];
         }

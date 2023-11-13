@@ -16,11 +16,11 @@
                 <td>
                     @if (count($benefitDonating->donation_details))
                         @foreach ( $benefitDonating->donation_details as $item)
-                             {{ $item->points  }} <br> 
+                             {{ $item->points  }} <br>
                         @endforeach
-                        
+
                     @endif
-                   
+
                 </td>
                 <td width="120">
                     {!! Form::open(['route' => ['benefitDonatings.destroy', $benefitDonating->id], 'method' => 'delete']) !!}
@@ -33,7 +33,7 @@
                            class='btn btn-default btn-xs'>
                             <i class="far fa-edit"></i>
                         </a>
-                        {{-- {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Esta seguro quer desea eliminar el registro?')"]) !!} --}}
+                        {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Esta seguro quer desea eliminar el registro?')"]) !!}
                     </div>
                     {!! Form::close() !!}
                 </td>

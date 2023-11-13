@@ -205,16 +205,14 @@ class MythController extends AppBaseController
      */
     public function destroy($id)
     {
-        $response = $this->mythRepository->deleteDetails($id);
-
-        $myths = $this->mythRepository->find($response);
+        $myths = $this->mythRepository->find($id);
 
         if (empty($myths)) {
             Flash::error('Myth not found');
 
             return redirect(route('myths.index'));
         }
-
-        return view('myths.edit')->with('myths', $myths);
+        $this->mythRepository->delete($id);
+        return redirect(route('myths.index'));
     }
 }
