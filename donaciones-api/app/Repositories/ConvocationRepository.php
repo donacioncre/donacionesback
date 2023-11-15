@@ -11,13 +11,13 @@ use Exception;
 
 class ConvocationRepository extends BaseRepository
 {
-   
+
 
      /**
      * @var array
      */
     protected $fieldSearchable = [
-        
+
     ];
 
     /**
@@ -66,14 +66,14 @@ class ConvocationRepository extends BaseRepository
             DB::beginTransaction();
             $convocation =  Convocation::create($data);
             DB::commit();
-            
+
             return $convocation;
         } catch (Exception $ex) {
             DB::rollBack();
             return 'Register Failed ' .$ex->getMessage();
         }
 
-       
+
     }
 
     public function update($data,$id)
@@ -83,8 +83,8 @@ class ConvocationRepository extends BaseRepository
             $convocation= Convocation::find($id);
             $convocation->update($data);
             DB::commit();
-            return 'ok';
-           
+            return  $convocation;
+
         } catch (Exception $ex) {
             DB::rollBack();
             return 'Register Failed ' .$ex->getMessage();
@@ -95,7 +95,7 @@ class ConvocationRepository extends BaseRepository
     {
         $data=[];
         $convocation = Convocation::with('donation')->find($id);
-        
+
         if (is_object($convocation)) {
             $data=[
                 'id' =>$convocation->id,
@@ -115,8 +115,8 @@ class ConvocationRepository extends BaseRepository
 
             ];
         }
-            
-        
+
+
         return  $data;
     }
 

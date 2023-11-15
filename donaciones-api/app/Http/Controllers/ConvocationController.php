@@ -65,22 +65,20 @@ class ConvocationController extends AppBaseController
      */
     public function store(Request $request)
     {
-
         $input = $request->all();
-
         $call = $this->callRepository->store($input);
-
+        $data = $this->callRepository->show($call->id);
         $country =  $call->donation->city->country->name;
 
         $notification = $call->title . ' ' .$call->blood_type;
 
         if ($request->send_notification=='province') {
 
-            $this->notificationRepo->CreateNotificationCountry($notification,$country);
+            $this->notificationRepo->CreateNotificationCountry($notification,$country,$data);
         }
         if($request->send_notification=='user'){
 
-            $this->notificationRepo->CreateNotificationAllUser($notification);
+            $this->notificationRepo->CreateNotificationAllUser($notification,$data);
         }
 
         Flash::success('New Call saved successfully.');
@@ -152,6 +150,18 @@ class ConvocationController extends AppBaseController
         }
 
         $call = $this->callRepository->update($input, $id);
+        $data = $this->callRepository->show($id);
+        $country =  $call->donation->city->country->name;
+        $notification = $call->title . ' ' .$call->blood_type;
+
+        if ($request->send_notification=='province') {
+
+            $this->notificationRepo->CreateNotificationCountry($notification,$country,$data);
+        }
+        if($request->send_notification=='user'){
+
+            $this->notificationRepo->CreateNotificationAllUser($notification,$data);
+        }
 
         Flash::success('New Call updated successfully.');
 
