@@ -43,7 +43,7 @@ class NotificationRepository
 
         $this->notificacion($data);
     }
-    public function CreateNotificationAllUser($notification,$data)
+    public function CreateNotificationAllUser($notification,$dataNotif)
     {
         $firebaseToken = $this->user::whereNotNull('device_token')->pluck('device_token')->all();
 
@@ -55,12 +55,12 @@ class NotificationRepository
                 "content_available" => true,
                 "priority" => "high",
             ],
-            'data' => $data
+            'data' => $dataNotif
         ];
 
         $this->notificacion($data);
     }
-    public function CreateNotificationCountry($notification,$country,$data)
+    public function CreateNotificationCountry($notification,$country,$dataNotif)
     {
         $firebaseToken = $this->user::whereNotNull('device_token')->where('country',$country)
             ->pluck('device_token')->all();
@@ -74,7 +74,7 @@ class NotificationRepository
                 "content_available" => true,
                 "priority" => "high",
             ],
-            'data' => $data
+            'data' => $dataNotif
         ];
 
         $this->notificacion($data);
