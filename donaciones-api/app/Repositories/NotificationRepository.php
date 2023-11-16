@@ -50,11 +50,11 @@ class NotificationRepository
         $data = [
             "registration_ids" =>$firebaseToken,
             "notification" => [
-                "title" => "SiDono",
-                "body" => $notification,
+                "title" => "Convocatoria para donar sangre",
+                "body" => ['notification'=>$notification,  'data' => $dataNotif] ,
                 "content_available" => true,
                 "priority" => "high",
-                'data' => $dataNotif
+
             ]
 
         ];
@@ -71,10 +71,9 @@ class NotificationRepository
             "registration_ids" =>$firebaseToken,
             "notification" => [
                 "title" => "Convocatoria para donar sangre",
-                "body" => $notification,
+                "body" => ['notification'=>$notification,  'data' => $dataNotif] ,
                 "content_available" => true,
                 "priority" => "high",
-                'data' => $dataNotif
             ],
 
         ];
