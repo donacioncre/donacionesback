@@ -54,7 +54,7 @@ class NotificationRepository
                 "body" => $notification,
                 "content_available" => true,
                 "priority" => "high",
-                //'data' => $dataNotif
+                'data' => $dataNotif
             ]
 
         ];
@@ -74,7 +74,7 @@ class NotificationRepository
                 "body" => $notification,
                 "content_available" => true,
                 "priority" => "high",
-                //'data' => $dataNotif
+                'data' => $dataNotif
             ],
 
         ];
@@ -152,8 +152,6 @@ class NotificationRepository
         curl_setopt($ch, CURLOPT_POSTFIELDS, $encodedData);
         // Execute post
         $result = curl_exec($ch);
-
-
 
         if ($result === FALSE) {
             die('Curl failed: ' . curl_error($ch));

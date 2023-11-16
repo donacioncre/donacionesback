@@ -72,11 +72,11 @@ class ConvocationController extends AppBaseController
 
         $notification = $call->title . ' ' .$call->blood_type;
 
-        if ($request->send_notification=='province') {
+        if ($request->notification=='province') {
 
             $this->notificationRepo->CreateNotificationCountry($notification,$country,$data);
         }
-        if($request->send_notification=='user'){
+        if($request->notification=='user'){
 
             $this->notificationRepo->CreateNotificationAllUser($notification,$data);
         }
@@ -154,11 +154,11 @@ class ConvocationController extends AppBaseController
         $country =  $call->donation->city->country->name;
         $notification = $call->title . ' ' .$call->blood_type;
 
-        if ($request->send_notification=='province') {
+        if ($request->notification=='province') {
 
             $this->notificationRepo->CreateNotificationCountry($notification,$country,$data);
         }
-        if($request->send_notification=='user'){
+        if($request->notification=='user'){
 
             $this->notificationRepo->CreateNotificationAllUser($notification,$data);
         }
