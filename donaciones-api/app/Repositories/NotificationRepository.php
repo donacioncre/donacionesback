@@ -51,10 +51,10 @@ class NotificationRepository
             "registration_ids" =>$firebaseToken,
             "notification" => [
                 "title" => "Convocatoria para donar sangre",
-                "body" => ['notification'=>$notification,  'data' => $dataNotif] ,
+                "body" => $notification,
                 "content_available" => true,
                 "priority" => "high",
-
+                //'data' => $dataNotif
             ]
 
         ];
@@ -71,9 +71,10 @@ class NotificationRepository
             "registration_ids" =>$firebaseToken,
             "notification" => [
                 "title" => "Convocatoria para donar sangre",
-                "body" => ['notification'=>$notification,  'data' => $dataNotif] ,
+                "body" => $notification,
                 "content_available" => true,
                 "priority" => "high",
+                //'data' => $dataNotif
             ],
 
         ];
