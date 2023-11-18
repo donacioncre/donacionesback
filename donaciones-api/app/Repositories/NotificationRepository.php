@@ -54,10 +54,10 @@ class NotificationRepository
                 "body" => $notification,
                 "content_available" => true,
                 "priority" => "high",
-                'data' => $dataNotif
+
             ],
 
-
+            'data' => $dataNotif
         ];
 
         $this->notificacion($data);
@@ -75,10 +75,10 @@ class NotificationRepository
                 "body" => $notification,
                 "content_available" => true,
                 "priority" => "high",
-                'data' => $dataNotif
+
             ],
 
-
+            'data' => $dataNotif
         ];
 
         $this->notificacion($data);
