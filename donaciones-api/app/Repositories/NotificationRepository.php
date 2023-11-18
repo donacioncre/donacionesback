@@ -54,8 +54,9 @@ class NotificationRepository
                 "body" => $notification,
                 "content_available" => true,
                 "priority" => "high",
+                'data' => $dataNotif
             ],
-            'data' => $dataNotif
+
 
         ];
 
@@ -74,8 +75,9 @@ class NotificationRepository
                 "body" => $notification,
                 "content_available" => true,
                 "priority" => "high",
+                'data' => $dataNotif
             ],
-            'data' => $dataNotif
+
 
         ];
 
