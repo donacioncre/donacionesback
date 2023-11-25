@@ -64,9 +64,9 @@ class NotificationRepository
     }
     public function CreateNotificationCountry($notification,$country,$dataNotif)
     {
-        $firebaseToken = $this->user::whereNotNull('device_token')->where('country',$country)
+        $clearStrCountry = trim($country);
+        $firebaseToken = $this->user::whereNotNull('device_token')->where('country',strtoupper($clearStrCountry))
             ->pluck('device_token')->all();
-
 
         $data = [
             "registration_ids" =>$firebaseToken,
@@ -80,6 +80,7 @@ class NotificationRepository
 
             'data' => $dataNotif
         ];
+
 
         $this->notificacion($data);
     }
