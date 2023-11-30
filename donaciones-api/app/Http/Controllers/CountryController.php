@@ -34,7 +34,7 @@ class CountryController extends AppBaseController
     public function index(Request $request)
     {
         $countries = $this->countryRepository->list();
-       
+
 
         return view('countries.index')
             ->with('countries', $countries);
@@ -126,7 +126,7 @@ class CountryController extends AppBaseController
             return redirect(route('countries.index'));
         }
 
-       
+
         $country = $this->countryRepository->update($request->all(), $id);
 
         Flash::success('Country updated successfully.');

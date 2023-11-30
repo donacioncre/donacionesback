@@ -33,10 +33,10 @@ class CountryRepository
     {
         try {
             DB::beginTransaction();
-         
+            $data['name'] = strtoupper($data['name']);
             $country=$this->country->create($data);
             DB::commit();
-            
+
             return 'ok';
         } catch (Exception $ex) {
             DB::rollBack();
@@ -44,18 +44,19 @@ class CountryRepository
             return 'Register Failed ' .$ex->getMessage();
         }
 
-       
+
     }
 
     public function update($data,$id)
     {
         try {
+            $data['name'] = strtoupper($data['name']);
             DB::beginTransaction();
             $country=$this->country->find($id);
             $country->update($data);
             DB::commit();
             return 'ok';
-           
+
         } catch (Exception $ex) {
             DB::rollBack();
             return 'Register Failed ' .$ex->getMessage();

@@ -64,8 +64,8 @@ class NotificationRepository
     }
     public function CreateNotificationCountry($notification,$country,$dataNotif)
     {
-        $clearStrCountry = trim($country);
-        $firebaseToken = $this->user::whereNotNull('device_token')->where('country',strtoupper($clearStrCountry))
+        $clearStrCountry = strtoupper(trim($country));
+        $firebaseToken = $this->user::whereNotNull('device_token')->where('country','LIKE',"%{$clearStrCountry}%" )
             ->pluck('device_token')->all();
 
         $data = [

@@ -39,7 +39,7 @@
 
     <div class="card">
         <div class="card-body login-card-body">
-            <p class="login-box-msg">Please confirm your password before continuing.</p>
+            <p class="login-box-msg">Confirme su contraseña antes de continuar.</p>
 
             <form method="POST" action="{{ route('password.confirm') }}">
                 @csrf
@@ -61,14 +61,14 @@
 
                 <div class="row">
                     <div class="col-12">
-                        <button type="submit" class="btn btn-primary btn-block">Confirm Password</button>
+                        <button type="submit" class="btn btn-primary btn-block">Confirmar contraseña</button>
                     </div>
                     <!-- /.col -->
                 </div>
             </form>
 
             <p class="mt-3 mb-1">
-                <a href="{{ route('password.request') }}">Forgot Your Password?</a>
+                <a href="{{ route('password.request') }}">¿Ha olvidado su contraseña?</a>
             </p>
         </div>
         <!-- /.login-card-body -->
