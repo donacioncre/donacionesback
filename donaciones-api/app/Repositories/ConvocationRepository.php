@@ -8,6 +8,8 @@ use App\Models\Country;
 use App\Models\DonationPoint;
 use Illuminate\Support\Facades\DB;
 use Exception;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class ConvocationRepository extends BaseRepository
 {
@@ -20,6 +22,9 @@ class ConvocationRepository extends BaseRepository
 
     ];
 
+    protected $donation,$convocation;
+
+
     /**
      * Return searchable fields
      *
@@ -29,6 +34,8 @@ class ConvocationRepository extends BaseRepository
     {
         return $this->fieldSearchable;
     }
+
+
 
     /**
      * Configure the Model
@@ -41,7 +48,24 @@ class ConvocationRepository extends BaseRepository
     public function list()
     {
         $data=[];
-        $convocation = Convocation::with('donation')->orderBy("id","asc")->get();
+        $convocation=[];
+        $user =Auth::user();
+        $user_id=$user->id;
+
+
+
+        if ($user->roles->first()->name == 'admin') {
+            $convocation = Convocation::with('donation')->orderBy("id","asc")->get();
+        } else {
+
+            $userCenterDonation =  DonationPoint::whereHas('userDonationCenter', function($q) use($user_id)
+            {
+                $q->where('user_id','=', $user_id);
+            })->first();
+            $convocation = Convocation::with('donation')->where('donation_id', $userCenterDonation->id)->orderBy("id","asc")->get();
+        }
+
+
         foreach($convocation as $key=> $value){
             $data[]=[
                 'id' => $value->id,
@@ -57,6 +81,19 @@ class ConvocationRepository extends BaseRepository
 
     public function createConvocation()
     {
+        $user =Auth::user();
+        $user_id=$user->id;
+        if ($user->roles->first()->name == 'admin') {
+            return DonationPoint::with('userDonationCenter')->get()->pluck('name', 'id');
+        } else {
+
+            return DonationPoint::whereHas('userDonationCenter', function($q) use($user_id)
+            {
+                $q->where('user_id','=', $user_id);
+
+            })->get()->pluck('name', 'id');
+        }
+
         return DonationPoint::get()->pluck('name', 'id');
     }
 
