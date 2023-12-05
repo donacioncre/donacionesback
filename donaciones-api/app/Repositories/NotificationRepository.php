@@ -157,6 +157,7 @@ class NotificationRepository
         $result = curl_exec($ch);
 
         if ($result === FALSE) {
+            dd(curl_error($ch));
             die('Curl failed: ' . curl_error($ch));
         }
         // Close connection
