@@ -54,9 +54,11 @@ class ConvocationRepository extends BaseRepository
 
 
 
-        if ($user->roles->first()->name == 'admin') {
+        if ($user->roles->first()->name == 'admin' || $user->roles->first()->name == 'donante') {
             $convocation = Convocation::with('donation')->orderBy("id","asc")->get();
-        } else {
+        }
+
+        if ($user->roles->first()->name == 'user') {
 
             $userCenterDonation =  DonationPoint::whereHas('userDonationCenter', function($q) use($user_id)
             {
