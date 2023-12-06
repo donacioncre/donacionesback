@@ -64,10 +64,9 @@ class NotificationRepository
     }
     public function CreateNotificationCountry($notification,$country,$dataNotif)
     {
-        $clearStrCountry = strtoupper(trim($country));
+        $clearStrCountry = trim($country);
         $firebaseToken = $this->user::whereNotNull('device_token')->where('country','LIKE',"%{$clearStrCountry}%" )
             ->pluck('device_token')->all();
-
         $data = [
             "registration_ids" =>$firebaseToken,
             "notification" => [
@@ -157,7 +156,6 @@ class NotificationRepository
         $result = curl_exec($ch);
 
         if ($result === FALSE) {
-            dd(curl_error($ch));
             die('Curl failed: ' . curl_error($ch));
         }
         // Close connection

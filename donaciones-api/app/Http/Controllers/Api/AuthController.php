@@ -237,7 +237,9 @@ class AuthController extends Controller
                 'date_birth' => $request->date_birth,
                 'blood_type' => $request->blood_type,
                 'profile_picture' =>$file == 'N/A'  ? $user-> profile_picture : $file,
-                'gender' => $request->gender
+                'gender' => $request->gender,
+                'country' => $request->has('country') ? $request->country : $user-> country   ,
+                'city'=>$request->has('city') ?  $request->city:$user-> city ,
             ];
         }else{
             $user_data=[
@@ -252,7 +254,9 @@ class AuthController extends Controller
                 'date_birth' => $request->date_birth,
                 'blood_type' => $request->blood_type,
                 'profile_picture' =>$file == 'N/A'  ? $user-> profile_picture : $file,
-                'gender' => $request->gender
+                'gender' => $request->gender,
+                'country' => $request->has('country') ? $request->country : $user-> country   ,
+                'city'=>$request->has('city') ?  $request->city:$user-> city ,
             ];
         }
 
