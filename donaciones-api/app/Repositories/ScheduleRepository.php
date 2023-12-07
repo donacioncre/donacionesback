@@ -393,12 +393,12 @@ class ScheduleRepository extends BaseRepository
         ];
 
         $dataEmail=new AppointmentCancel($email);
-        //$response = Mail::to($schedule->user->email)->send($dataEmail);
-        $response=Mail::to($this->email_user)->send($dataEmail);
+        $response = Mail::to($schedule->user->email)->send($dataEmail);
+        //$response=Mail::to($this->email_user)->send($dataEmail);
         //donation center
         $dataEmail=new AppointmentCancelDonationCenter($email);
-        //$response = Mail::to($schedule->donation->email)->send($dataEmail);
-        $response=Mail::to($this->email_user)->send($dataEmail);
+        $response = Mail::to($schedule->donation->email)->send($dataEmail);
+        //$response=Mail::to($this->email_user)->send($dataEmail);
         return $schedule;
     }
 
