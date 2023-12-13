@@ -39,11 +39,6 @@ class ScheduleRepository extends BaseRepository
 
     protected $schedule,$donation,$user,$city,$bloodDonationHour, $plateletDonationHour;
 
-    //public $email_user='estevez.desarrollo@gmail.com';
-    //public $email_user='info@quealhaja.com';
-    public $email_user='idsanchezch@gmail.com';
-
-
 
     public function __construct(Schedule $schedule, DonationPoint $donation, City $city,
                                     BloodDonationHour $bloodDonationHour, User $user, PlateletDonationHour $plateletDonationHour  ) {
@@ -145,7 +140,7 @@ class ScheduleRepository extends BaseRepository
             foreach ($donationHour->bloodDonorAppointment as $key => $value) {
 
                 $dataSchedule=$this->schedule->where('donation_date',$date)
-                        ->where('donation_time',$value->time)->get();
+                        ->where('donation_time',$value->time)->where('status',true)->get();
 
                 if (count($dataSchedule)  < $value->amount) {
                     $date_time[]= $value->time;
@@ -153,6 +148,7 @@ class ScheduleRepository extends BaseRepository
 
             }
         }
+
 
         return  $date_time;
 
@@ -190,12 +186,10 @@ class ScheduleRepository extends BaseRepository
                 //user donation
                 $dataEmail=new AppointmentConfirmation($email);
                 $response = Mail::to($schedule->user->email)->send($dataEmail);
-                //$response=Mail::to($this->email_user)->send($dataEmail);
+
                 //donation center
                 $dataEmail=new AppointmentDonationCenter($email);
                 $response = Mail::to($schedule->donation->email)->send($dataEmail);
-                //$response=Mail::to($this->email_user)->send($dataEmail);
-
 
                 return ['ok',$schedule->id];
             }else{
@@ -268,11 +262,10 @@ class ScheduleRepository extends BaseRepository
 
             $dataEmail=new AppointmentReschedule($email);
             $response = Mail::to($schedule->user->email)->send($dataEmail);
-            //$response=Mail::to($this->email_user)->send($dataEmail);
+
             //donation center
             $dataEmail=new AppointmentRescheduleDonationCenter($email);
             $response = Mail::to($schedule->donation->email)->send($dataEmail);
-            //$response=Mail::to($this->email_user)->send($dataEmail);
 
             return ['ok',$schedule->id,$schedule->user->id];
         } catch (Exception $ex) {
@@ -394,11 +387,9 @@ class ScheduleRepository extends BaseRepository
 
         $dataEmail=new AppointmentCancel($email);
         $response = Mail::to($schedule->user->email)->send($dataEmail);
-        //$response=Mail::to($this->email_user)->send($dataEmail);
         //donation center
         $dataEmail=new AppointmentCancelDonationCenter($email);
         $response = Mail::to($schedule->donation->email)->send($dataEmail);
-        //$response=Mail::to($this->email_user)->send($dataEmail);
         return $schedule;
     }
 
