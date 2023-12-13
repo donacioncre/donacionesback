@@ -121,7 +121,7 @@ class ScheduleRepository extends BaseRepository
             foreach ($donationHour->plateletDonorAppointment as $key => $value) {
 
                 $dataSchedule=$this->schedule->where('donation_date',$date)
-                        ->where('donation_time',$value->time)->get();
+                        ->where('donation_time',$value->time)->where('status',true)->get();
 
                 if (count($dataSchedule)  < $value->amount) {
                     $date_time[]= $value->time;
