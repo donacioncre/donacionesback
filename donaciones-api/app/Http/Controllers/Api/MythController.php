@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\Validator;
 
 class MythController extends Controller
 {
-    
-    
+
+
     private $successStatus = 200;
     private $errorStatus = 500;
     protected $donation;
@@ -28,7 +28,6 @@ class MythController extends Controller
             $data = $this->donation->list();
             return response()->json(['status' => true, 'data' => $data]);
         } catch (Exception $ex) {
-            dd($ex);
             return response()->json(['status' => false, 'error' => 'Algo a sucedido por favor intente después de unos minutos', 'message' => $ex->getMessage()], $this->errorStatus);
         }
     }
@@ -49,7 +48,7 @@ class MythController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-   
+
     public function store(Request $request)
     {
 
@@ -118,7 +117,6 @@ class MythController extends Controller
             $data = $this->donation->show($id);
             return response()->json(['status' => true, 'data' => $data]);
         } catch (Exception $ex) {
-            dd($ex);
             return response()->json(['status' => false, 'error' => 'Algo a sucedido por favor intente después de unos minutos', 'message' => $ex->getMessage()], $this->errorStatus);
         }
     }
@@ -131,7 +129,7 @@ class MythController extends Controller
      */
     public function edit($id)
     {
-        
+
     }
 
     /**

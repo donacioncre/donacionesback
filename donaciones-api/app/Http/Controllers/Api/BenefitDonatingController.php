@@ -95,7 +95,6 @@ class BenefitDonatingController extends Controller
             $data = $this->donation->show($id);
             return response()->json(['status' => true, 'data' => $data]);
         } catch (Exception $ex) {
-            dd($ex);
             return response()->json(['status' => false, 'error' => 'Algo a sucedido por favor intente después de unos minutos', 'message' => $ex->getMessage()], $this->errorStatus);
         }
     }

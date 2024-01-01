@@ -34,7 +34,6 @@ class ScheduleController extends Controller
             $data = $this->schedule->all();
             return response()->json(['status' => true, 'data' => $data]);
         } catch (Exception $ex) {
-            dd($ex);
             return response()->json(['status' => false, 'error' => 'Algo a sucedido por favor intente después de unos minutos', 'message' => $ex->getMessage()], $this->errorStatus);
         }
     }
@@ -46,7 +45,6 @@ class ScheduleController extends Controller
             $data = $this->country->list();
             return response()->json(['status' => true, 'data' => $data]);
         } catch (Exception $ex) {
-            dd($ex);
             return response()->json([
                 'status' => false,
                 'error' => 'Algo a sucedido por favor intente después de unos minutos',
@@ -62,7 +60,6 @@ class ScheduleController extends Controller
             $data = $this->schedule->listCities($id);
             return response()->json(['status' => true, 'data' => $data]);
         } catch (Exception $ex) {
-            dd($ex);
             return response()->json([
                 'status' => false,
                 'error' => 'Algo a sucedido por favor intente después de unos minutos',
@@ -80,7 +77,7 @@ class ScheduleController extends Controller
             $data = $this->schedule->listDonationCenter($id);
             return response()->json(['status' => true, 'data' => $data]);
         } catch (Exception $ex) {
-            dd($ex);
+
             return response()->json([
                 'status' => false,
                 'error' => 'Algo a sucedido por favor intente después de unos minutos',
@@ -96,7 +93,7 @@ class ScheduleController extends Controller
             $data = $this->schedule->dateDonation($request->all(), $id);
             return response()->json(['status' => true, 'data' => $data]);
         } catch (Exception $ex) {
-            dd($ex);
+
             return response()->json([
                 'status' => false,
                 'error' => 'Algo a sucedido por favor intente después de unos minutos',
@@ -112,7 +109,7 @@ class ScheduleController extends Controller
             $data = $this->schedule->listScheduleDonationUser();
             return response()->json(['status' => true, 'data' => $data]);
         } catch (Exception $ex) {
-            dd($ex);
+
             return response()->json([
                 'status' => false,
                 'error' => 'Algo a sucedido por favor intente después de unos minutos',
@@ -142,7 +139,6 @@ class ScheduleController extends Controller
             $data = $this->schedule->lastScheduleDonationUser();
             return response()->json(['status' => true, 'data' => $data]);
         } catch (Exception $ex) {
-            dd($ex);
             return response()->json([
                 'status' => false,
                 'error' => 'Algo a sucedido por favor intente después de unos minutos',
@@ -221,7 +217,6 @@ class ScheduleController extends Controller
             $data = $this->schedule->show($id);
             return response()->json(['status' => true, 'data' => $data]);
         } catch (Exception $ex) {
-            dd($ex);
             return response()->json([
                 'status' => false,
                 'error' => 'Algo a sucedido por favor intente después de unos minutos',

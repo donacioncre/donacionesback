@@ -14,8 +14,8 @@ use Illuminate\Http\Request;
 
 class DonationController extends Controller
 {
-    
-    
+
+
     private $successStatus = 200;
     private $errorStatus = 500;
     protected $donation;
@@ -31,7 +31,6 @@ class DonationController extends Controller
             $data = $this->donation->list();
             return response()->json(['status' => true, 'data' => $data]);
         } catch (Exception $ex) {
-            dd($ex);
             return response()->json(['status' => false, 'error' => 'Algo a sucedido por favor intente después de unos minutos', 'message' => $ex->getMessage()], $this->errorStatus);
         }
     }
@@ -102,5 +101,5 @@ class DonationController extends Controller
         //
     }
 
-    
+
 }

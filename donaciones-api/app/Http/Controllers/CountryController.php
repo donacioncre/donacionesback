@@ -145,7 +145,7 @@ class CountryController extends AppBaseController
      */
     public function destroy($id)
     {
-        $country = $this->countryRepository->find($id);
+        $country = $this->countryRepository->show($id);
 
         if (empty($country)) {
             Flash::error('Country not found');
@@ -153,7 +153,7 @@ class CountryController extends AppBaseController
             return redirect(route('countries.index'));
         }
 
-        $this->countryRepository->delete($id);
+        //$this->countryRepository->delete($id);
 
         Flash::success('Country deleted successfully.');
 

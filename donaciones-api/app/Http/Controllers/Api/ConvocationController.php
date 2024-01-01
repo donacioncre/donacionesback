@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class ConvocationController extends Controller
 {
-    
+
     private $successStatus = 200;
     private $errorStatus = 500;
     protected $convocation;
@@ -25,7 +25,6 @@ class ConvocationController extends Controller
             $data = $this->convocation->list();
             return response()->json(['status' => true, 'data' => $data]);
         } catch (Exception $ex) {
-            dd($ex);
             return response()->json(['status' => false, 'error' => 'Algo a sucedido por favor intente después de unos minutos', 'message' => $ex->getMessage()], $this->errorStatus);
         }
     }
@@ -63,7 +62,6 @@ class ConvocationController extends Controller
             $data = $this->convocation->show($id);
             return response()->json(['status' => true, 'data' => $data]);
         } catch (Exception $ex) {
-            dd($ex);
             return response()->json(['status' => false, 'error' => 'Algo a sucedido por favor intente después de unos minutos', 'message' => $ex->getMessage()], $this->errorStatus);
         }
     }

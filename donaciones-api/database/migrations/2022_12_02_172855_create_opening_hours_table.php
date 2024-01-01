@@ -41,6 +41,7 @@ class CreateOpeningHoursTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('opening_hours');
+        Schema::dropIfExists('blood_donation_hours');
+        Schema::dropIfExists('platelet_donation_hours');
     }
 }

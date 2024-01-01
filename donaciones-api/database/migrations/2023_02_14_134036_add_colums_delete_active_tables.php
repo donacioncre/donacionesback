@@ -43,13 +43,19 @@ class AddColumsDeleteActiveTables extends Migration
      */
     public function down()
     {
+        Schema::table('convocations', function($table) {
+            $table->dropColumn('deleted_at');
+
+        });
         Schema::table('donation_points', function($table) {
             $table->dropColumn('status');
+            $table->dropColumn('deleted_at');
 
         });
 
         Schema::table('users', function($table) {
             $table->dropColumn('status');
+            $table->dropColumn('deleted_at');
 
         });
     }

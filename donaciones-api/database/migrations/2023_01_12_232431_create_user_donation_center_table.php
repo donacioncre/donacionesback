@@ -59,6 +59,5 @@ class CreateUserDonationCenterTable extends Migration
         Schema::dropIfExists('blood_donor_appointments');
         Schema::dropIfExists('platelet_donor_appointments');
         Schema::dropIfExists('platelet_donation_hours');
-        Schema::dropIfExists('blood_donation_hours');
     }
 }

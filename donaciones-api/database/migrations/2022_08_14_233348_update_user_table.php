@@ -29,25 +29,6 @@ class UpdateUserTable extends Migration
             $table->date('date_birth')->nullable();
 
         });
-
-
-        Schema::create('rols', function (Blueprint $table) {
-
-            $table->id();
-            $table->string('name')->nullable();
-            $table->string('description')->nullable();
-            $table->timestamps();
-
-        });
-
-        Schema::create('rol_user', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('rol_id');
-            $table->foreign('rol_id')->references('id')->on('rols')->onDelete('cascade');
-
-        });
     }
 
     /**
@@ -60,18 +41,13 @@ class UpdateUserTable extends Migration
         Schema::table('users', function($table) {
             $table->dropColumn('firstname');
             $table->dropColumn('lastname');
+            $table->dropColumn('profile_picture');
+            $table->dropColumn('identification');
+            $table->dropColumn('blood_type');
+            $table->dropColumn('phone_number');
+            $table->dropColumn('conventional_number');
             $table->dropColumn('date_birth');
-            //$table->dropColumn('address');
-            //$table->dropColumn('country');
-            //$table->dropColumn('city');
-            //$table->dropColumn('phone');
-            //$table->dropColumn('profile_picture');
-
-            //$table->dropColumn('overview');
         });
-
-        Schema::dropIfExists('rol_user');
-        Schema::dropIfExists('rols');
 
     }
 }

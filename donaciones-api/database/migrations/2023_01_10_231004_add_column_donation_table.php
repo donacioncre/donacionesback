@@ -26,6 +26,9 @@ class AddColumnDonationTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('donation_points', function($table) {
+            $table->dropColumn('blood');
+            $table->dropColumn('platelet');
+        });
     }
 }
