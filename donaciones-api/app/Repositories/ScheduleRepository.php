@@ -289,38 +289,6 @@ class ScheduleRepository extends BaseRepository
         }
     }
 
-
-
-    public function create_time_range($start, $end, $interval = '30 mins', $format = '24') {
-        $startTime = strtotime($start);
-        $endTime   = strtotime($end);
-        $returnTimeFormat = ($format == '12')?'g:i:s A':'G:i:s';
-
-        $current   = time();
-        $addTime   = strtotime('+'.$interval, $current);
-        $diff      = $addTime - $current;
-
-        $times = array();
-        while ($startTime < $endTime) {
-            $times[] = $startTime; //date($returnTimeFormat, $startTime);
-            $startTime += $diff;
-        }
-
-        $times[] = $startTime; //date($returnTimeFormat, $startTime);
-
-        return $times;
-    }
-
-    public function formatTime($data)
-    {
-        $returnTimeFormat='G:i:s';
-        foreach($data as $value){
-            $dataFormat []=date($returnTimeFormat, $value);
-        }
-
-        return $dataFormat;
-    }
-
     public function showScheduleDonation($id)
     {
         $donation=$this->donation->with('schedule')->with('donationHour')->find($id);
@@ -351,7 +319,6 @@ class ScheduleRepository extends BaseRepository
 
     public function lastScheduleDonationUser()
     {
-        $scheduel_data=[];
         $user_id=Auth()->user()->id;
         $donation=$this->schedule->with('donation')->with('user')
                     ->where('user_id',$user_id)->where('status',true)->orderBy('donation_date','desc')->first();
@@ -391,13 +358,6 @@ class ScheduleRepository extends BaseRepository
         $dataEmail=new AppointmentCancelDonationCenter($email);
         $response = Mail::to($schedule->donation->email)->send($dataEmail);
         return $schedule;
-    }
-
-    public function getNameUser()
-    {
-        $user =$this->user->get(['firstname','lastname','id']);
-
-        return $user;
     }
 
     public function getInfoUser($id)

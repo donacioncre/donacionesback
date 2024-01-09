@@ -68,18 +68,13 @@ class BloodDonationHourRepository extends BaseRepository
                     'address'=>$value->address
                 ];
             }
-
-          
-
         }
-
-        //return $this->bloodDonationHour->with('donation')->get();
         return $data;
     }
 
     public function pointsDonations()
     {
-       
+
        $donations=[];
        $data =$this->pointsDonation->with('donationHour')->get();
        foreach ($data as $key => $value) {
@@ -90,7 +85,7 @@ class BloodDonationHourRepository extends BaseRepository
                ];
            }
        }
-     
+
       return $donations;
     }
 
@@ -108,24 +103,24 @@ class BloodDonationHourRepository extends BaseRepository
     {
         try {
             DB::beginTransaction();
-            
+
             $this->bloodDonationHour->create($data);
             DB::commit();
-            
+
             return 'ok';
         } catch (Exception $ex) {
             DB::rollBack();
             return 'Register Failed ' .$ex->getMessage();
         }
 
-       
+
     }
 
     public function show($id)
     {
-       
+
         $donations =$this->pointsDonation->with('donationHour')->find($id);
-        
+
        return $donations;
     }
 
@@ -136,17 +131,17 @@ class BloodDonationHourRepository extends BaseRepository
 
         foreach ($donationHour as $key => $value) {
             $range_time=  '30 mins';
-    
+
                 $times = $this->create_time_range($value['start_time'],$value['end_time'],$range_time);
-    
+
                 if ($value->start_time_1 != null && $value->end_time_1 != null ) {
                     $times_1=  $this->create_time_range($value['start_time_1'],
                                     $value['end_time_1'],'30 mins');
                     array_push($times, ...$times_1);
                 }
-    
+
                 $dataTime[] =[$value->days => $this->formatTime($times)] ;
-               
+
         }
 
         return $dataTime;
@@ -160,7 +155,7 @@ class BloodDonationHourRepository extends BaseRepository
         $donation_hour = $this->bloodDonationHour::where('donation_id',$data['donation_id'])
                                 ->where('days',$data['day'])->first();
 
-      
+
         $data_donor = BloodDonorAppointment::create([
             'time' => $data['time'],
             'amount' => $data['num_attention_time'],
@@ -182,7 +177,7 @@ class BloodDonationHourRepository extends BaseRepository
         foreach ($donation_hour as $key => $value) {
             BloodDonorAppointment::where('donation_hours_id',$value->id)->delete();
         }
-      
+
 
         DB::commit();
 
@@ -223,16 +218,16 @@ class BloodDonationHourRepository extends BaseRepository
     {
         try {
             DB::beginTransaction();
-            
+
             $this->bloodDonationHour->where('donation_id',$id)->delete();
             DB::commit();
-            
+
             return 'ok';
         } catch (Exception $ex) {
             DB::rollBack();
             return 'Register Failed ' .$ex->getMessage();
         }
 
-       
+
     }
 }

@@ -21,7 +21,6 @@ class DonationHistoryAPIController extends AppBaseController
 {
     /** @var  DonationHistoryRepository */
     private $donationHistoryRepository;
-    private $successStatus = 200;
     private $errorStatus = 500;
     public function __construct(DonationHistoryRepository $donationHistoryRepo)
     {
@@ -35,7 +34,7 @@ class DonationHistoryAPIController extends AppBaseController
      * @param Request $request
      * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
         try {
             $data = $this->donationHistoryRepository->listUserDonationHistory();
@@ -61,91 +60,5 @@ class DonationHistoryAPIController extends AppBaseController
             'filename' => 'DonationCard'
         ],200);
 
-    }
-
-    /**
-     * Store a newly created DonationHistory in storage.
-     * POST /donationHistories
-     *
-     * @param CreateDonationHistoryAPIRequest $request
-     *
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-        $input = $request->all();
-
-        $donationHistory = $this->donationHistoryRepository->create($input);
-
-        return $this->sendResponse($donationHistory->toArray(), 'Donation History saved successfully');
-    }
-
-    /**
-     * Display the specified DonationHistory.
-     * GET|HEAD /donationHistories/{id}
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
-    public function show($id)
-    {
-        /** @var DonationHistory $donationHistory */
-        $donationHistory = $this->donationHistoryRepository->find($id);
-
-        if (empty($donationHistory)) {
-            return $this->sendError('Donation History not found');
-        }
-
-        return $this->sendResponse($donationHistory->toArray(), 'Donation History retrieved successfully');
-    }
-
-    /**
-     * Update the specified DonationHistory in storage.
-     * PUT/PATCH /donationHistories/{id}
-     *
-     * @param int $id
-     * @param UpdateDonationHistoryAPIRequest $request
-     *
-     * @return Response
-     */
-    public function update($id, Request $request)
-    {
-        $input = $request->all();
-
-        /** @var DonationHistory $donationHistory */
-        $donationHistory = $this->donationHistoryRepository->find($id);
-
-        if (empty($donationHistory)) {
-            return $this->sendError('Donation History not found');
-        }
-
-        $donationHistory = $this->donationHistoryRepository->update($input, $id);
-
-        return $this->sendResponse($donationHistory->toArray(), 'DonationHistory updated successfully');
-    }
-
-    /**
-     * Remove the specified DonationHistory from storage.
-     * DELETE /donationHistories/{id}
-     *
-     * @param int $id
-     *
-     * @throws \Exception
-     *
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        /** @var DonationHistory $donationHistory */
-        $donationHistory = $this->donationHistoryRepository->find($id);
-
-        if (empty($donationHistory)) {
-            return $this->sendError('Donation History not found');
-        }
-
-        $donationHistory->delete();
-
-        return $this->sendSuccess('Donation History deleted successfully');
     }
 }

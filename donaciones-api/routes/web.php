@@ -31,20 +31,9 @@ Auth::routes();
 
 
 
-//Route::resource('countries', App\Http\Controllers\countriesController::class);
-
-
-
-
-
 Route::get('getUser/{id}',[ApiScheduleController::class,'getUser']);
 
 Route::post('schedules/{id}',[ScheduleController::class,'update']);
-
-
-
-
-//Route::resource('users', 'UserController')->middleware('auth');
 
 Route::group(['middleware'=>['auth']], function(){
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -51,8 +51,6 @@ class ConvocationController extends AppBaseController
     {
         $donations = $this->callRepository->createConvocation();
 
-        //$user =$this->callRepository->user();
-
         return view('calls.create',compact('donations'));
     }
 

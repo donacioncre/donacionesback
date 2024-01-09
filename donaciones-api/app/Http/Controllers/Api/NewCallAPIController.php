@@ -39,7 +39,7 @@ class NewCallAPIController extends AppBaseController
             $request->except(['skip', 'limit']),
             $request->get('skip'),
             $request->get('limit')
-        );  
+        );
 
         foreach($newCalls as $key => $value){
 
@@ -50,96 +50,11 @@ class NewCallAPIController extends AppBaseController
                 'author' => $value->user->firstname . ' ' . $value->user->lastname,
                 'created_at' => $value->created_at->format('Y-m-d')
             ];
-           
+
         }
-        
+
 
         return $this->sendResponse($data, 'New Calls retrieved successfully');
     }
 
-    /**
-     * Store a newly created NewCall in storage.
-     * POST /newCalls
-     * 
-     * @param CreateNewCallAPIRequest $request
-     *
-     * @return Response
-     */
-    public function store(CreateNewCallAPIRequest $request)
-    {
-        $input = $request->all();
-
-        $newCall = $this->newCallRepository->create($input);
-
-        return $this->sendResponse($newCall->toArray(), 'New Call saved successfully');
-    }
-
-    /**
-     * Display the specified NewCall.
-     * GET|HEAD /newCalls/{id}
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
-    public function show($id)
-    {
-        /** @var NewCall $newCall */
-        $newCall = $this->newCallRepository->find($id);
-
-        if (empty($newCall)) {
-            return $this->sendError('New Call not found');
-        }
-
-        return $this->sendResponse($newCall->toArray(), 'New Call retrieved successfully');
-    }
-
-    /**
-     * Update the specified NewCall in storage.
-     * PUT/PATCH /newCalls/{id}
-     *
-     * @param int $id
-     * @param UpdateNewCallAPIRequest $request
-     *
-     * @return Response
-     */
-    public function update($id, UpdateNewCallAPIRequest $request)
-    {
-        $input = $request->all();
-
-        /** @var NewCall $newCall */
-        $newCall = $this->newCallRepository->find($id);
-
-        if (empty($newCall)) {
-            return $this->sendError('New Call not found');
-        }
-
-        $newCall = $this->newCallRepository->update($input, $id);
-
-        return $this->sendResponse($newCall->toArray(), 'NewCall updated successfully');
-    }
-
-    /**
-     * Remove the specified NewCall from storage.
-     * DELETE /newCalls/{id}
-     *
-     * @param int $id
-     *
-     * @throws \Exception
-     *
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        /** @var NewCall $newCall */
-        $newCall = $this->newCallRepository->find($id);
-
-        if (empty($newCall)) {
-            return $this->sendError('New Call not found');
-        }
-
-        $newCall->delete();
-
-        return $this->sendSuccess('New Call deleted successfully');
-    }
 }

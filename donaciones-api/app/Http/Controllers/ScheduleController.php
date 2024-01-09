@@ -127,16 +127,6 @@ class ScheduleController extends AppBaseController
         }
 
         $daysWithoutSchedules=$days;
-        $user= $this->scheduleRepository->getNameUser();
-
-       /* if (empty($schedule)) {
-            Flash::error('Schedule not found');
-
-            return redirect(route('schedule.index'));
-        }*/
-
-
-
         return view('schedule.show')->with('donation', $donation)->with('dataschedule',$data)->with('daysWithoutSchedules',$daysWithoutSchedules);
     }
 
@@ -146,7 +136,6 @@ class ScheduleController extends AppBaseController
             $data = $this->scheduleRepository->getInfoUser($id);
             return response()->json(['status' => true, 'data' => $data]);
         } catch (Exception $ex) {
-            dd($ex);
             return response()->json(['status' => false, 'error' => 'Algo a sucedido ', 'message' => $ex->getMessage()], $this->errorStatus);
         }
     }

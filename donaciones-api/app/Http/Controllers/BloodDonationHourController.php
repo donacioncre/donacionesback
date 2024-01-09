@@ -41,29 +41,24 @@ class BloodDonationHourController extends AppBaseController
         switch ($user->roles->first()->name) {
             case 'user':
                 $id=Auth::user()->donationCenter->first()->id;
-                
+
                 return redirect(route('bloodDonationHours.show',[$id]));
             case 'admin':
                 return view('blood_donation_hours.index')
                         ->with('bloodDonationHours', $bloodDonationHours);
                 break;
-            
+
         }
-      
-      
+
+
     }
 
-    /**
-     * Show the form for creating a new BloodDonationHour.
-     *
-     * @return Response
-     */
     public function create()
     {
         $pointsDonations=$this->bloodDonationHourRepository->pointsDonations();
         $weekdays = $this->bloodDonationHourRepository->weekdays();
         //$days=$this->bloodDonationHourRepository->days();
-      
+
         return view('blood_donation_hours.create')->with('pointsDonations',$pointsDonations)->with('weekdays',$weekdays);
     }
 
@@ -76,13 +71,13 @@ class BloodDonationHourController extends AppBaseController
      */
     public function store(Request $request)
     {
-       
+
         $input = $request->all();
         //dd($input);
         for($i=0 ; $i < count($input['weekdays']); $i++){
-           
+
             if ($input['weekdays'][$i] != null ) {
-           
+
 
                 $data=[
                     'donation_id'=> $input['donation_id'],
@@ -91,14 +86,14 @@ class BloodDonationHourController extends AppBaseController
                     'end_time' => $input['end_time'][$i],
                     'start_time_1' => $input['start_time_1'][$i],
                     'end_time_1'=> $input['end_time_1'][$i],
-                ];           
+                ];
                 $bloodDonationHour = $this->bloodDonationHourRepository->store($data);
             }
 
-            
+
 
         }
-        
+
         Flash::success('Blood Donation Hour saved successfully.');
 
         return redirect(route('createAppointment',['id'=>$input['donation_id']]));
@@ -106,35 +101,35 @@ class BloodDonationHourController extends AppBaseController
 
     public function createAppointment($id)
     {
-        
+
         //$bloodDonationHours = $this->bloodDonationHourRepository->show($id);
         //$days=$this->bloodDonationHourRepository->days();
 
         $donation_hours = $this->bloodDonationHourRepository->dateDonation($id);
-      
+
        //dd($donation_hours[0]);
         return view('blood_donation_hours.create_appointment',compact('donation_hours','id'));
     }
 
     public function editAppointment($id)
     {
-        
+
         $bloodDonationHours = $this->bloodDonationHourRepository->show($id);
         //$days=$this->bloodDonationHourRepository->days();
 
         //dd($bloodDonationHours->donationHour[0]->bloodDonorAppointment);
         //$donation_hours = $this->bloodDonationHourRepository->dateDonation($id);
-      
+
        //dd($donation_hours[0]);
         return view('blood_donation_hours.edit_appointment',compact('bloodDonationHours','id'));
     }
 
     public function storeAppointment(Request $request)
     {
-        
-       $input = $request->all(); 
+
+       $input = $request->all();
        $donation_hours =[];
-     
+
         //$days=$this->bloodDonationHourRepository->days();
         $this->bloodDonationHourRepository->deleteTimeDonator($input['donation_id']);
         foreach ($input['day'] as $keyDay => $day) {
@@ -149,17 +144,17 @@ class BloodDonationHourController extends AppBaseController
                             'time' => $itemTime,
                             'num_attention_time' => $itemAttention
                         ];
-                        
+
                         $donation_hours = $this->bloodDonationHourRepository->saveTimeDonator($data);
 
 
-                    }    
-                    
+                    }
+
                 }
 
             }
         }
-       
+
        Flash::success('Blood Donation Hour updated successfully.');
 
        return redirect(route('bloodDonationHours.index'));
@@ -242,9 +237,9 @@ class BloodDonationHourController extends AppBaseController
         $bloodDonationHour = $this->bloodDonationHourRepository->delete($id);
 
         for($i=0 ; $i < count($input['weekdays']); $i++){
-           
+
             if ($input['weekdays'][$i] != null) {
-           
+
 
                 $data=[
                     'donation_id'=> $input['donation_id'],
@@ -253,7 +248,7 @@ class BloodDonationHourController extends AppBaseController
                     'end_time' => $input['end_time'][$i],
                     'start_time_1' => $input['start_time_1'][$i],
                     'end_time_1'=> $input['end_time_1'][$i],
-                ];           
+                ];
                 $bloodDonationHour = $this->bloodDonationHourRepository->store($data);
             }
 
