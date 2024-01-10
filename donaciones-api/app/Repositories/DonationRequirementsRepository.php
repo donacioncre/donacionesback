@@ -145,7 +145,7 @@ class DonationRequirementsRepository extends BaseRepository
 
     public function show($id)
     {
-        return DonationRequirements::with('requirement_details')->find($id);
+        return DonationRequirements::with('requirement_details')->orderBy('id', 'desc')->first();
     }
 
 }

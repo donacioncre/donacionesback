@@ -51,13 +51,9 @@ class ConvocationRepository extends BaseRepository
         $convocation=[];
         $user =Auth::user();
         $user_id=$user->id;
-
-
-
         if ($user->roles->first()->name == 'admin' || $user->roles->first()->name == 'donante') {
             $convocation = Convocation::with('donation')->orderBy("id","asc")->get();
         }
-
         if ($user->roles->first()->name == 'user') {
 
             $userCenterDonation =  DonationPoint::whereHas('userDonationCenter', function($q) use($user_id)
@@ -66,7 +62,6 @@ class ConvocationRepository extends BaseRepository
             })->first();
             $convocation = Convocation::with('donation')->where('donation_id', $userCenterDonation->id)->orderBy("id","asc")->get();
         }
-
 
         foreach($convocation as $key=> $value){
             $data[]=[

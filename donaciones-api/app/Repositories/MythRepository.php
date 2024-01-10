@@ -159,7 +159,7 @@ class MythRepository extends BaseRepository
 
     public function show($id)
     {
-        return Myths::with('myth_details')->find($id);
+        return Myths::with('myth_details')->orderBy('id', 'desc')->first();
     }
 
 }

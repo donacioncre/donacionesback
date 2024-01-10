@@ -132,7 +132,7 @@ class BenefitDonatingRepository  extends BaseRepository
 
     public function show($id)
     {
-        return BenefitDonating::with('donation_details')->find($id);
+        return BenefitDonating::with('donation_details')->orderBy('id', 'desc')->first();
     }
 
 }
