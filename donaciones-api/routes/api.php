@@ -36,22 +36,11 @@ Route::group([ 'prefix' => 'auth'], function () {
     Route::post('signup',  [AuthController::class,'signup']);
     Route::post('forgotPassword', [AuthController::class,'forgotPassword']);
     Route::post('resetPassword', [AuthController::class,'resetPassword']);
-   // Route::get('/home', 'HomeController@index')->name('home');
-
-
-
     Route::group(['middleware' => 'auth:api'], function() {
         Route::post('logout', [AuthController::class,'logout']);
         Route::get('user', [AuthController::class,'user'] );
         Route::get('userList', [AuthController::class,'userList'] );
         Route::post('userUpdate', [AuthController::class,'userUpdate'] );
-
-        /* Route::prefix('organization')->group(function () {
-                //Route::get('/', 'App\Http\Controllers\Api\IngresoVisitaController@index');
-                //Route::post('/updateDate/{id}', 'App\Http\Controllers\Api\IngresoVisitaController@updateDate');
-                //Route::get('/getListMiembro/{id}', 'App\Http\Controllers\Api\IngresoVisitaController@getListMiembro');
-
-        });*/
     });
 });
 
@@ -61,8 +50,6 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::resource('/convocations', ConvocationController::class);
 
     Route::prefix('schedule')->group(function () {
-        //Route::get('listCountry', [ScheduleController::class,'listCountry']);
-        //Route::get('/listCity/{id}', [ScheduleController::class,'listCity']);
         Route::get('/listDonationCenter/{id}', [ScheduleController::class,'listDonationCenter']);
 
         Route::post('/listTimeDonation/{id}', [ScheduleController::class,'listTimeDonation']);
@@ -76,21 +63,11 @@ Route::group(['middleware' => 'auth:api'], function() {
 
         Route::get('lastScheduleDonation', [ScheduleController::class,'lastScheduleDonation']);
         Route::post('cancelScheduleDonation/{id}',[ScheduleController::class,'cancelScheduleDonation']);
-        //Route::post('/updateDate/{id}', 'App\Http\Controllers\Api\IngresoVisitaController@updateDate');
-        //Route::get('/getListMiembro/{id}', 'App\Http\Controllers\Api\IngresoVisitaController@getListMiembro');
-
     });
 
     Route::prefix('donationHistories')->group(function () {
         Route::get('list', [DonationHistoryAPIController::class,'index']);
-
-        //Route::post('/updateDate/{id}', 'App\Http\Controllers\Api\IngresoVisitaController@updateDate');
-        //Route::get('/getListMiembro/{id}', 'App\Http\Controllers\Api\IngresoVisitaController@getListMiembro');
-
     });
-
-    //Route::post('storeMemberDepartement', 'OrganizationController@storeMemberDepartement');
-    //Route::get('organizations/listDepartment/{id}', 'OrganizationController@listDepartment');
 });
 
 

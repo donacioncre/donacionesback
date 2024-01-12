@@ -25,16 +25,9 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-
-
 Auth::routes();
-
-
-
 Route::get('getUser/{id}',[ApiScheduleController::class,'getUser']);
-
 Route::post('schedules/{id}',[ScheduleController::class,'update']);
-
 Route::group(['middleware'=>['auth']], function(){
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -82,8 +75,6 @@ Route::group(['middleware'=>['auth']], function(){
         'editAppointment'])->name('editAppointmentPlatelet');
     Route::post('storeAppointmentPlatelet', [\App\Http\Controllers\PlateletDonationHourController::class,
         'storeAppointment'])->name('storeAppointmentPlatelet');
-
-
 
     Route::resource('histories',\App\Http\Controllers\DonationHistoryController::class);
 
